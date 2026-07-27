@@ -1,3 +1,4 @@
+
 .page-header{
     line-height: 70px;
 }
@@ -66,6 +67,6 @@
   font-size: 20px;
   font-weight: 700;
 } */
-.news-card{
+.news-card.home{
     width: 300px;
 }

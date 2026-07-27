@@ -48,7 +48,7 @@ export default function Home() {
                     </div>
                 </section>
 
-=                <section className="section container">
+                <section className="section container">
                     <div className="grid grid-3">
                         <div className="feature-card">
                             <div className="feature-icon">

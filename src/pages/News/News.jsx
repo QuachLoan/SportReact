@@ -10,7 +10,7 @@ function News(){
     </div>
 
     <div className="grid grid-4">
-        <Link to="/News/1" className='news-card'>
+        <Link to="/News/1" className='news-card home'>
         <div className="news-card-media ">
           <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&h=600&q=80" alt="5 mẹo khởi động trước khi chơi tennis" />
           <span className="badge">Mẹo hay</span>
@@ -20,7 +20,7 @@ function News(){
           <p className="date">6 giờ trước</p>
         </div>
       </Link>
-      <a href="news-detail.html" className="news-card">
+      <a href="news-detail.html" className="news-card home">
         <div className="news-card-media">
           <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=800&h=600&q=80" alt="SportHub tổ chức giải bóng rổ doanh nghiệp mùa hè 2026" />
           <span className="badge">Sự kiện</span>
@@ -30,7 +30,7 @@ function News(){
           <p className="date">1 ngày trước</p>
         </div>
       </a>
-      <a href="news-detail.html" className="news-card">
+      <a href="news-detail.html" className="news-card home">
         <div className="news-card-media">
           <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=800&h=600&q=80" alt="Hướng dẫn đặt sân nhanh chỉ trong 3 bước trên SportHub" />
           <span className="badge">Hướng dẫn</span>
@@ -40,7 +40,7 @@ function News(){
           <p className="date">2 ngày trước</p>
         </div>
       </a>
-      <a href="news-detail.html" className="news-card">
+      <a href="news-detail.html" className="news-card home">
         <div className="news-card-media">
           <img src="https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&w=800&h=600&q=80" alt="Chế độ dinh dưỡng lý tưởng cho người chơi thể thao thường xuyên" />
           <span className="badge">Sức khỏe</span>

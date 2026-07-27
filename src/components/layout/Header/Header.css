@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 *,
 *::before,
 *::after {
@@ -49,8 +49,8 @@ button {
 }
 
 :root {
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: "Plus Jakarta Sans", "Inter", ui-sans-serif, sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Plus Jakarta Sans", sans-serif;
 
   --navy-50: #f0f3fa;
   --navy-100: #dce3f0;
@@ -101,6 +101,10 @@ button {
   --shadow-gold: 0 8px 24px -8px rgba(201, 162, 39, 0.35);
 }
 
+/* ================= BASE ================= */
+html {
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: var(--font-sans);
@@ -118,6 +122,41 @@ h4 {
   color: var(--navy-900);
   letter-spacing: -0.01em;
   line-height: 1.2;
+
+}
+
+::selection {
+  background: var(--gold-200);
+  color: var(--navy-900);
+}
+
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 24px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 32px;
+  }
+}
+
+.section {
+  padding: 56px 0;
+}
+.section-sm {
+  padding: 32px 0;
+}
+
+.text-center {
+  text-align: center;
 }
 
 /* ================= BUTTONS ================= */
@@ -193,8 +232,6 @@ h4 {
   pointer-events: none;
 }
 
-
-
 /* ================= NAVBAR ================= */
 .navbar {
   position: sticky;
@@ -203,6 +240,7 @@ h4 {
   background: #fff;
   border-bottom: 1px solid transparent;
   transition: all 0.3s ease;
+  padding: 1px;
 }
 .navbar.is-scrolled {
   background: rgba(255, 255, 255, 0.72);
