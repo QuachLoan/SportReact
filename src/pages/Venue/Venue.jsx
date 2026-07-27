@@ -11,6 +11,7 @@ export default function Venue() {
     const selectedArea = searchParams.get('area') || '';
     const maxPrice = searchParams.get('maxPrice') || '200000';
     const [searchInput, setSearchInput] = useState(keyWord);
+    const selectedRating = searchParams.get('rating') || '';
 
     //function
     useEffect(() => {
@@ -64,6 +65,11 @@ export default function Venue() {
         }
         if (venue.minPrice && Number(venue.minPrice) > Number(maxPrice)) {
             return false;
+        }
+        if (selectedRating) {
+            if (!venue.rating || Number(venue.rating) < Number(selectedRating)) {
+                return false;
+            }
         }
         return true;
     });
@@ -151,9 +157,27 @@ export default function Venue() {
                         <div>
                             <h3>Đánh giá</h3>
                             <div className="rating-filter-list">
-                                <button type="button" className="rating-chip">4.5+ ★</button>
-                                <button type="button" className="rating-chip">4.0+ ★</button>
-                                <button type="button" className="rating-chip">3.5+ ★</button>
+                                <button
+                                    type="button"
+                                    className={`rating-chip ${selectedRating === '4.5' ? 'is-active' : ''}`}
+                                    onClick={() => updateFilters({ rating: selectedRating === '4.5' ? '' : '4.5' })}
+                                >
+                                    4.5+ ★
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`rating-chip ${selectedRating === '4.0' ? 'is-active' : ''}`}
+                                    onClick={() => updateFilters({ rating: selectedRating === '4.0' ? '' : '4.0' })}
+                                >
+                                    4.0+ ★
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`rating-chip ${selectedRating === '3.5' ? 'is-active' : ''}`}
+                                    onClick={() => updateFilters({ rating: selectedRating === '3.5' ? '' : '3.5' })}
+                                >
+                                    3.5+ ★
+                                </button>
                             </div>
                         </div>
                         <label className="checkbox-row filter-divider">
