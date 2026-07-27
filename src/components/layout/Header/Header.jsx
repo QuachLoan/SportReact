@@ -17,14 +17,18 @@ function Header(){
       <nav className="nav-links">
         <Link to="/">Trang chủ</Link>
           <Link to="/Venue">Sân thể thao</Link>
-        <a href="pages/booking-lookup.html">Tra cứu đặt sân</a>
+        {/* <a href="pages/booking-lookup.html">Tra cứu đặt sân</a> */}
+        <Link to="/BookingLookUp">Tra cứu đặt sân</Link>
         <Link to="/News">Tin tức</Link>
       </nav>
 
       <div className="navbar-actions">
-        <a href="" className="icon-btn" aria-label="Yêu thích">
+        {/* <a href="" className="icon-btn" aria-label="Yêu thích">
             <i className="bi bi-heart"></i>
-        </a>
+        </a> */}
+        <Link to="/Favorites"  className="icon-btn" aria-label="Yêu thích">
+         <i className="bi bi-heart"></i>
+        </Link>
         <a href="" className="btn btn-outline btn-sm">Đăng nhập</a>
         <a href="pages/venues.html" className="btn btn-gold btn-sm">Đăng ký</a>
       </div>

@@ -1,0 +1,29 @@
+.favorites-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.favorites-head .icon-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--red-50);
+  color: var(--red-500);
+}
+.favorites-head .icon-box svg {
+  width: 20px;
+  height: 20px;
+  fill: var(--red-500);
+}
+.favorites-head h1 {
+  font-size: 24px;
+  font-weight: 800;
+}
+.favorites-head p {
+  font-size: 14px;
+  color: var(--navy-500);
+}

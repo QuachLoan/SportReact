@@ -3,7 +3,7 @@ import './News.css';
 function News(){
     return(
         <>
-<main className="container" style={{ padding: "40px 16px 56px" }}>
+<main className="container" style={{ padding: "40px 16px 155px" }}>
     <div className="page-header text-center">
       <h1>Tin tức &amp; Mẹo hay</h1>
       <p>Cập nhật xu hướng, mẹo tập luyện và sự kiện mới nhất từ SportHub</p>
