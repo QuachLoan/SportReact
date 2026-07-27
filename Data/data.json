@@ -69,7 +69,7 @@
       "address": "Cầu Giấy, Hà Nội",
       "district": "Cầu Giấy",
       "distance": 2.5,
-      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      "image": "imgs/football1.jpg",
       "sports": [1, 2, 5],
       "minPrice": 100000,
       "openTime": "06:00",
@@ -80,7 +80,8 @@
       "featured": true,
       "facilities": [1, 2, 3, 4],
       "phone": "0901234567",
-      "description": "Cụm sân thể thao hiện đại, vị trí thuận tiện, phù hợp cho nhóm bạn và các câu lạc bộ."
+      "description": "Cụm sân thể thao hiện đại, vị trí thuận tiện, phù hợp cho nhóm bạn và các câu lạc bộ.",
+      "sport": "football"
     },
     {
       "id": 2,
@@ -88,7 +89,7 @@
       "address": "Thanh Xuân, Hà Nội",
       "district": "Thanh Xuân",
       "distance": 4.2,
-      "image": "https://images.unsplash.com/photo-1553778263-73a83bab9b0c",
+      "image": "/imgs/badminton1.jpg",
       "sports": [1, 3, 4],
       "minPrice": 120000,
       "openTime": "05:30",
@@ -99,7 +100,8 @@
       "featured": false,
       "facilities": [1, 3, 5],
       "phone": "0902345678",
-      "description": "Không gian thể thao rộng rãi với nhiều loại sân và dịch vụ tiện ích."
+      "description": "Không gian thể thao rộng rãi với nhiều loại sân và dịch vụ tiện ích.",
+      "sport": "badminton"
     },
     {
       "id": 3,
@@ -107,7 +109,7 @@
       "address": "Ba Đình, Hà Nội",
       "district": "Ba Đình",
       "distance": 3.1,
-      "image": "https://images.unsplash.com/photo-1526232761682-d26e03ac148e",
+      "image": "/imgs/tennis1.jpg",
       "sports": [1, 5, 6],
       "minPrice": 80000,
       "openTime": "06:00",
@@ -118,7 +120,8 @@
       "featured": true,
       "facilities": [1, 2, 6],
       "phone": "0903456789",
-      "description": "Sân thể thao phù hợp cho các hoạt động thể thao cộng đồng."
+      "description": "Sân thể thao phù hợp cho các hoạt động thể thao cộng đồng.",
+      "sport": "tennis"
     },
     {
       "id": 4,
@@ -126,7 +129,7 @@
       "address": "Hoàng Mai, Hà Nội",
       "district": "Hoàng Mai",
       "distance": 7.8,
-      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      "image": "/imgs/pickleball.jpg",
       "sports": [1, 2, 7],
       "minPrice": 90000,
       "openTime": "05:00",
@@ -137,7 +140,8 @@
       "featured": false,
       "facilities": [1, 4, 7],
       "phone": "0904567890",
-      "description": "Cụm sân có nhiều khung giờ linh hoạt, phù hợp với người đi làm."
+      "description": "Cụm sân có nhiều khung giờ linh hoạt, phù hợp với người đi làm.",
+        "sport": "pickleball"
     },
     {
       "id": 5,
@@ -145,7 +149,7 @@
       "address": "Tây Hồ, Hà Nội",
       "district": "Tây Hồ",
       "distance": 5.6,
-      "image": "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6",
+      "image": "imgs/basketball1.jpg",
       "sports": [3, 4, 5],
       "minPrice": 150000,
       "openTime": "06:00",
@@ -156,7 +160,8 @@
       "featured": true,
       "facilities": [1, 2, 3, 5],
       "phone": "0905678901",
-      "description": "Cụm sân cao cấp với cơ sở vật chất hiện đại và dịch vụ chuyên nghiệp."
+      "description": "Cụm sân cao cấp với cơ sở vật chất hiện đại và dịch vụ chuyên nghiệp.",
+      "sport": "basketball"
     },
     {
       "id": 6,
@@ -164,7 +169,7 @@
       "address": "Long Biên, Hà Nội",
       "district": "Long Biên",
       "distance": 8.4,
-      "image": "https://images.unsplash.com/photo-1554068865-24cecd4e34b8",
+      "image": "imgs/football2.jpg",
       "sports": [2, 3, 4],
       "minPrice": 110000,
       "openTime": "06:00",
@@ -175,7 +180,8 @@
       "featured": false,
       "facilities": [2, 3, 6],
       "phone": "0906789012",
-      "description": "Sân thể thao dành cho các nhóm bạn và người chơi bán chuyên."
+      "description": "Sân thể thao dành cho các nhóm bạn và người chơi bán chuyên.",
+      "sport": "football"
     },
     {
       "id": 7,
@@ -183,7 +189,7 @@
       "address": "Đống Đa, Hà Nội",
       "district": "Đống Đa",
       "distance": 2.8,
-      "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc",
+      "image": "imgs/tennis2.jpg",
       "sports": [1, 5, 6],
       "minPrice": 100000,
       "openTime": "05:30",
@@ -194,7 +200,8 @@
       "featured": true,
       "facilities": [1, 2, 4],
       "phone": "0907890123",
-      "description": "Trung tâm thể thao nằm gần trung tâm thành phố."
+      "description": "Trung tâm thể thao nằm gần trung tâm thành phố.",
+      "sport": "tennis"
     },
     {
       "id": 8,
@@ -202,7 +209,7 @@
       "address": "Nam Từ Liêm, Hà Nội",
       "district": "Nam Từ Liêm",
       "distance": 9.2,
-      "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+      "image": "imgs/badminton2.jpg",
       "sports": [1, 2, 5],
       "minPrice": 85000,
       "openTime": "05:00",
@@ -213,7 +220,8 @@
       "featured": false,
       "facilities": [1, 4],
       "phone": "0908901234",
-      "description": "Sân có mức giá hợp lý, phù hợp với sinh viên."
+      "description": "Sân có mức giá hợp lý, phù hợp với sinh viên.",
+      "sport": "badminton"
     },
     {
       "id": 9,
@@ -221,7 +229,7 @@
       "address": "Hà Đông, Hà Nội",
       "district": "Hà Đông",
       "distance": 12.5,
-      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      "image": "imgs/basketball2.jpg",
       "sports": [1, 3, 7],
       "minPrice": 75000,
       "openTime": "06:00",
@@ -232,7 +240,8 @@
       "featured": false,
       "facilities": [1, 3],
       "phone": "0909012345",
-      "description": "Cụm sân thể thao giá tốt dành cho gia đình và nhóm bạn."
+      "description": "Cụm sân thể thao giá tốt dành cho gia đình và nhóm bạn.",
+      "sport": "basketball"
     },
     {
       "id": 10,
@@ -240,7 +249,7 @@
       "address": "Hoàn Kiếm, Hà Nội",
       "district": "Hoàn Kiếm",
       "distance": 1.2,
-      "image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b",
+      "image": "imgs/football3.jpg",
       "sports": [2, 3, 4],
       "minPrice": 180000,
       "openTime": "06:00",
@@ -251,7 +260,111 @@
       "featured": true,
       "facilities": [1, 2, 3, 4, 5],
       "phone": "0910123456",
-      "description": "Địa điểm thể thao cao cấp nằm ngay trung tâm Hà Nội."
+      "description": "Địa điểm thể thao cao cấp nằm ngay trung tâm Hà Nội.",
+      "sport": "football"
+    }
+  ],
+
+  "courts": [
+    {
+      "id": 1,
+      "venueId": 1,
+      "name": "Sân bóng đá 01",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 300000,
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "venueId": 1,
+      "name": "Sân cầu lông 01",
+      "sportId": 2,
+      "surface": "Sàn gỗ",
+      "capacity": 4,
+      "pricePerHour": 100000,
+      "status": "available"
+    },
+    {
+      "id": 3,
+      "venueId": 2,
+      "name": "Sân tennis 01",
+      "sportId": 3,
+      "surface": "Hard Court",
+      "capacity": 4,
+      "pricePerHour": 250000,
+      "status": "available"
+    },
+    {
+      "id": 4,
+      "venueId": 2,
+      "name": "Sân pickleball 01",
+      "sportId": 4,
+      "surface": "Acrylic",
+      "capacity": 4,
+      "pricePerHour": 180000,
+      "status": "available"
+    },
+    {
+      "id": 5,
+      "venueId": 3,
+      "name": "Sân bóng rổ 01",
+      "sportId": 5,
+      "surface": "Cao su tổng hợp",
+      "capacity": 10,
+      "pricePerHour": 200000,
+      "status": "available"
+    },
+    {
+      "id": 6,
+      "venueId": 4,
+      "name": "Sân bóng đá 02",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 250000,
+      "status": "available"
+    },
+    {
+      "id": 7,
+      "venueId": 5,
+      "name": "Sân tennis 02",
+      "sportId": 3,
+      "surface": "Hard Court",
+      "capacity": 4,
+      "pricePerHour": 350000,
+      "status": "available"
+    },
+    {
+      "id": 8,
+      "venueId": 6,
+      "name": "Sân cầu lông 02",
+      "sportId": 2,
+      "surface": "Thảm PVC",
+      "capacity": 4,
+      "pricePerHour": 120000,
+      "status": "available"
+    },
+    {
+      "id": 9,
+      "venueId": 7,
+      "name": "Sân bóng rổ 02",
+      "sportId": 5,
+      "surface": "Cao su",
+      "capacity": 10,
+      "pricePerHour": 220000,
+      "status": "available"
+    },
+    {
+      "id": 10,
+      "venueId": 8,
+      "name": "Sân bóng đá 03",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 200000,
+      "status": "available"
     }
   ],
 

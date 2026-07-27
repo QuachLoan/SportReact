@@ -11,10 +11,10 @@ export default function Home() {
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchKeyWord.trim()){
-            navigate(`/Court?q=${encodeURIComponent(searchKeyWord)}`);
+            navigate(`/Venue?q=${encodeURIComponent(searchKeyWord)}`);
         }
         else{
-            navigate('/Court');
+            navigate('/Venue');
         }
     }
     return (
@@ -85,12 +85,11 @@ export default function Home() {
                 <section className="section-sm container">
                     <h2 className="section-eyebrow">Khám phá theo môn thể thao</h2>
                     <div className="tag-cloud">
-                        <a href="pages/venues.html?sport=tennis" className="tag">Tennis</a>
-                        <a href="pages/venues.html?sport=basketball" className="tag">Bóng rổ</a>
-                        <a href="pages/venues.html?sport=badminton" className="tag">Cầu lông</a>
-                        <a href="pages/venues.html?sport=football" className="tag">Bóng đá</a>
-                        <a href="pages/venues.html?sport=volleyball" className="tag">Bóng chuyền</a>
-                        <a href="pages/venues.html?sport=swimming" className="tag">Bơi lội</a>
+                        <Link to="/venue?q=tennis" className="tag">Tennis</Link>
+                        <Link to="/venue?q=basketball" className="tag">Bóng rổ</Link>
+                        <Link to="/venue?q=badminton" className="tag">Cầu lông</Link>
+                        <Link to="/venue?q=football" className="tag">Bóng đá</Link>
+                        <Link to="/venue?q=pickleball" className="tag">Pickleball</Link>
                     </div>
                 </section>
 
@@ -138,7 +137,7 @@ export default function Home() {
                                     Quận 1
                                 </p>
                                 <div className="venue-card-footer">
-                                    <div className="venue-price"><span className="from">Từ </span><span className="amount">290.000 ₫</span><span class="unit">/giờ</span></div>
+                                    <div className="venue-price"><span className="from">Từ </span><span className="amount">290.000 ₫</span><span className="unit">/giờ</span></div>
                                     <span className="badge badge-gold">214 đánh giá</span>
                                 </div>
                             </div>
