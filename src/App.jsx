@@ -8,22 +8,19 @@ import Home from './pages/Home/Home'
 import { Route, Router, Routes } from 'react-router-dom'
 import News from './pages/News/News'
 import New_Detail from './pages/News/New_Detail'
+import Court from "./pages/Court/Court.jsx";
 
 function App() {
-
   return (
     <>
-  
-   <Header/>
-  
-   <Routes>
-    <Route path="/" element={<Home/>}/>
-    <Route path="/News" element={<News/>}/>
-    <Route path="/News/:id" element={<New_Detail/>}/>
-
-   </Routes>
-   <Footer/>
-
+       <Header/>
+           <Routes>
+               <Route path="/" element={<Home/>}/>
+                <Route path="/News" element={<News/>}/>
+                <Route path="/News/:id" element={<New_Detail/>}/>
+               <Route path = "/Court" element = {<Court/>}/>
+           </Routes>
+       <Footer/>
     </>
   )
 }

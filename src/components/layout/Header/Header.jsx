@@ -15,7 +15,7 @@ function Header(){
 
       <nav className="nav-links">
         <Link to="/">Trang chủ</Link>
-        <a href="pages/venues.html">Sân thể thao</a>
+          <Link to="/Court">Sân thể thao</Link>
         <a href="pages/booking-lookup.html">Tra cứu đặt sân</a>
         <Link to="/News">Tin tức</Link>
       </nav>
