@@ -3,13 +3,16 @@ import './Venue.css';
 import { useSearchParams } from 'react-router-dom';
 
 export default function Venue() {
-    // state
+    //state
     const [venues, setVenues] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const keyWord = searchParams.get('q') || '';
+    const selectedSport = searchParams.get('sport') || '';
+    const selectedArea = searchParams.get('area') || '';
+    const maxPrice = searchParams.get('maxPrice') || '200000';
     const [searchInput, setSearchInput] = useState(keyWord);
 
-    // function
+    //function
     useEffect(() => {
         fetch('http://localhost:3000/venues')
             .then(response => response.json())
@@ -20,29 +23,50 @@ export default function Venue() {
             .catch(error => console.error("Lỗi gọi data:", error));
     }, []);
 
-    const filterSearchInput = venues.filter((venue) => {
-        const query = keyWord.toLowerCase().trim();
-        if (!query) return true; // Nếu không có từ khóa, hiện tất cả các venues
-
-        const resultName = venue.name ? venue.name.toLowerCase().includes(query) : false;
-        const resultSurface = venue.address ? venue.address.toLowerCase().includes(query) : false;
-        const resultSport = venue.sport ? venue.sport.toLowerCase().includes(query) : false;
-
-        return resultName || resultSurface || resultSport;
-    });
-
-    const handleSearchSubmit = (e) => {
-        e.preventDefault();
-        if (searchInput.trim()) {
-            setSearchParams({ q: searchInput.trim() });
-        } else {
-            setSearchParams({});
-        }
-    };
-
     useEffect(() => {
         setSearchInput(keyWord);
     }, [keyWord]);
+
+    const updateFilters = (newParams) => {
+        const current = Object.fromEntries(searchParams.entries());
+        const updated = { ...current, ...newParams };
+        Object.keys(updated).forEach(key => {
+            if (!updated[key]) delete updated[key];
+        });
+        setSearchParams(updated);
+    };
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        updateFilters({ q: searchInput.trim() });
+    };
+
+    const filterSearchInput = venues.filter((venue) => {
+        if (keyWord.trim()) {
+            const query = keyWord.toLowerCase().trim();
+            const resultName = venue.name ? venue.name.toLowerCase().includes(query) : false;
+            const resultAddress = venue.address ? venue.address.toLowerCase().includes(query) : false;
+            const resultSport = venue.sport ? venue.sport.toLowerCase().includes(query) : false;
+            if (!(resultName || resultAddress || resultSport)) return false;
+        }
+        if (selectedSport) {
+            const venueSport = venue.sport ? venue.sport.toLowerCase() : '';
+            const venueName = venue.name ? venue.name.toLowerCase() : '';
+            if (venueSport !== selectedSport.toLowerCase() && !venueName.includes(selectedSport.toLowerCase())) {
+                return false;
+            }
+        }
+        if (selectedArea) {
+            const venueAddress = venue.address ? venue.address.toLowerCase() : '';
+            if (!venueAddress.includes(selectedArea.toLowerCase())) {
+                return false;
+            }
+        }
+        if (venue.minPrice && Number(venue.minPrice) > Number(maxPrice)) {
+            return false;
+        }
+        return true;
+    });
 
     return (
         <>
@@ -78,8 +102,8 @@ export default function Venue() {
                             <h3>Môn thể thao</h3>
                             <select
                                 className="select"
-                                value={keyWord.toLowerCase()}
-                                onChange={(e) => setSearchParams(e.target.value ? { q: e.target.value } : {})}
+                                value={selectedSport}
+                                onChange={(e) => updateFilters({ sport: e.target.value })}
                             >
                                 <option value="">Tất cả môn</option>
                                 <option value="tennis">Tennis</option>
@@ -91,22 +115,38 @@ export default function Venue() {
                         </div>
                         <div>
                             <h3>Khu vực</h3>
-                            <select className="select">
-                                <option>Tất cả khu vực</option>
-                                <option>Quận 1</option>
-                                <option>Quận 2</option>
-                                <option>Quận 3</option>
-                                <option>Quận 7</option>
-                                <option>Bình Thạnh</option>
-                                <option>Thủ Đức</option>
+                            <select
+                                className="select"
+                                value={selectedArea}
+                                onChange={(e) => updateFilters({ area: e.target.value })}
+                            >
+                                <option value="">Tất cả khu vực</option>
+                                <option value="Cầu Giấy">Cầu Giấy</option>
+                                <option value="Thanh Xuân">Thanh Xuân</option>
+                                <option value="Ba Đình">Ba Đình</option>
+                                <option value="Hoàng Mai">Hoàng Mai</option>
+                                <option value="Tây Hồ">Tây Hồ</option>
+                                <option value="Long Biên">Long Biên</option>
+                                <option value="Đống Đa">Đống Đa</option>
+                                <option value="Nam Từ Liêm">Nam Từ Liêm</option>
+                                <option value="Hà Đông">Hà Đông</option>
+                                <option value="Hoàn Kiếm">Hoàn Kiếm</option>
                             </select>
                         </div>
                         <div>
                             <div className="filter-price-row">
                                 <h3 style={{ margin: 0 }}>Mức giá tối đa</h3>
-                                <span>600.000 ₫</span>
+                                <span>{Number(maxPrice).toLocaleString()} ₫</span>
                             </div>
-                            <input type="range" className="range" min="100000" max="600000" step="10000" defaultValue="600000" />
+                            <input
+                                type="range"
+                                className="range"
+                                min="50000"
+                                max="200000"
+                                step="10000"
+                                value={maxPrice}
+                                onChange={(e) => updateFilters({ maxPrice: e.target.value })}
+                            />
                         </div>
                         <div>
                             <h3>Đánh giá</h3>
@@ -129,8 +169,7 @@ export default function Venue() {
                                 {filterSearchInput.length > 0 ? (
                                     filterSearchInput.map((venue) => (
                                         <article key={venue.id} className="venue-card">
-                                            <a href="/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
-                                                {/* Gọi ảnh thông minh kèm fallback an toàn theo biến venue */}
+                                            <a href={`/venue/${venue.id}`} className="venue-card-media" style={{ display: 'block' }}>
                                                 <img
                                                     src={
                                                         venue.image
@@ -151,45 +190,50 @@ export default function Venue() {
                                                 )}
                                             </a>
 
-                                            {/* Nút yêu thích */}
                                             <button className="venue-fav" aria-label="Yêu thích">
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                     <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z" />
                                                 </svg>
                                             </button>
 
-                                            {/* Phần thông tin chi tiết */}
                                             <div className="venue-card-body">
                                                 <div className="venue-card-title-row">
-                                                    <a href="/venue-detail.html"><h3>{venue.name}</h3></a>
+                                                    <a href={`/venue/${venue.id}`}><h3>{venue.name}</h3></a>
                                                     <span className="rating">
                                                         <svg viewBox="0 0 24 24">
                                                             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
                                                         </svg>
-                                                        <strong>4.8</strong>
+                                                        <strong>{venue.rating || "5.0"}</strong>
                                                     </span>
                                                 </div>
+
                                                 <p className="venue-location">
                                                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                                         <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
                                                     </svg>
-                                                    {' '}{venue.surface}
+                                                    {' '}{venue.address || venue.surface}
                                                 </p>
+
                                                 <div className="venue-card-footer">
                                                     <div className="venue-price">
-                                                        <span className="from">Từ </span>
-                                                        {/* Đã sửa từ venue.pricePerHour thành venue.price theo thuộc tính thông dụng trong DB */}
-                                                        <span className="amount">{venue.price?.toLocaleString()} ₫</span>
-                                                        <span className="unit">/giờ</span>
+                                                        {venue.minPrice ? (
+                                                            <>
+                                                                <span className="from">Từ </span>
+                                                                <span className="amount">{Number(venue.minPrice).toLocaleString()} ₫</span>
+                                                                <span className="unit">/giờ</span>
+                                                            </>
+                                                        ) : (
+                                                            <span className="amount" style={{ fontSize: '14px', color: '#888' }}>Liên hệ</span>
+                                                        )}
                                                     </div>
-                                                    <span className="badge badge-gold">10 đánh giá</span>
+                                                    <span className="badge badge-gold">{venue.reviewCount || 0} đánh giá</span>
                                                 </div>
                                             </div>
                                         </article>
                                     ))
                                 ) : (
                                     <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px 0', color: '#666' }}>
-                                        Không tìm thấy sân nào phù hợp với từ khóa "{keyWord}"
+                                        Không tìm thấy sân nào phù hợp với các bộ lọc hiện tại.
                                     </div>
                                 )}
                             </div>
