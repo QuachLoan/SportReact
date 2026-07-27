@@ -2,76 +2,23 @@ import React, {useEffect, useState} from 'react';
 import './Court.css';
 import { useSearchParams, Link } from 'react-router-dom';
 
-const courtData = [
-    {
-        id: 1,
-        name: "The Platinum Arena",
-        rating: 4.9,
-        location: "Quận 1",
-        price: "290.000",
-        reviews: 214,
-        availableToday: true,
-        image: "https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=1200&h=900&q=80"
-    },
-    {
-        id: 2,
-        name: "The Platinum Arena II",
-        rating: 4.7,
-        location: "Bình Thạnh",
-        price: "350.000",
-        reviews: 156,
-        availableToday: true,
-        image: "https://images.unsplash.com/photo-1558151507-c1aa3d917dbb?auto=format&fit=crop&w=1200&h=900&q=80"
-    },
-    {
-        id: 3,
-        name: "The Pelinum Arena",
-        rating: 4.8,
-        location: "Quận 3",
-        price: "180.000",
-        reviews: 189,
-        availableToday: false,
-        image: "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=1200&h=900&q=80"
-    },
-    {
-        id: 4,
-        name: "Riverside Football Club",
-        rating: 4.6,
-        location: "Thủ Đức",
-        price: "520.000",
-        reviews: 132,
-        availableToday: true,
-        image: "https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&w=1200&h=900&q=80"
-    },
-    {
-        id: 5,
-        name: "Azure Swim Center",
-        rating: 4.9,
-        location: "Quận 7",
-        price: "150.000",
-        reviews: 98,
-        availableToday: true,
-        image: "https://images.unsplash.com/photo-1519315901367-f34ff9154487?auto=format&fit=crop&w=1200&h=900&q=80"
-    },
-    {
-        id: 6,
-        name: "The Flatinum Arena",
-        rating: 4.5,
-        location: "Quận 2",
-        price: "260.000",
-        reviews: 74,
-        availableToday: true,
-        image: "https://images.unsplash.com/photo-1592656094267-764a45160876?auto=format&fit=crop&w=1200&h=900&q=80"
-    }
-];
-
 export default function Court() {
     //state
+    const [courtData, setCourtData] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const keyWord = searchParams.get('q') || '';
     const [searchInput, setSearchInput] = useState(keyWord);
 
     //function
+    useEffect(() => {
+        fetch('http://localhost:3000/courtData')
+            .then(response => response.json())
+            .then(data => {
+                setCourtData(data);
+            })
+            .catch(error => console.error("Lỗi gọi data:", error));
+    }, []);
+
     const filterSearchInput = courtData.filter((court) => {
         const resultName = court.name.toLowerCase().includes(keyWord.toLowerCase());
         const resultLocation = court.location.toLowerCase().includes(keyWord.toLowerCase());
