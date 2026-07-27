@@ -2,7 +2,7 @@ import './Footer.css';
 function Footer(){
     return(
         <>
-             <footer className="site-footer">
+  <footer className="site-footer">
     <div className="container footer-top">
       <div className="footer-brand">
          <a href="index.html" className="brand">

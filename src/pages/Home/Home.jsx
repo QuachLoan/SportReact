@@ -20,7 +20,6 @@ export default function Home() {
     return (
         <>
             <main>
-                {/* ============ HERO ============ */}
                 <section className="hero">
                     <div className="hero-media">
                         <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=1600&h=1000&q=80" alt="Sân tennis cao cấp" />
@@ -49,8 +48,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* ============ FEATURES ============ */}
-                <section className="section container">
+=                <section className="section container">
                     <div className="grid grid-3">
                         <div className="feature-card">
                             <div className="feature-icon">
@@ -84,7 +82,6 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* ============ SPORTS TAGS ============ */}
                 <section className="section-sm container">
                     <h2 className="section-eyebrow">Khám phá theo môn thể thao</h2>
                     <div className="tag-cloud">
@@ -97,8 +94,7 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* ============ FEATURED VENUES ============ */}
-                <section className="section container">
+               <section className="section container">
                     <div className="section-head">
                         <div>
                             <h2>Sân nổi bật</h2>
@@ -114,7 +110,6 @@ export default function Home() {
                     </div>
 
                     <div className="grid grid-3">
-                        {/* Venue: The Platinum Arena */}
                         <article className="venue-card">
                             <a href="pages/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
                                 <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=1200&h=900&q=80" alt="The Platinum Arena" />
@@ -149,7 +144,6 @@ export default function Home() {
                             </div>
                         </article>
 
-                        {/* Venue: The Plainum Arena */}
                         <article className="venue-card">
                             <a href="pages/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
                                 <img src="https://images.unsplash.com/photo-1558151507-c1aa3d917dbb?auto=format&fit=crop&w=1200&h=900&q=80" alt="The Plainum Arena" />
@@ -184,7 +178,6 @@ export default function Home() {
                             </div>
                         </article>
 
-                        {/* Venue: The Pelinum Arena */}
                         <article className="venue-card">
                             <a href="pages/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
                                 <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=1200&h=900&q=80" alt="The Pelinum Arena" />
@@ -220,7 +213,6 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* ============ CTA BANNER ============ */}
                 <section className="cta-banner">
                     <div className="container cta-grid">
                         <div>
@@ -237,7 +229,6 @@ export default function Home() {
                     </div>
                 </section>
 
-                {/* ============ NEWS ============ */}
                 <section className="section container">
                     <div className="section-head">
                         <h2>Tin tức & mẹo hay</h2>
