@@ -1,7 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './Home.css';
+import { useNavigate, Link } from 'react-router-dom';
 
-export default function SportHubHome() {
+export default function Home() {
+    // state
+    const [searchKeyWord, setSearchKeyWord] = useState('');
+    const navigate = useNavigate();
+
+    // function
+    const handleSearch = (e) => {
+        e.preventDefault();
+        if (searchKeyWord.trim()){
+            navigate(`/Court?q=${encodeURIComponent(searchKeyWord)}`);
+        }
+        else{
+            navigate('/Court');
+        }
+    }
     return (
         <>
             <main>
@@ -16,12 +31,12 @@ export default function SportHubHome() {
                             <h1 className="hero-title">Đặt sân thể thao <span className="accent">đẳng cấp</span> chỉ trong vài giây</h1>
                             <p className="hero-desc">Hơn 200 cụm sân tennis, bóng rổ, cầu lông và bóng đá được tuyển chọn kỹ lưỡng — sẵn sàng cho trận đấu tiếp theo của bạn.</p>
 
-                            <form className="search-box is-lg" style={{ maxWidth: '560px' }} action="pages/venues.html">
+                            <form className="search-box is-lg" style={{ maxWidth: '560px' }} onSubmit = {handleSearch}>
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                     <circle cx="11" cy="11" r="8" />
                                     <line x1="21" y1="21" x2="16.65" y2="16.65" />
                                 </svg>
-                                <input type="text" name="q" placeholder="Tìm theo tên sân, khu vực..." />
+                                <input type="text" name="q" placeholder="Tìm theo tên sân, khu vực..." value={searchKeyWord} onChange={(e) => setSearchKeyWord(e.target.value)}/>
                                 <button type="submit">Tìm kiếm</button>
                             </form>
 

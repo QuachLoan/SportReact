@@ -1,7 +1,8 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './Court.css';
+import { useSearchParams, Link } from 'react-router-dom';
 
-const mockVenues = [
+const courtData = [
     {
         id: 1,
         name: "The Platinum Arena",
@@ -65,22 +66,47 @@ const mockVenues = [
 ];
 
 export default function Court() {
+    //state
+    const [searchParams, setSearchParams] = useSearchParams();
+    const keyWord = searchParams.get('q') || '';
+    const [searchInput, setSearchInput] = useState(keyWord);
+
+    //function
+    const filterSearchInput = courtData.filter((court) => {
+        const resultName = court.name.toLowerCase().includes(keyWord.toLowerCase());
+        const resultLocation = court.location.toLowerCase().includes(keyWord.toLowerCase());
+        return resultName || resultLocation;
+    })
+
+    const handleSearchSubmit = (e) => {
+        e.preventDefault();
+        if (searchInput.trim()){
+            setSearchParams({q: searchInput.trim()});
+        }
+        else{
+            setSearchParams({});
+        }
+    }
+
+    useEffect(() => {
+        setSearchInput(keyWord);
+    }, [keyWord]);
     return (
         <>
             {/* ============ MAIN CONTENT ============ */}
             <main className="container" style={{ paddingTop: '40px', paddingBottom: '56px' }}>
                 <div className="page-header" style={{ padding: '0 0 32px' }}>
                     <h1>Danh sách sân thể thao</h1>
-                    <p>6 sân phù hợp với tìm kiếm của bạn</p>
+                    <p>{filterSearchInput.length} sân phù hợp với tìm kiếm của bạn</p>
                 </div>
 
-                <div className="search-row">
+                <form className="search-row" onSubmit={handleSearchSubmit}>
                     <div className="search-box">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                             <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
                         </svg>
-                        <input type="text" placeholder="Tìm sân, khu vực..." />
-                        <button type="button">Tìm kiếm</button>
+                        <input type="text" placeholder="Tìm sân, khu vực..." value={searchInput} onChange={(e) => setSearchInput(e.target.value)}/>
+                        <button type="submit">Tìm kiếm</button>
                     </div>
                     <button type="button" className="btn btn-outline filter-toggle-btn">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -90,7 +116,7 @@ export default function Court() {
                         </svg>
                         Lọc
                     </button>
-                </div>
+                </form>
 
                 <div className="listing-layout">
                     {/* ============ FILTERS (desktop) ============ */}
@@ -144,52 +170,66 @@ export default function Court() {
                     <div>
                         <div className="grid" style={{ gridTemplateColumns: '1fr', gap: '24px' }}>
                             <div className="grid grid-3">
-                                {mockVenues.map((venue) => (
-                                    <article key={venue.id} className="venue-card">
-                                        <a href="/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
-                                            <img src={venue.image} alt={venue.name} />
-                                            {venue.availableToday && (
-                                                <span className="badge badge-success" style={{ position: 'absolute', left: '12px', top: '12px', zIndex: 2 }}>
-                          Còn trống hôm nay
-                        </span>
-                                            )}
-                                        </a>
-                                        <button className="venue-fav" aria-label="Yêu thích">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
-                                            </svg>
-                                        </button>
-                                        <div className="venue-card-body">
-                                            <div className="venue-card-title-row">
-                                                <a href="/venue-detail.html"><h3>{venue.name}</h3></a>
-                                                <span className="rating">
-                          <svg viewBox="0 0 24 24">
-                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/>
-                          </svg>
-                          <strong>{venue.rating}</strong>
-                        </span>
-                                            </div>
-                                            <p className="venue-location">
+                                {filterSearchInput.length > 0 ? (
+                                    filterSearchInput.map((court) => (
+                                        <article key={court.id} className="venue-card">
+
+                                            {/* 1. Phần hình ảnh của sân */}
+                                            <a href="/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
+                                                <img src={court.image} alt={court.name} />
+                                                {court.availableToday && (
+                                                    <span className="badge badge-success" style={{ position: 'absolute', left: '12px', top: '12px', zIndex: 2 }}>
+                  Còn trống hôm nay
+                </span>
+                                                )}
+                                            </a>
+
+                                            {/* 2. Nút yêu thích */}
+                                            <button className="venue-fav" aria-label="Yêu thích">
                                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                                                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
                                                 </svg>
-                                                {' '}{venue.location}
-                                            </p>
-                                            <div className="venue-card-footer">
-                                                <div className="venue-price">
-                                                    <span className="from">Từ </span>
-                                                    <span className="amount">{venue.price} ₫</span>
-                                                    <span className="unit">/giờ</span>
+                                            </button>
+
+                                            {/* 3. Phần thông tin chi tiết của sân (Tên, đánh giá, vị trí, giá tiền) */}
+                                            <div className="venue-card-body">
+                                                <div className="venue-card-title-row">
+                                                    <a href="/venue-detail.html"><h3>{court.name}</h3></a>
+                                                    <span className="rating">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/>
+                  </svg>
+                  <strong>{court.rating}</strong>
+                </span>
                                                 </div>
-                                                <span className="badge badge-gold">{venue.reviews} đánh giá</span>
+                                                <p className="venue-location">
+                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
+                                                    </svg>
+                                                    {' '}{court.location}
+                                                </p>
+                                                <div className="venue-card-footer">
+                                                    <div className="venue-price">
+                                                        <span className="from">Từ </span>
+                                                        <span className="amount">{court.price} ₫</span>
+                                                        <span className="unit">/giờ</span>
+                                                    </div>
+                                                    <span className="badge badge-gold">{court.reviews} đánh giá</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </article>
-                                ))}
+
+                                        </article>
+                                    ))
+                                ) : (
+                                    /* Trường hợp không tìm thấy sân nào */
+                                    <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px 0', color: '#666' }}>
+                                        Không tìm thấy sân nào phù hợp với từ khóa "{keyWord}"
+                                    </div>
+                                )}
                             </div>
                         </div>
 
-                        {/* Pagination */}
+                        {/* Phân trang */}
                         <div className="pagination">
                             <button className="nav-btn">
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
