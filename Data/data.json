@@ -1126,5 +1126,15 @@
       "date": "2026-07-11",
       "content": "Các nền tảng đặt sân trực tuyến đang giúp người chơi dễ dàng tìm kiếm và đặt sân."
     }
+  ],
+    "users": [
+    {
+      "id": "1",
+      "email": "user@gmail.com",
+      "password": "123456",
+      "fullName": "Nguyễn Văn A",
+      "role": "customer"
+    }
   ]
+  
 }
