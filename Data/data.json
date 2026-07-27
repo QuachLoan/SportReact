@@ -1,0 +1,1120 @@
+{
+  "sports": [
+    {
+      "id": 1,
+      "name": "Bóng đá",
+      "icon": "bi bi-dribbble",
+      "description": "Sân bóng đá mini và sân bóng 11 người"
+    },
+    {
+      "id": 2,
+      "name": "Cầu lông",
+      "icon": "bi bi-feather",
+      "description": "Sân cầu lông tiêu chuẩn"
+    },
+    {
+      "id": 3,
+      "name": "Tennis",
+      "icon": "bi bi-circle",
+      "description": "Sân tennis ngoài trời và trong nhà"
+    },
+    {
+      "id": 4,
+      "name": "Pickleball",
+      "icon": "bi bi-bullseye",
+      "description": "Sân pickleball hiện đại"
+    },
+    {
+      "id": 5,
+      "name": "Bóng rổ",
+      "icon": "bi bi-basket",
+      "description": "Sân bóng rổ tiêu chuẩn"
+    },
+    {
+      "id": 6,
+      "name": "Bóng bàn",
+      "icon": "bi bi-table",
+      "description": "Bàn bóng bàn chất lượng cao"
+    },
+    {
+      "id": 7,
+      "name": "Bóng chuyền",
+      "icon": "bi bi-volleyball",
+      "description": "Sân bóng chuyền trong nhà và ngoài trời"
+    },
+    {
+      "id": 8,
+      "name": "Golf",
+      "icon": "bi bi-flag",
+      "description": "Sân golf và khu tập golf"
+    },
+    {
+      "id": 9,
+      "name": "Bơi lội",
+      "icon": "bi bi-water",
+      "description": "Hồ bơi thể thao"
+    },
+    {
+      "id": 10,
+      "name": "Boxing",
+      "icon": "bi bi-hand-index-thumb",
+      "description": "Phòng tập boxing và võ thuật"
+    }
+  ],
+
+  "venues": [
+    {
+      "id": 1,
+      "name": "Hanoi Sport Center",
+      "address": "Cầu Giấy, Hà Nội",
+      "district": "Cầu Giấy",
+      "distance": 2.5,
+      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      "sports": [1, 2, 5],
+      "minPrice": 100000,
+      "openTime": "06:00",
+      "closeTime": "23:00",
+      "rating": 4.8,
+      "reviewCount": 125,
+      "popular": true,
+      "featured": true,
+      "facilities": [1, 2, 3, 4],
+      "phone": "0901234567",
+      "description": "Cụm sân thể thao hiện đại, vị trí thuận tiện, phù hợp cho nhóm bạn và các câu lạc bộ."
+    },
+    {
+      "id": 2,
+      "name": "Thanh Xuân Sports Hub",
+      "address": "Thanh Xuân, Hà Nội",
+      "district": "Thanh Xuân",
+      "distance": 4.2,
+      "image": "https://images.unsplash.com/photo-1553778263-73a83bab9b0c",
+      "sports": [1, 3, 4],
+      "minPrice": 120000,
+      "openTime": "05:30",
+      "closeTime": "22:30",
+      "rating": 4.6,
+      "reviewCount": 98,
+      "popular": true,
+      "featured": false,
+      "facilities": [1, 3, 5],
+      "phone": "0902345678",
+      "description": "Không gian thể thao rộng rãi với nhiều loại sân và dịch vụ tiện ích."
+    },
+    {
+      "id": 3,
+      "name": "Ba Dinh Sport Park",
+      "address": "Ba Đình, Hà Nội",
+      "district": "Ba Đình",
+      "distance": 3.1,
+      "image": "https://images.unsplash.com/photo-1526232761682-d26e03ac148e",
+      "sports": [1, 5, 6],
+      "minPrice": 80000,
+      "openTime": "06:00",
+      "closeTime": "22:00",
+      "rating": 4.5,
+      "reviewCount": 76,
+      "popular": false,
+      "featured": true,
+      "facilities": [1, 2, 6],
+      "phone": "0903456789",
+      "description": "Sân thể thao phù hợp cho các hoạt động thể thao cộng đồng."
+    },
+    {
+      "id": 4,
+      "name": "Hoang Mai Arena",
+      "address": "Hoàng Mai, Hà Nội",
+      "district": "Hoàng Mai",
+      "distance": 7.8,
+      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      "sports": [1, 2, 7],
+      "minPrice": 90000,
+      "openTime": "05:00",
+      "closeTime": "23:30",
+      "rating": 4.4,
+      "reviewCount": 65,
+      "popular": false,
+      "featured": false,
+      "facilities": [1, 4, 7],
+      "phone": "0904567890",
+      "description": "Cụm sân có nhiều khung giờ linh hoạt, phù hợp với người đi làm."
+    },
+    {
+      "id": 5,
+      "name": "Tay Ho Premium Courts",
+      "address": "Tây Hồ, Hà Nội",
+      "district": "Tây Hồ",
+      "distance": 5.6,
+      "image": "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6",
+      "sports": [3, 4, 5],
+      "minPrice": 150000,
+      "openTime": "06:00",
+      "closeTime": "23:00",
+      "rating": 4.9,
+      "reviewCount": 187,
+      "popular": true,
+      "featured": true,
+      "facilities": [1, 2, 3, 5],
+      "phone": "0905678901",
+      "description": "Cụm sân cao cấp với cơ sở vật chất hiện đại và dịch vụ chuyên nghiệp."
+    },
+    {
+      "id": 6,
+      "name": "Long Bien Sports Club",
+      "address": "Long Biên, Hà Nội",
+      "district": "Long Biên",
+      "distance": 8.4,
+      "image": "https://images.unsplash.com/photo-1554068865-24cecd4e34b8",
+      "sports": [2, 3, 4],
+      "minPrice": 110000,
+      "openTime": "06:00",
+      "closeTime": "22:00",
+      "rating": 4.3,
+      "reviewCount": 54,
+      "popular": false,
+      "featured": false,
+      "facilities": [2, 3, 6],
+      "phone": "0906789012",
+      "description": "Sân thể thao dành cho các nhóm bạn và người chơi bán chuyên."
+    },
+    {
+      "id": 7,
+      "name": "Dong Da Athletic Center",
+      "address": "Đống Đa, Hà Nội",
+      "district": "Đống Đa",
+      "distance": 2.8,
+      "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc",
+      "sports": [1, 5, 6],
+      "minPrice": 100000,
+      "openTime": "05:30",
+      "closeTime": "23:00",
+      "rating": 4.7,
+      "reviewCount": 143,
+      "popular": true,
+      "featured": true,
+      "facilities": [1, 2, 4],
+      "phone": "0907890123",
+      "description": "Trung tâm thể thao nằm gần trung tâm thành phố."
+    },
+    {
+      "id": 8,
+      "name": "Nam Tu Liem Sports",
+      "address": "Nam Từ Liêm, Hà Nội",
+      "district": "Nam Từ Liêm",
+      "distance": 9.2,
+      "image": "https://images.unsplash.com/photo-1574629810360-7efbbe195018",
+      "sports": [1, 2, 5],
+      "minPrice": 85000,
+      "openTime": "05:00",
+      "closeTime": "23:00",
+      "rating": 4.2,
+      "reviewCount": 48,
+      "popular": false,
+      "featured": false,
+      "facilities": [1, 4],
+      "phone": "0908901234",
+      "description": "Sân có mức giá hợp lý, phù hợp với sinh viên."
+    },
+    {
+      "id": 9,
+      "name": "Ha Dong Sport Complex",
+      "address": "Hà Đông, Hà Nội",
+      "district": "Hà Đông",
+      "distance": 12.5,
+      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      "sports": [1, 3, 7],
+      "minPrice": 75000,
+      "openTime": "06:00",
+      "closeTime": "22:30",
+      "rating": 4.1,
+      "reviewCount": 38,
+      "popular": false,
+      "featured": false,
+      "facilities": [1, 3],
+      "phone": "0909012345",
+      "description": "Cụm sân thể thao giá tốt dành cho gia đình và nhóm bạn."
+    },
+    {
+      "id": 10,
+      "name": "Hoan Kiem Sports House",
+      "address": "Hoàn Kiếm, Hà Nội",
+      "district": "Hoàn Kiếm",
+      "distance": 1.2,
+      "image": "https://images.unsplash.com/photo-1518609878373-06d740f60d8b",
+      "sports": [2, 3, 4],
+      "minPrice": 180000,
+      "openTime": "06:00",
+      "closeTime": "23:30",
+      "rating": 4.9,
+      "reviewCount": 210,
+      "popular": true,
+      "featured": true,
+      "facilities": [1, 2, 3, 4, 5],
+      "phone": "0910123456",
+      "description": "Địa điểm thể thao cao cấp nằm ngay trung tâm Hà Nội."
+    }
+  ],
+
+  "courts": [
+    {
+      "id": 1,
+      "venueId": 1,
+      "name": "Sân bóng đá 01",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 300000,
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "venueId": 1,
+      "name": "Sân cầu lông 01",
+      "sportId": 2,
+      "surface": "Sàn gỗ",
+      "capacity": 4,
+      "pricePerHour": 100000,
+      "status": "available"
+    },
+    {
+      "id": 3,
+      "venueId": 2,
+      "name": "Sân tennis 01",
+      "sportId": 3,
+      "surface": "Hard Court",
+      "capacity": 4,
+      "pricePerHour": 250000,
+      "status": "available"
+    },
+    {
+      "id": 4,
+      "venueId": 2,
+      "name": "Sân pickleball 01",
+      "sportId": 4,
+      "surface": "Acrylic",
+      "capacity": 4,
+      "pricePerHour": 180000,
+      "status": "available"
+    },
+    {
+      "id": 5,
+      "venueId": 3,
+      "name": "Sân bóng rổ 01",
+      "sportId": 5,
+      "surface": "Cao su tổng hợp",
+      "capacity": 10,
+      "pricePerHour": 200000,
+      "status": "available"
+    },
+    {
+      "id": 6,
+      "venueId": 4,
+      "name": "Sân bóng đá 02",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 250000,
+      "status": "available"
+    },
+    {
+      "id": 7,
+      "venueId": 5,
+      "name": "Sân tennis 02",
+      "sportId": 3,
+      "surface": "Hard Court",
+      "capacity": 4,
+      "pricePerHour": 350000,
+      "status": "available"
+    },
+    {
+      "id": 8,
+      "venueId": 6,
+      "name": "Sân cầu lông 02",
+      "sportId": 2,
+      "surface": "Thảm PVC",
+      "capacity": 4,
+      "pricePerHour": 120000,
+      "status": "available"
+    },
+    {
+      "id": 9,
+      "venueId": 7,
+      "name": "Sân bóng rổ 02",
+      "sportId": 5,
+      "surface": "Cao su",
+      "capacity": 10,
+      "pricePerHour": 220000,
+      "status": "available"
+    },
+    {
+      "id": 10,
+      "venueId": 8,
+      "name": "Sân bóng đá 03",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 200000,
+      "status": "available"
+    }
+  ],
+
+  "timeSlots": [
+    {
+      "id": 1,
+      "courtId": 1,
+      "date": "2026-07-28",
+      "startTime": "06:00",
+      "endTime": "07:00",
+      "price": 300000,
+      "status": "available"
+    },
+    {
+      "id": 2,
+      "courtId": 1,
+      "date": "2026-07-28",
+      "startTime": "07:00",
+      "endTime": "08:00",
+      "price": 300000,
+      "status": "booked"
+    },
+    {
+      "id": 3,
+      "courtId": 1,
+      "date": "2026-07-28",
+      "startTime": "08:00",
+      "endTime": "09:00",
+      "price": 300000,
+      "status": "available"
+    },
+    {
+      "id": 4,
+      "courtId": 2,
+      "date": "2026-07-28",
+      "startTime": "17:00",
+      "endTime": "18:00",
+      "price": 100000,
+      "status": "available"
+    },
+    {
+      "id": 5,
+      "courtId": 2,
+      "date": "2026-07-28",
+      "startTime": "18:00",
+      "endTime": "19:00",
+      "price": 120000,
+      "status": "booked"
+    },
+    {
+      "id": 6,
+      "courtId": 3,
+      "date": "2026-07-28",
+      "startTime": "18:00",
+      "endTime": "19:00",
+      "price": 250000,
+      "status": "available"
+    },
+    {
+      "id": 7,
+      "courtId": 4,
+      "date": "2026-07-28",
+      "startTime": "19:00",
+      "endTime": "20:00",
+      "price": 180000,
+      "status": "available"
+    },
+    {
+      "id": 8,
+      "courtId": 5,
+      "date": "2026-07-28",
+      "startTime": "20:00",
+      "endTime": "21:00",
+      "price": 200000,
+      "status": "booked"
+    },
+    {
+      "id": 9,
+      "courtId": 6,
+      "date": "2026-07-28",
+      "startTime": "21:00",
+      "endTime": "22:00",
+      "price": 250000,
+      "status": "available"
+    },
+    {
+      "id": 10,
+      "courtId": 7,
+      "date": "2026-07-28",
+      "startTime": "18:00",
+      "endTime": "19:00",
+      "price": 350000,
+      "status": "available"
+    }
+  ],
+
+  "facilities": [
+    {
+      "id": 1,
+      "name": "Bãi đỗ xe",
+      "icon": "bi bi-p-square"
+    },
+    {
+      "id": 2,
+      "name": "Phòng thay đồ",
+      "icon": "bi bi-person-badge"
+    },
+    {
+      "id": 3,
+      "name": "Phòng tắm",
+      "icon": "bi bi-droplet"
+    },
+    {
+      "id": 4,
+      "name": "Wifi miễn phí",
+      "icon": "bi bi-wifi"
+    },
+    {
+      "id": 5,
+      "name": "Căng tin",
+      "icon": "bi bi-cup-straw"
+    },
+    {
+      "id": 6,
+      "name": "Khán đài",
+      "icon": "bi bi-people"
+    },
+    {
+      "id": 7,
+      "name": "Khu nghỉ ngơi",
+      "icon": "bi bi-house"
+    },
+    {
+      "id": 8,
+      "name": "Camera an ninh",
+      "icon": "bi bi-camera-video"
+    },
+    {
+      "id": 9,
+      "name": "Tủ gửi đồ",
+      "icon": "bi bi-box"
+    },
+    {
+      "id": 10,
+      "name": "Điều hòa",
+      "icon": "bi bi-snow"
+    }
+  ],
+
+  "equipment": [
+    {
+      "id": 1,
+      "name": "Bóng đá",
+      "icon": "bi bi-dribbble",
+      "price": 50000,
+      "unit": "quả"
+    },
+    {
+      "id": 2,
+      "name": "Vợt cầu lông",
+      "icon": "bi bi-lightning",
+      "price": 50000,
+      "unit": "chiếc"
+    },
+    {
+      "id": 3,
+      "name": "Giày thể thao",
+      "icon": "bi bi-person-walking",
+      "price": 80000,
+      "unit": "đôi"
+    },
+    {
+      "id": 4,
+      "name": "Áo chia đội",
+      "icon": "bi bi-person",
+      "price": 30000,
+      "unit": "bộ"
+    },
+    {
+      "id": 5,
+      "name": "Nước uống",
+      "icon": "bi bi-cup",
+      "price": 15000,
+      "unit": "chai"
+    },
+    {
+      "id": 6,
+      "name": "Trọng tài",
+      "icon": "bi bi-person-check",
+      "price": 200000,
+      "unit": "trận"
+    },
+    {
+      "id": 7,
+      "name": "Đèn sân",
+      "icon": "bi bi-lightbulb",
+      "price": 100000,
+      "unit": "giờ"
+    },
+    {
+      "id": 8,
+      "name": "Bóng rổ",
+      "icon": "bi bi-basket",
+      "price": 50000,
+      "unit": "quả"
+    },
+    {
+      "id": 9,
+      "name": "Bóng tennis",
+      "icon": "bi bi-circle",
+      "price": 30000,
+      "unit": "hộp"
+    },
+    {
+      "id": 10,
+      "name": "Vợt pickleball",
+      "icon": "bi bi-activity",
+      "price": 70000,
+      "unit": "chiếc"
+    }
+  ],
+
+  "bookings": [
+    {
+      "id": 1,
+      "bookingCode": "SPT100001",
+      "customerName": "Nguyễn Văn An",
+      "phone": "0912345678",
+      "email": "an@gmail.com",
+      "teamName": "FC Hà Nội",
+      "venueId": 1,
+      "courtId": 1,
+      "date": "2026-07-28",
+      "startTime": "06:00",
+      "endTime": "08:00",
+      "numberOfPeople": 10,
+      "equipment": [
+        {
+          "equipmentId": 1,
+          "quantity": 1
+        },
+        {
+          "equipmentId": 5,
+          "quantity": 10
+        }
+      ],
+      "courtPrice": 600000,
+      "equipmentPrice": 200000,
+      "discount": 0,
+      "totalPrice": 800000,
+      "status": "confirmed",
+      "createdAt": "2026-07-27T10:00:00"
+    },
+    {
+      "id": 2,
+      "bookingCode": "SPT100002",
+      "customerName": "Trần Minh Anh",
+      "phone": "0923456789",
+      "email": "anh@gmail.com",
+      "teamName": "Team Smash",
+      "venueId": 1,
+      "courtId": 2,
+      "date": "2026-07-29",
+      "startTime": "18:00",
+      "endTime": "19:00",
+      "numberOfPeople": 4,
+      "equipment": [],
+      "courtPrice": 120000,
+      "equipmentPrice": 0,
+      "discount": 0,
+      "totalPrice": 120000,
+      "status": "pending",
+      "createdAt": "2026-07-27T11:00:00"
+    },
+    {
+      "id": 3,
+      "bookingCode": "SPT100003",
+      "customerName": "Lê Hoàng Nam",
+      "phone": "0934567890",
+      "email": "nam@gmail.com",
+      "teamName": "Tennis Club",
+      "venueId": 2,
+      "courtId": 3,
+      "date": "2026-07-30",
+      "startTime": "18:00",
+      "endTime": "20:00",
+      "numberOfPeople": 4,
+      "equipment": [],
+      "courtPrice": 500000,
+      "equipmentPrice": 0,
+      "discount": 50000,
+      "totalPrice": 450000,
+      "status": "confirmed",
+      "createdAt": "2026-07-27T12:00:00"
+    },
+    {
+      "id": 4,
+      "bookingCode": "SPT100004",
+      "customerName": "Phạm Thu Hà",
+      "phone": "0945678901",
+      "email": "ha@gmail.com",
+      "teamName": "Pickleball Friends",
+      "venueId": 2,
+      "courtId": 4,
+      "date": "2026-07-31",
+      "startTime": "19:00",
+      "endTime": "20:00",
+      "numberOfPeople": 4,
+      "equipment": [
+        {
+          "equipmentId": 10,
+          "quantity": 2
+        }
+      ],
+      "courtPrice": 180000,
+      "equipmentPrice": 140000,
+      "discount": 0,
+      "totalPrice": 320000,
+      "status": "confirmed",
+      "createdAt": "2026-07-27T13:00:00"
+    },
+    {
+      "id": 5,
+      "bookingCode": "SPT100005",
+      "customerName": "Đỗ Đức Anh",
+      "phone": "0956789012",
+      "email": "ducanh@gmail.com",
+      "teamName": "Basketball Team",
+      "venueId": 3,
+      "courtId": 5,
+      "date": "2026-08-01",
+      "startTime": "20:00",
+      "endTime": "21:00",
+      "numberOfPeople": 8,
+      "equipment": [],
+      "courtPrice": 200000,
+      "equipmentPrice": 0,
+      "discount": 0,
+      "totalPrice": 200000,
+      "status": "cancelled",
+      "createdAt": "2026-07-27T14:00:00"
+    },
+    {
+      "id": 6,
+      "bookingCode": "SPT100006",
+      "customerName": "Nguyễn Thị Mai",
+      "phone": "0967890123",
+      "email": "mai@gmail.com",
+      "teamName": "Mai Team",
+      "venueId": 4,
+      "courtId": 6,
+      "date": "2026-08-02",
+      "startTime": "21:00",
+      "endTime": "22:00",
+      "numberOfPeople": 12,
+      "equipment": [],
+      "courtPrice": 250000,
+      "equipmentPrice": 0,
+      "discount": 0,
+      "totalPrice": 250000,
+      "status": "pending",
+      "createdAt": "2026-07-27T15:00:00"
+    },
+    {
+      "id": 7,
+      "bookingCode": "SPT100007",
+      "customerName": "Vũ Minh Đức",
+      "phone": "0978901234",
+      "email": "duc@gmail.com",
+      "teamName": "Pro Tennis",
+      "venueId": 5,
+      "courtId": 7,
+      "date": "2026-08-03",
+      "startTime": "18:00",
+      "endTime": "19:00",
+      "numberOfPeople": 4,
+      "equipment": [],
+      "courtPrice": 350000,
+      "equipmentPrice": 0,
+      "discount": 100000,
+      "totalPrice": 250000,
+      "status": "confirmed",
+      "createdAt": "2026-07-27T16:00:00"
+    },
+    {
+      "id": 8,
+      "bookingCode": "SPT100008",
+      "customerName": "Hoàng Văn Long",
+      "phone": "0989012345",
+      "email": "long@gmail.com",
+      "teamName": "Long Team",
+      "venueId": 6,
+      "courtId": 8,
+      "date": "2026-08-04",
+      "startTime": "17:00",
+      "endTime": "18:00",
+      "numberOfPeople": 4,
+      "equipment": [],
+      "courtPrice": 120000,
+      "equipmentPrice": 0,
+      "discount": 0,
+      "totalPrice": 120000,
+      "status": "confirmed",
+      "createdAt": "2026-07-27T17:00:00"
+    },
+    {
+      "id": 9,
+      "bookingCode": "SPT100009",
+      "customerName": "Bùi Quang Huy",
+      "phone": "0990123456",
+      "email": "huy@gmail.com",
+      "teamName": "Huy Basketball",
+      "venueId": 7,
+      "courtId": 9,
+      "date": "2026-08-05",
+      "startTime": "19:00",
+      "endTime": "20:00",
+      "numberOfPeople": 8,
+      "equipment": [],
+      "courtPrice": 220000,
+      "equipmentPrice": 0,
+      "discount": 0,
+      "totalPrice": 220000,
+      "status": "pending",
+      "createdAt": "2026-07-27T18:00:00"
+    },
+    {
+      "id": 10,
+      "bookingCode": "SPT100010",
+      "customerName": "Đặng Khánh Linh",
+      "phone": "0901122334",
+      "email": "linh@gmail.com",
+      "teamName": "Linh Friends",
+      "venueId": 8,
+      "courtId": 10,
+      "date": "2026-08-06",
+      "startTime": "21:00",
+      "endTime": "22:00",
+      "numberOfPeople": 12,
+      "equipment": [
+        {
+          "equipmentId": 1,
+          "quantity": 1
+        }
+      ],
+      "courtPrice": 200000,
+      "equipmentPrice": 50000,
+      "discount": 0,
+      "totalPrice": 250000,
+      "status": "confirmed",
+      "createdAt": "2026-07-27T19:00:00"
+    }
+  ],
+
+  "reviews": [
+    {
+      "id": 1,
+      "venueId": 1,
+      "customerName": "Nguyễn Văn An",
+      "rating": 5,
+      "courtQuality": 5,
+      "serviceQuality": 5,
+      "facilityQuality": 4,
+      "content": "Sân đẹp, nhân viên nhiệt tình, đặt sân rất nhanh.",
+      "usageDate": "2026-07-20"
+    },
+    {
+      "id": 2,
+      "venueId": 2,
+      "customerName": "Trần Minh Anh",
+      "rating": 4,
+      "courtQuality": 4,
+      "serviceQuality": 5,
+      "facilityQuality": 4,
+      "content": "Sân sạch và có nhiều khung giờ lựa chọn.",
+      "usageDate": "2026-07-19"
+    },
+    {
+      "id": 3,
+      "venueId": 3,
+      "customerName": "Lê Hoàng Nam",
+      "rating": 5,
+      "courtQuality": 5,
+      "serviceQuality": 4,
+      "facilityQuality": 5,
+      "content": "Vị trí dễ tìm, chất lượng sân rất tốt.",
+      "usageDate": "2026-07-18"
+    },
+    {
+      "id": 4,
+      "venueId": 4,
+      "customerName": "Phạm Thu Hà",
+      "rating": 4,
+      "courtQuality": 4,
+      "serviceQuality": 4,
+      "facilityQuality": 4,
+      "content": "Giá cả hợp lý, phù hợp với nhóm bạn.",
+      "usageDate": "2026-07-17"
+    },
+    {
+      "id": 5,
+      "venueId": 5,
+      "customerName": "Đỗ Đức Anh",
+      "rating": 5,
+      "courtQuality": 5,
+      "serviceQuality": 5,
+      "facilityQuality": 5,
+      "content": "Cụm sân cao cấp, dịch vụ rất chuyên nghiệp.",
+      "usageDate": "2026-07-16"
+    },
+    {
+      "id": 6,
+      "venueId": 6,
+      "customerName": "Nguyễn Thị Mai",
+      "rating": 4,
+      "courtQuality": 4,
+      "serviceQuality": 4,
+      "facilityQuality": 4,
+      "content": "Không gian thoáng, sân chơi khá tốt.",
+      "usageDate": "2026-07-15"
+    },
+    {
+      "id": 7,
+      "venueId": 7,
+      "customerName": "Vũ Minh Đức",
+      "rating": 5,
+      "courtQuality": 5,
+      "serviceQuality": 5,
+      "facilityQuality": 4,
+      "content": "Đặt sân dễ dàng, nhân viên hỗ trợ tốt.",
+      "usageDate": "2026-07-14"
+    },
+    {
+      "id": 8,
+      "venueId": 8,
+      "customerName": "Hoàng Văn Long",
+      "rating": 4,
+      "courtQuality": 4,
+      "serviceQuality": 4,
+      "facilityQuality": 4,
+      "content": "Sân có giá tốt, phù hợp sinh viên.",
+      "usageDate": "2026-07-13"
+    },
+    {
+      "id": 9,
+      "venueId": 9,
+      "customerName": "Bùi Quang Huy",
+      "rating": 4,
+      "courtQuality": 4,
+      "serviceQuality": 4,
+      "facilityQuality": 3,
+      "content": "Sân khá ổn, cần cải thiện thêm khu vực nghỉ.",
+      "usageDate": "2026-07-12"
+    },
+    {
+      "id": 10,
+      "venueId": 10,
+      "customerName": "Đặng Khánh Linh",
+      "rating": 5,
+      "courtQuality": 5,
+      "serviceQuality": 5,
+      "facilityQuality": 5,
+      "content": "Địa điểm đẹp, chất lượng sân tuyệt vời.",
+      "usageDate": "2026-07-11"
+    }
+  ],
+
+  "coupons": [
+    {
+      "id": 1,
+      "code": "WELCOME10",
+      "description": "Giảm 10% cho khách hàng mới",
+      "discountType": "percent",
+      "discountValue": 10,
+      "maxDiscount": 100000,
+      "minOrder": 200000,
+      "status": "active"
+    },
+    {
+      "id": 2,
+      "code": "SPORT50",
+      "description": "Giảm 50.000đ",
+      "discountType": "fixed",
+      "discountValue": 50000,
+      "maxDiscount": 50000,
+      "minOrder": 300000,
+      "status": "active"
+    },
+    {
+      "id": 3,
+      "code": "SUMMER20",
+      "description": "Ưu đãi mùa hè 20%",
+      "discountType": "percent",
+      "discountValue": 20,
+      "maxDiscount": 150000,
+      "minOrder": 500000,
+      "status": "active"
+    },
+    {
+      "id": 4,
+      "code": "BADMINTON30",
+      "description": "Giảm 30.000đ cho sân cầu lông",
+      "discountType": "fixed",
+      "discountValue": 30000,
+      "maxDiscount": 30000,
+      "minOrder": 100000,
+      "status": "active"
+    },
+    {
+      "id": 5,
+      "code": "TENNIS15",
+      "description": "Giảm 15% sân tennis",
+      "discountType": "percent",
+      "discountValue": 15,
+      "maxDiscount": 200000,
+      "minOrder": 300000,
+      "status": "active"
+    },
+    {
+      "id": 6,
+      "code": "PICKLE10",
+      "description": "Giảm 10% sân pickleball",
+      "discountType": "percent",
+      "discountValue": 10,
+      "maxDiscount": 100000,
+      "minOrder": 200000,
+      "status": "active"
+    },
+    {
+      "id": 7,
+      "code": "GROUP100",
+      "description": "Giảm 100.000đ cho nhóm đông người",
+      "discountType": "fixed",
+      "discountValue": 100000,
+      "maxDiscount": 100000,
+      "minOrder": 800000,
+      "status": "active"
+    },
+    {
+      "id": 8,
+      "code": "WEEKEND5",
+      "description": "Giảm 5% cuối tuần",
+      "discountType": "percent",
+      "discountValue": 5,
+      "maxDiscount": 50000,
+      "minOrder": 200000,
+      "status": "active"
+    },
+    {
+      "id": 9,
+      "code": "NEWUSER20",
+      "description": "Giảm 20.000đ cho người dùng mới",
+      "discountType": "fixed",
+      "discountValue": 20000,
+      "maxDiscount": 20000,
+      "minOrder": 100000,
+      "status": "active"
+    },
+    {
+      "id": 10,
+      "code": "FREESPORT",
+      "description": "Ưu đãi đặc biệt",
+      "discountType": "percent",
+      "discountValue": 25,
+      "maxDiscount": 250000,
+      "minOrder": 500000,
+      "status": "active"
+    }
+  ],
+
+  "news": [
+    {
+      "id": 1,
+      "title": "5 lợi ích tuyệt vời của việc chơi thể thao thường xuyên",
+      "image": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438",
+      "shortDescription": "Thể thao giúp nâng cao sức khỏe và cải thiện tinh thần.",
+      "category": "Sức khỏe",
+      "date": "2026-07-20",
+      "content": "Chơi thể thao thường xuyên giúp cơ thể khỏe mạnh, giảm căng thẳng và nâng cao chất lượng cuộc sống."
+    },
+    {
+      "id": 2,
+      "title": "Cách chọn giày phù hợp khi chơi thể thao",
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
+      "shortDescription": "Lựa chọn giày phù hợp giúp hạn chế chấn thương.",
+      "category": "Hướng dẫn",
+      "date": "2026-07-19",
+      "content": "Mỗi môn thể thao cần một loại giày phù hợp với đặc điểm vận động."
+    },
+    {
+      "id": 3,
+      "title": "Pickleball - Môn thể thao đang ngày càng phổ biến",
+      "image": "https://images.unsplash.com/photo-1622279457486-62dcc4a431d6",
+      "shortDescription": "Pickleball đang thu hút đông đảo người chơi tại Việt Nam.",
+      "category": "Xu hướng",
+      "date": "2026-07-18",
+      "content": "Pickleball là môn thể thao dễ chơi và phù hợp với nhiều độ tuổi."
+    },
+    {
+      "id": 4,
+      "title": "Lợi ích của việc chơi cầu lông",
+      "image": "https://images.unsplash.com/photo-1626224583764-f87db24ac4ea",
+      "shortDescription": "Cầu lông giúp rèn luyện sức bền và phản xạ.",
+      "category": "Sức khỏe",
+      "date": "2026-07-17",
+      "content": "Cầu lông là môn thể thao phổ biến và mang lại nhiều lợi ích cho sức khỏe."
+    },
+    {
+      "id": 5,
+      "title": "Bí quyết chơi tennis hiệu quả cho người mới",
+      "image": "https://images.unsplash.com/photo-1554068865-24cecd4e34b8",
+      "shortDescription": "Một số bí quyết cơ bản dành cho người mới chơi tennis.",
+      "category": "Hướng dẫn",
+      "date": "2026-07-16",
+      "content": "Người mới nên tập trung vào kỹ thuật cơ bản và duy trì lịch luyện tập đều đặn."
+    },
+    {
+      "id": 6,
+      "title": "Cách tổ chức một trận bóng đá giao hữu",
+      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55",
+      "shortDescription": "Những điều cần chuẩn bị cho một trận bóng đá.",
+      "category": "Bóng đá",
+      "date": "2026-07-15",
+      "content": "Việc lựa chọn sân, chia đội và chuẩn bị dụng cụ là những yếu tố quan trọng."
+    },
+    {
+      "id": 7,
+      "title": "Bóng rổ giúp phát triển thể chất như thế nào?",
+      "image": "https://images.unsplash.com/photo-1546519638-68e109498ffc",
+      "shortDescription": "Bóng rổ giúp cải thiện chiều cao và sức bật.",
+      "category": "Bóng rổ",
+      "date": "2026-07-14",
+      "content": "Bóng rổ là môn thể thao giúp rèn luyện sức mạnh, tốc độ và khả năng phối hợp."
+    },
+    {
+      "id": 8,
+      "title": "Những lỗi thường gặp khi đặt sân thể thao",
+      "image": "https://images.unsplash.com/photo-1461896836934-ffe607ba8211",
+      "shortDescription": "Một số lỗi người chơi nên tránh khi đặt sân.",
+      "category": "Kinh nghiệm",
+      "date": "2026-07-13",
+      "content": "Người chơi nên kiểm tra kỹ ngày, giờ và thông tin sân trước khi xác nhận đặt."
+    },
+    {
+      "id": 9,
+      "title": "Tập thể thao vào buổi sáng hay buổi tối tốt hơn?",
+      "image": "https://images.unsplash.com/photo-1552674605-db6ffd4facb5",
+      "shortDescription": "So sánh ưu điểm của việc tập luyện vào các thời điểm khác nhau.",
+      "category": "Sức khỏe",
+      "date": "2026-07-12",
+      "content": "Mỗi thời điểm tập luyện đều có những ưu điểm riêng tùy theo lịch sinh hoạt."
+    },
+    {
+      "id": 10,
+      "title": "Xu hướng đặt sân thể thao trực tuyến",
+      "image": "https://images.unsplash.com/photo-1526232761682-d26e03ac148e",
+      "shortDescription": "Đặt sân trực tuyến giúp tiết kiệm thời gian và dễ dàng lựa chọn.",
+      "category": "Công nghệ",
+      "date": "2026-07-11",
+      "content": "Các nền tảng đặt sân trực tuyến đang giúp người chơi dễ dàng tìm kiếm và đặt sân."
+    }
+  ]
+}
