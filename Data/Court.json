@@ -1,0 +1,105 @@
+{
+  "courts": [
+    {
+      "id": 1,
+      "venueId": 1,
+      "name": "Sân bóng đá 01",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 300000,
+      "status": "available",
+      "image": "../imgs/football1.jpg"
+    },
+    {
+      "id": 2,
+      "venueId": 1,
+      "name": "Sân cầu lông 01",
+      "sportId": 2,
+      "surface": "Sàn gỗ",
+      "capacity": 4,
+      "pricePerHour": 100000,
+      "status": "available",
+    },
+    {
+      "id": 3,
+      "venueId": 2,
+      "name": "Sân tennis 01",
+      "sportId": 3,
+      "surface": "Hard Court",
+      "capacity": 4,
+      "pricePerHour": 250000,
+      "status": "available"
+    },
+    {
+      "id": 4,
+      "venueId": 2,
+      "name": "Sân pickleball 01",
+      "sportId": 4,
+      "surface": "Acrylic",
+      "capacity": 4,
+      "pricePerHour": 180000,
+      "status": "available"
+    },
+    {
+      "id": 5,
+      "venueId": 3,
+      "name": "Sân bóng rổ 01",
+      "sportId": 5,
+      "surface": "Cao su tổng hợp",
+      "capacity": 10,
+      "pricePerHour": 200000,
+      "status": "available"
+    },
+    {
+      "id": 6,
+      "venueId": 4,
+      "name": "Sân bóng đá 02",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 250000,
+      "status": "available"
+    },
+    {
+      "id": 7,
+      "venueId": 5,
+      "name": "Sân tennis 02",
+      "sportId": 3,
+      "surface": "Hard Court",
+      "capacity": 4,
+      "pricePerHour": 350000,
+      "status": "available"
+    },
+    {
+      "id": 8,
+      "venueId": 6,
+      "name": "Sân cầu lông 02",
+      "sportId": 2,
+      "surface": "Thảm PVC",
+      "capacity": 4,
+      "pricePerHour": 120000,
+      "status": "available"
+    },
+    {
+      "id": 9,
+      "venueId": 7,
+      "name": "Sân bóng rổ 02",
+      "sportId": 5,
+      "surface": "Cao su",
+      "capacity": 10,
+      "pricePerHour": 220000,
+      "status": "available"
+    },
+    {
+      "id": 10,
+      "venueId": 8,
+      "name": "Sân bóng đá 03",
+      "sportId": 1,
+      "surface": "Cỏ nhân tạo",
+      "capacity": 14,
+      "pricePerHour": 200000,
+      "status": "available"
+    }
+  ]
+}

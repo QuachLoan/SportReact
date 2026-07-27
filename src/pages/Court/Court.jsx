@@ -11,7 +11,7 @@ export default function Court() {
 
     //function
     useEffect(() => {
-        fetch('http://localhost:3000/courtData')
+        fetch('http://localhost:5000/courtData')
             .then(response => response.json())
             .then(data => {
                 setCourtData(data);
