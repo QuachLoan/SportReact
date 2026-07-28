@@ -14,8 +14,7 @@ function Favorites() {
     }, []);
 
     const removeFavourite = (id) => {
-        // Ép kiểu String để đảm bảo lọc chính xác tuyệt đối
-        const updatedFavourites = favourites.filter(fav => String(fav.id) !== String(id));
+        const updatedFavourites = favourites.filter(fav => fav.id !== id);
         setFavourites(updatedFavourites);
         localStorage.setItem('favorites', JSON.stringify(updatedFavourites));
     };
