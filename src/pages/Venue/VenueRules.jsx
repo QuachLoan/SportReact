@@ -64,7 +64,9 @@ const VenueRules = () => {
                         <Link to={`/VenueOverView/${id}/reviews`}>Đánh giá</Link>
                         <Link to={`/VenueOverView/${id}/rules`} className="is-active">Quy định</Link>
                     </nav>
-                    <a href="schedule.html" className="btn btn-gold btn-sm venue-tabs-book-btn">Đặt sân ngay</a>
+                    <Link to={`/VenueOverView/${id}/schedule`} className="btn btn-gold btn-sm venue-tabs-book-btn">
+                        Đặt sân ngay
+                    </Link>
                 </div>
             </div>
 

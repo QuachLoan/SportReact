@@ -70,7 +70,7 @@ export default function VenueCourt() {
                         <Link to={`/VenueOverView/${id}/reviews`}>Đánh giá</Link>
                         <Link to={`/VenueOverView/${id}/rules`}>Quy định</Link>
                     </nav>
-                    <Link to="/schedule" className="btn btn-gold btn-sm venue-tabs-book-btn">
+                    <Link to={`/VenueOverView/${id}/schedule`} className="btn btn-gold btn-sm venue-tabs-book-btn">
                         Đặt sân ngay
                     </Link>
                 </div>

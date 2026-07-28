@@ -91,7 +91,7 @@ export default function VenueOverview() {
                         <Link to="court">Sân</Link>
                         <Link to="schedule">Lịch trống</Link>
                         <Link to="reviews">Đánh giá</Link>
-                        <Link to="rule">Quy định</Link>
+                        <Link to="rules">Quy định</Link>
                     </nav>
                     <Link to="schedule" className="btn btn-gold btn-sm venue-tabs-book-btn">
                         Đặt sân ngay
