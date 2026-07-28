@@ -14,6 +14,8 @@ import Favorites from './pages/Favorites/Favorites.jsx'
 import VenueOverview from "./pages/Venue/VenueOverView.jsx";
 import VenueCourt from "./pages/Venue/VenueCourt.jsx";
 import VenueSchedule from "./pages/Venue/VenueSchedule.jsx";
+import VenueReviews from "./pages/Venue/VenueReviews.jsx";
+import VenueRules from "./pages/Venue/VenueRules.jsx";
 
 function App() {
   return (
@@ -29,11 +31,8 @@ function App() {
                 <Route path = "/VenueOverView/:id" element = {<VenueOverview/>}/>
                 <Route path = "/VenueOverView/:id/court" element = {<VenueCourt/>}/>
                 <Route path = "/VenueOverView/:id/schedule" element = {<VenueSchedule/>}/>
-               {/*
-                <Route path = "/VenueOverView/:id/schedule" element = {<VenueSchedule/>}/>
                 <Route path = "/VenueOverView/:id/reviews" element = {<VenueReviews/>}/>
                 <Route path = "/VenueOverView/:id/rules" element={<VenueRules/>}/>
-               */}
            </Routes>
        <Footer/>
     </>
