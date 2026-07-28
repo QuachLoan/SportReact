@@ -14,7 +14,7 @@ export default function Home() {
             navigate(`/Venue?q=${encodeURIComponent(searchKeyWord)}`);
         }
         else{
-            navigate('/Venue');
+            navigate('/Venues');
         }
     }
     return (

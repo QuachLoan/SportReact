@@ -19,6 +19,11 @@ function Favorites() {
         localStorage.setItem('favorites', JSON.stringify(updatedFavourites));
     };
 
+    const removeAllFavourites = () => {
+        setFavourites([]);
+        localStorage.setItem('favorites', JSON.stringify([]));
+    }
+
     return (
         <>
             <main className="container" style={{ padding: '40px 16px 170px' }}>
@@ -31,6 +36,7 @@ function Favorites() {
                     <div>
                         <h1>Sân yêu thích</h1>
                         <p>{favourites.length} sân đã lưu</p>
+                        <button onClick={() => removeAllFavourites()} className="btn btn-primary">Xóa tât cả</button>
                     </div>
                 </div>
 

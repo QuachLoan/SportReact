@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import './Venue.css';
-import { useSearchParams } from 'react-router-dom';
+import './Venues.css';
+import {Link, useSearchParams} from 'react-router-dom';
 
-export default function Venue() {
+export default function Venues() {
     //state
     const [venues, setVenues] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
@@ -211,10 +211,9 @@ export default function Venue() {
                                 {filterSearchInput.length > 0 ? (
                                     filterSearchInput.map((venue) => {
                                         const isFavorite = favourite.some(fav => fav.id === venue.id);
-
                                         return (
                                             <article key={venue.id} className="venue-card">
-                                                <a href={`/venue/${venue.id}`} className="venue-card-media" style={{ display: 'block' }}>
+                                                <Link to ={`/VenueOverView/${venue.id}`} className="venue-card-media" style={{ display: 'block' }}>
                                                     <img
                                                         src={
                                                             venue.image
@@ -226,7 +225,7 @@ export default function Venue() {
                                                             Còn trống hôm nay
                                                         </span>
                                                     )}
-                                                </a>
+                                                </Link>
                                                 <button
                                                     className={`venue-fav ${isFavorite ? 'is-active' : ''}`}
                                                     aria-label="Yêu thích"
@@ -240,7 +239,7 @@ export default function Venue() {
 
                                                 <div className="venue-card-body">
                                                     <div className="venue-card-title-row">
-                                                        <a href={`/venue/${venue.id}`}><h3>{venue.name}</h3></a>
+                                                        <Link to={`/VenueOverView/${venue.id}`}><h3>{venue.name}</h3></Link>
                                                         <span className="rating">
                                                             <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
                                                             <strong>{venue.rating || "5.0"}</strong>
