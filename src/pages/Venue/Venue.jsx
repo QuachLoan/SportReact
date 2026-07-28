@@ -12,6 +12,11 @@ export default function Venue() {
     const maxPrice = searchParams.get('maxPrice') || '200000';
     const [searchInput, setSearchInput] = useState(keyWord);
     const selectedRating = searchParams.get('rating') || '';
+    const [favourite, setFavourite] = useState(()=>{
+        const saved = localStorage.getItem('favorites');
+        return saved ? JSON.parse(saved) : [];
+        }
+    )
 
     //function
     useEffect(() => {
@@ -73,6 +78,19 @@ export default function Venue() {
         }
         return true;
     });
+
+    const toggleFavorite = (venue) => {
+        var updatedFavourites;
+        const isFav = favourite.some(fav => fav.id === venue.id);
+        if (isFav) {
+            updatedFavourites = favourite.filter(fav => fav.id !== venue.id);
+        }
+        else{
+            updatedFavourites = [...favourite, venue];
+        }
+        setFavourite(updatedFavourites);
+        localStorage.setItem('favorites', JSON.stringify(updatedFavourites));
+    };
 
     return (
         <>
@@ -191,91 +209,75 @@ export default function Venue() {
                         <div className="grid" style={{ gridTemplateColumns: '1fr', gap: '24px' }}>
                             <div className="grid grid-3">
                                 {filterSearchInput.length > 0 ? (
-                                    filterSearchInput.map((venue) => (
-                                        <article key={venue.id} className="venue-card">
-                                            <a href={`/venue/${venue.id}`} className="venue-card-media" style={{ display: 'block' }}>
-                                                <img
-                                                    src={
-                                                        venue.image
-                                                            ? `${window.location.origin}/${venue.image.replace(/^\//, '')}`
-                                                            : venue.name.includes('bóng đá') ? '/imgs/football1.jpg'
-                                                                : venue.name.includes('pickleball') ? '/imgs/pickleball.jpg'
-                                                                    : venue.name.includes('tennis') ? '/imgs/tennis1.jpg'
-                                                                        : venue.name.includes('cầu lông') ? '/imgs/badminton1.jpg'
-                                                                            : venue.name.includes('bóng rổ') ? '/imgs/basketball1.jpg'
-                                                                                : '/imgs/football1.jpg'
-                                                    }
-                                                    alt={venue.name}
-                                                />
-                                                {venue.status === 'available' && (
-                                                    <span className="badge badge-success" style={{ position: 'absolute', left: '12px', top: '12px', zIndex: 2 }}>
-                                                        Còn trống hôm nay
-                                                    </span>
-                                                )}
-                                            </a>
+                                    filterSearchInput.map((venue) => {
+                                        const isFavorite = favourite.some(fav => fav.id === venue.id);
 
-                                            <button className="venue-fav" aria-label="Yêu thích">
-                                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z" />
-                                                </svg>
-                                            </button>
-
-                                            <div className="venue-card-body">
-                                                <div className="venue-card-title-row">
-                                                    <a href={`/venue/${venue.id}`}><h3>{venue.name}</h3></a>
-                                                    <span className="rating">
-                                                        <svg viewBox="0 0 24 24">
-                                                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
-                                                        </svg>
-                                                        <strong>{venue.rating || "5.0"}</strong>
-                                                    </span>
-                                                </div>
-
-                                                <p className="venue-location">
-                                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+                                        return (
+                                            <article key={venue.id} className="venue-card">
+                                                <a href={`/venue/${venue.id}`} className="venue-card-media" style={{ display: 'block' }}>
+                                                    <img
+                                                        src={
+                                                            venue.image
+                                                        }
+                                                        alt={venue.name}
+                                                    />
+                                                    {venue.status === 'available' && (
+                                                        <span className="badge badge-success" style={{ position: 'absolute', left: '12px', top: '12px', zIndex: 2 }}>
+                                                            Còn trống hôm nay
+                                                        </span>
+                                                    )}
+                                                </a>
+                                                <button
+                                                    className={`venue-fav ${isFavorite ? 'is-active' : ''}`}
+                                                    aria-label="Yêu thích"
+                                                    onClick={() => toggleFavorite(venue)}
+                                                    style={{ fill: isFavorite ? 'red' : 'none', color: isFavorite ? 'red' : 'currentColor' }}
+                                                >
+                                                    <svg viewBox="0 0 24 24" fill={isFavorite ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z" />
                                                     </svg>
-                                                    {' '}{venue.address || venue.surface}
-                                                </p>
+                                                </button>
 
-                                                <div className="venue-card-footer">
-                                                    <div className="venue-price">
-                                                        {venue.minPrice ? (
-                                                            <>
-                                                                <span className="from">Từ </span>
-                                                                <span className="amount">{Number(venue.minPrice).toLocaleString()} ₫</span>
-                                                                <span className="unit">/giờ</span>
-                                                            </>
-                                                        ) : (
-                                                            <span className="amount" style={{ fontSize: '14px', color: '#888' }}>Liên hệ</span>
-                                                        )}
+                                                <div className="venue-card-body">
+                                                    <div className="venue-card-title-row">
+                                                        <a href={`/venue/${venue.id}`}><h3>{venue.name}</h3></a>
+                                                        <span className="rating">
+                                                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
+                                                            <strong>{venue.rating || "5.0"}</strong>
+                                                        </span>
                                                     </div>
-                                                    <span className="badge badge-gold">{venue.reviewCount || 0} đánh giá</span>
+
+                                                    <p className="venue-location">
+                                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+                                                        </svg>
+                                                        {' '}{venue.address || venue.surface}
+                                                    </p>
+
+                                                    <div className="venue-card-footer">
+                                                        <div className="venue-price">
+                                                            {venue.minPrice ? (
+                                                                <>
+                                                                    <span className="from">Từ </span>
+                                                                    <span className="amount">{Number(venue.minPrice).toLocaleString()} ₫</span>
+                                                                    <span className="unit">/giờ</span>
+                                                                </>
+                                                            ) : (
+                                                                <span className="amount" style={{ fontSize: '14px', color: '#888' }}>Liên hệ</span>
+                                                            )}
+                                                        </div>
+                                                        <span className="badge badge-gold">{venue.reviewCount || 0} đánh giá</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </article>
-                                    ))
+                                            </article>
+                                        );
+                                    })
                                 ) : (
                                     <div style={{ gridColumn: '1 / -1', textAlign: 'center', padding: '40px 0', color: '#666' }}>
                                         Không tìm thấy sân nào phù hợp với các bộ lọc hiện tại.
                                     </div>
                                 )}
                             </div>
-                        </div>
-
-                        {/* Phân trang */}
-                        <div className="pagination">
-                            <button className="nav-btn">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="15 18 9 12 15 6" />
-                                </svg>
-                            </button>
-                            <button className="is-active">1</button>
-                            <button className="nav-btn">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <polyline points="9 18 15 12 9 6" />
-                                </svg>
-                            </button>
                         </div>
                     </div>
                 </div>
