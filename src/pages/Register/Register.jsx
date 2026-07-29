@@ -1,7 +1,7 @@
 import React from 'react';
 import "./Register.css";
 
-export default function RegisterForm() {
+export default function Register() {
     return (
         <div className="auth-shell">
             {/* Cột trái: form đăng ký */}

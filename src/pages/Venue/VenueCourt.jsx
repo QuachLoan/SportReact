@@ -13,10 +13,8 @@ export default function VenueCourt() {
             .then(data => {
             setVenue(data);
 
-            Promise.all(
                 data.sports.map(sid =>
                 fetch(`http://localhost:3000/sports/${sid}`).then(res => res.json())
-                )
             ).then(sportList => setSport(sportList));
             });
         }, [id]);
@@ -27,6 +25,10 @@ export default function VenueCourt() {
         .then(data => setCourt(data));
     }, [id]);
 
+        const formatCurrency = (amount) => {
+        if (!amount) return "Liên hệ";
+        return Number(amount).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    };
     if (!venue) {
         return <div className="container" style={{ padding: '40px' }}>Đang tải thông tin sân...</div>;
     }
@@ -121,14 +123,14 @@ export default function VenueCourt() {
                             </p>
                             <p className="capacity">Sức chứa {x.capacity} người</p>
                             <div className="court-card-footer">
-                            <span className="price">{x.pricePerHour} ₫<span>/giờ</span></span>
+                            <span className="price">{formatCurrency ? formatCurrency ( x.pricePerHour) : x.pricePerHour} ₫<span>/giờ</span></span>
                             <a href="booking.html" className="btn btn-gold btn-sm">Đặt nhanh</a>
                             </div>
                         </div>
                         </div>
                     ))}
                     </div>
-                    
+
             </main>
          
         </div>

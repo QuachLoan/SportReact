@@ -1,8 +1,8 @@
 import React from 'react';
 import "./Login.css";
-import {Link, useNavigate, userNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
-export default function LoginForm() {
+export default function Login() {
     //state
     const [userName, setUserName] = React.useState("");
     const [password, setPassword] = React.useState("");

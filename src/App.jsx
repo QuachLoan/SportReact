@@ -18,6 +18,8 @@ import VenueReviews from "./pages/Venue/VenueReviews.jsx";
 import VenueRules from "./pages/Venue/VenueRules.jsx";
 import Register from './pages/Register/Register.jsx';
 import Login from './pages/Login/Login.jsx';
+import LoginForm from './pages/Login/Login.jsx'
+import RegisterForm from './pages/Register/Register.jsx'
 
 function App() {
   return (
