@@ -2187,6 +2187,21 @@
   }
 }
 
+.venue-price .from {
+  font-size: 12px;
+  color: var(--navy-400);
+}
+.venue-price .amount {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--navy-900);
+}
+.venue-price .unit {
+  font-size: 12px;
+  color: var(--navy-400);
+}
+
 /* ================= MISC ================= */
 .mt-8 { margin-top: 8px; }
 .mt-16 { margin-top: 16px; }

@@ -29,8 +29,8 @@ function Header(){
         <Link to="/Favorites"  className="icon-btn" aria-label="Yêu thích">
          <i className="bi bi-heart"></i>
         </Link>
-        <a href="" className="btn btn-outline btn-sm">Đăng nhập</a>
-        <a href="pages/venues.html" className="btn btn-gold btn-sm">Đăng ký</a>
+        <Link to="/Login" className="btn btn-outline btn-sm">Đăng nhập</Link>
+        <Link to="/Register" className="btn btn-gold btn-sm">Đăng ký</Link>
       </div>
 
       <button className="nav-toggle" aria-label="Menu">
@@ -41,14 +41,14 @@ function Header(){
 
     <div className="mobile-menu">
       <nav>
-        <a href="../">Sân thể thao</a>
-        <a href="pages/booking-lookup.html">Tra cứu đặt sân</a>
-        <a href="pages/news.html">Tin tức</a>
-        <a href="pages/favorites.html">Yêu thích</a>
+        <Link to="/Venues">Sân thể thao</Link>
+        <Link to="/BookingLookUp">Tra cứu đặt sân</Link>
+        <Link to="/News">Tin tức</Link>
+        <Link to="/Favorites">Yêu thích</Link>
       </nav>
       <div className="mobile-menu-actions">
-        <a href="pages/venues.html" className="btn btn-outline btn-sm">Đăng nhập</a>
-        <a href="pages/venues.html" className="btn btn-gold btn-sm">Đăng ký</a>
+        <Link to="/Login" className="btn btn-outline btn-sm">Đăng nhập</Link>
+        <Link to="/Register" className="btn btn-gold btn-sm">Đăng ký</Link>
       </div>
     </div>
   </header>
