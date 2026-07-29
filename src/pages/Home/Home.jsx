@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import './Home.css';
 import { useNavigate, Link } from 'react-router-dom';
 
@@ -6,17 +6,31 @@ export default function Home() {
     // state
     const [searchKeyWord, setSearchKeyWord] = useState('');
     const navigate = useNavigate();
+    const [topVenues, setTopVenues] = useState([]);
 
     // function
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchKeyWord.trim()){
-            navigate(`/Venue?q=${encodeURIComponent(searchKeyWord)}`);
+            navigate(`/Venues?q=${encodeURIComponent(searchKeyWord)}`);
         }
         else{
             navigate('/Venues');
         }
     }
+
+    useEffect(() => {
+        fetch("http://localhost:3000/venues")
+            .then(response => response.json())
+            .then(data => {
+                const sortedAndSliced = [...data]
+                    .sort((a, b) => b.rating - a.rating)
+                    .slice(0, 3);
+                setTopVenues(sortedAndSliced);
+            })
+            .catch(error => console.error("Lỗi gọi data:", error));
+    }, []);
+
     return (
         <>
             <main>
@@ -85,11 +99,11 @@ export default function Home() {
                 <section className="section-sm container">
                     <h2 className="section-eyebrow">Khám phá theo môn thể thao</h2>
                     <div className="tag-cloud">
-                        <Link to="/venue?q=tennis" className="tag">Tennis</Link>
-                        <Link to="/venue?q=basketball" className="tag">Bóng rổ</Link>
-                        <Link to="/venue?q=badminton" className="tag">Cầu lông</Link>
-                        <Link to="/venue?q=football" className="tag">Bóng đá</Link>
-                        <Link to="/venue?q=pickleball" className="tag">Pickleball</Link>
+                        <Link to="/venues?q=tennis" className="tag">Tennis</Link>
+                        <Link to="/venues?q=basketball" className="tag">Bóng rổ</Link>
+                        <Link to="/venues?q=badminton" className="tag">Cầu lông</Link>
+                        <Link to="/venues?q=football" className="tag">Bóng đá</Link>
+                        <Link to="/venues?q=pickleball" className="tag">Pickleball</Link>
                     </div>
                 </section>
 
@@ -99,116 +113,64 @@ export default function Home() {
                             <h2>Sân nổi bật</h2>
                             <p>Được lựa chọn nhiều nhất trong tuần qua</p>
                         </div>
-                        <a href="pages/venues.html" className="btn btn-outline">
+                        <Link to="/Venues" className="btn btn-outline">
                             Xem tất cả
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />
                                 <polyline points="12 5 19 12 12 19" />
                             </svg>
-                        </a>
+                        </Link>
                     </div>
 
                     <div className="grid grid-3">
-                        <article className="venue-card">
-                            <a href="pages/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
-                                <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?auto=format&fit=crop&w=1200&h=900&q=80" alt="The Platinum Arena" />
-                                <span className="badge badge-success" style={{ position: 'absolute', left: '12px', top: '12px', zIndex: 2 }}>Còn trống hôm nay</span>
-                            </a>
-                            <button className="venue-fav" data-favorite-toggle aria-label="Yêu thích">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z" />
-                                </svg>
-                            </button>
-                            <div className="venue-card-body">
-                                <div className="venue-card-title-row">
-                                    <a href="pages/venue-detail.html"><h3>The Platinum Arena</h3></a>
-                                    <span className="rating">
-                    <svg viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
-                    </svg>
-                    <strong>4.9</strong>
-                  </span>
-                                </div>
-                                <p className="venue-location">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    Quận 1
-                                </p>
-                                <div className="venue-card-footer">
-                                    <div className="venue-price"><span className="from">Từ </span><span className="amount">290.000 ₫</span><span className="unit">/giờ</span></div>
-                                    <span className="badge badge-gold">214 đánh giá</span>
-                                </div>
-                            </div>
-                        </article>
+                        {topVenues.map((venue) => (
+                            <article key={venue.id} className="venue-card">
+                                <Link to ={`/VenueOverView/${venue.id}`} className="venue-card-media" style={{ display: 'block' }}>
+                                    <img
+                                        src={
+                                            venue.image
+                                        }
+                                        alt={venue.name}
+                                    />
+                                    {venue.status === 'available' && (
+                                        <span className="badge badge-success" style={{ position: 'absolute', left: '12px', top: '12px', zIndex: 2 }}>
+                                                            Còn trống hôm nay
+                                                        </span>
+                                    )}
+                                </Link>
+                                <div className="venue-card-body">
+                                    <div className="venue-card-title-row">
+                                        <Link to={`/VenueOverView/${venue.id}`}><h3>{venue.name}</h3></Link>
+                                        <span className="rating">
+                                                            <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
+                                                            <strong>{venue.rating || "5.0"}</strong>
+                                                        </span>
+                                    </div>
 
-                        <article className="venue-card">
-                            <a href="pages/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
-                                <img src="https://images.unsplash.com/photo-1558151507-c1aa3d917dbb?auto=format&fit=crop&w=1200&h=900&q=80" alt="The Plainum Arena" />
-                                <span className="badge badge-success" style={{ position: 'absolute', left: '12px', top: '12px', zIndex: 2 }}>Còn trống hôm nay</span>
-                            </a>
-                            <button className="venue-fav" data-favorite-toggle aria-label="Yêu thích">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z" />
-                                </svg>
-                            </button>
-                            <div className="venue-card-body">
-                                <div className="venue-card-title-row">
-                                    <a href="pages/venue-detail.html"><h3>The Plainum Arena</h3></a>
-                                    <span className="rating">
-                    <svg viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
-                    </svg>
-                    <strong>4.7</strong>
-                  </span>
-                                </div>
-                                <p className="venue-location">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    Bình Thạnh
-                                </p>
-                                <div className="venue-card-footer">
-                                    <div className="venue-price"><span className="from">Từ </span><span className="amount">350.000 ₫</span><span class="unit">/giờ</span></div>
-                                    <span className="badge badge-gold">156 đánh giá</span>
-                                </div>
-                            </div>
-                        </article>
+                                    <p className="venue-location">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" />
+                                        </svg>
+                                        {' '}{venue.address || venue.surface}
+                                    </p>
 
-                        <article className="venue-card">
-                            <a href="pages/venue-detail.html" className="venue-card-media" style={{ display: 'block' }}>
-                                <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=1200&h=900&q=80" alt="The Pelinum Arena" />
-                            </a>
-                            <button className="venue-fav" data-favorite-toggle aria-label="Yêu thích">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z" />
-                                </svg>
-                            </button>
-                            <div className="venue-card-body">
-                                <div className="venue-card-title-row">
-                                    <a href="pages/venue-detail.html"><h3>The Pelinum Arena</h3></a>
-                                    <span className="rating">
-                    <svg viewBox="0 0 24 24">
-                      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
-                    </svg>
-                    <strong>4.8</strong>
-                  </span>
+                                    <div className="venue-card-footer">
+                                        <div className="venue-price">
+                                            {venue.minPrice ? (
+                                                <>
+                                                    <span className="from">Từ </span>
+                                                    <span className="amount">{Number(venue.minPrice).toLocaleString()} ₫</span>
+                                                    <span className="unit">/giờ</span>
+                                                </>
+                                            ) : (
+                                                <span className="amount" style={{ fontSize: '14px', color: '#888' }}>Liên hệ</span>
+                                            )}
+                                        </div>
+                                        <span className="badge badge-gold">{venue.reviewCount || 0} đánh giá</span>
+                                    </div>
                                 </div>
-                                <p className="venue-location">
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-                                        <circle cx="12" cy="10" r="3" />
-                                    </svg>
-                                    Quận 3
-                                </p>
-                                <div className="venue-card-footer">
-                                    <div className="venue-price"><span className="from">Từ </span><span className="amount">180.000 ₫</span><span class="unit">/giờ</span></div>
-                                    <span className="badge badge-gold">189 đánh giá</span>
-                                </div>
-                            </div>
-                        </article>
+                            </article>
+                        ))}
                     </div>
                 </section>
 
