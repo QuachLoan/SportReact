@@ -15,11 +15,10 @@ function Header(){
      </Link>
 
       <nav className="nav-links">
-        <Link to="/">Trang chủ</Link>
-          <Link to="/Venues">Sân thể thao</Link>
-        {/* <a href="pages/booking-lookup.html">Tra cứu đặt sân</a> */}
-        <Link to="/BookingLookUp">Tra cứu đặt sân</Link>
-        <Link to="/News">Tin tức</Link>
+        <div className='nav-item'><Link to="/">Trang chủ</Link></div>
+          <div className='nav-item'><Link to="/Venues">Sân thể thao</Link></div>
+        <div className='nav-item'><Link to="/BookingLookUp">Tra cứu đặt sân</Link></div>
+        <div className='nav-item'><Link to="/News">Tin tức</Link></div>
       </nav>
 
       <div className="navbar-actions">
