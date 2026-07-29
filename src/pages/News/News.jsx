@@ -1,7 +1,15 @@
 import { Link } from 'react-router-dom';
 import './News.css';
+import { useEffect, useState } from 'react';
 function News(){
+  const [news, setNews] = useState([]);
+   useEffect(()=>{
+          fetch(`http://localhost:3000/news`)
+          .then(res=>res.json())
+          .then(data=> setNews(data))
+      },[])
     return(
+      
         <>
 <main className="container" style={{ padding: "40px 16px 155px" }}>
     <div className="page-header text-center">
@@ -10,7 +18,7 @@ function News(){
     </div>
 
     <div className="grid grid-4">
-        <Link to="/News/1" className='news-card home'>
+        {/* <Link to="/News/1" className='news-card home'>
         <div className="news-card-media ">
           <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&h=600&q=80" alt="5 mẹo khởi động trước khi chơi tennis" />
           <span className="badge">Mẹo hay</span>
@@ -19,37 +27,19 @@ function News(){
           <h3>5 mẹo khởi động trước khi chơi tennis giúp tránh chấn thương</h3>
           <p className="date">6 giờ trước</p>
         </div>
+      </Link> */}
+      {news.map(x=>(
+      <Link to={`/New_Detail/${x.id}`}className='news-card home'>
+        <div className="news-card-media ">
+          <img src={x.image} alt="5 mẹo khởi động trước khi chơi tennis" />
+          <span className="badge">{x.category}</span>
+        </div>
+        <div className="news-card-body ">
+          <h3>{x.title}</h3>
+          <p className="date">{x.date}</p>
+        </div>
       </Link>
-      <a href="news-detail.html" className="news-card home">
-        <div className="news-card-media">
-          <img src="https://images.unsplash.com/photo-1519861531473-9200262188bf?auto=format&fit=crop&w=800&h=600&q=80" alt="SportHub tổ chức giải bóng rổ doanh nghiệp mùa hè 2026" />
-          <span className="badge">Sự kiện</span>
-        </div>
-        <div className="news-card-body">
-          <h3>SportHub tổ chức giải bóng rổ doanh nghiệp mùa hè 2026</h3>
-          <p className="date">1 ngày trước</p>
-        </div>
-      </a>
-      <a href="news-detail.html" className="news-card home">
-        <div className="news-card-media">
-          <img src="https://images.unsplash.com/photo-1626224583764-f87db24ac4ea?auto=format&fit=crop&w=800&h=600&q=80" alt="Hướng dẫn đặt sân nhanh chỉ trong 3 bước trên SportHub" />
-          <span className="badge">Hướng dẫn</span>
-        </div>
-        <div className="news-card-body">
-          <h3>Hướng dẫn đặt sân nhanh chỉ trong 3 bước trên SportHub</h3>
-          <p className="date">2 ngày trước</p>
-        </div>
-      </a>
-      <a href="news-detail.html" className="news-card home">
-        <div className="news-card-media">
-          <img src="https://images.unsplash.com/photo-1459865264687-595d652de67e?auto=format&fit=crop&w=800&h=600&q=80" alt="Chế độ dinh dưỡng lý tưởng cho người chơi thể thao thường xuyên" />
-          <span className="badge">Sức khỏe</span>
-        </div>
-        <div className="news-card-body">
-          <h3>Chế độ dinh dưỡng lý tưởng cho người chơi thể thao thường xuyên</h3>
-          <p className="date">3 ngày trước</p>
-        </div>
-      </a>
+      ))}
     </div>
   </main>
 
