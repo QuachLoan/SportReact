@@ -1134,7 +1134,13 @@
       "password": "123456",
       "fullName": "Nguyễn Văn A",
       "role": "customer"
+    },
+    {
+        "id": "2",
+        "email": "ngodlamm@gmail.com",
+        "password": "abc123xyz",
+        "fullName": "Ngô Đại Lâm",
+        "role": "admin"
     }
   ]
-  
 }

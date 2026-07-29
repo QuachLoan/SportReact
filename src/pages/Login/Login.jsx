@@ -1,13 +1,34 @@
 import React from 'react';
 import "./Login.css";
+import {Link, useNavigate, userNavigate} from "react-router-dom";
 
 export default function LoginForm() {
+    //state
+    const [userName, setUserName] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const [error, setError] = React.useState("");
+    const navigate = useNavigate();
+
+    //function
+    const handleLogin = (e) => {
+        e.preventDefault();
+        setError("");
+        const users = JSON.parse(localStorage.getItem("users")) || [];
+        const user = users.find((user) => user.email.toLowerCase() == userName.toLowerCase() && user.password.toLowerCase() == password.toLowerCase());
+        if (user) {
+            localStorage.setItem("currentUser", JSON.stringify(user));
+            navigate("/");
+        } else {
+            setError("Email hoặc mật khẩu không đúng.");
+        }
+    }
+
     return (
         <div className="auth-shell">
             {/* Cột trái: form đăng nhập */}
             <div className="auth-form-panel">
                 <div className="auth-form-panel-inner">
-                    <a href="#" className="auth-logo" aria-label="Về trang chủ SportHub">
+                    <Link to="/" className="auth-logo" aria-label="Về trang chủ SportHub">
             <span className="auth-logo-mark">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
                 <path d="M8 21h8" />
@@ -18,7 +39,7 @@ export default function LoginForm() {
               </svg>
             </span>
                         <span className="auth-logo-text">Sport<span>Hub</span></span>
-                    </a>
+                    </Link>
 
                     <div className="auth-heading">
                         <h1>Chào mừng trở lại</h1>
@@ -95,14 +116,14 @@ export default function LoginForm() {
                                 <input type="checkbox" id="login-remember" name="remember" />
                                 Ghi nhớ đăng nhập
                             </label>
-                            <a href="#" className="auth-link">Quên mật khẩu?</a>
+                            <Link to="/forgotPassWord" className="auth-link">Quên mật khẩu?</Link>
                         </div>
 
                         <button type="submit" className="auth-submit">Đăng nhập</button>
                     </form>
 
                     <p className="auth-switch">
-                        Chưa có tài khoản? <a href="./register.html">Đăng ký ngay</a>
+                        Chưa có tài khoản? <Link to="/Register">Đăng ký ngay</Link>
                     </p>
                 </div>
             </div>
