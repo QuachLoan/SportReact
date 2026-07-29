@@ -7,6 +7,13 @@ export default function VenueOverview() {
     const { id } = useParams();
     const [venue, setVenue] = useState("");
     const [loading, setLoading] = useState(true);
+    const [court,setCourt] = useState([]);
+
+    useEffect(()=>{
+        fetch(`http://localhost:3000/courts`)
+        .then(res=>res.json())
+        .then(data=> setCourt(data))
+    },[])
 
     // function
     const formatCurrency = (amount) => {
@@ -179,12 +186,35 @@ export default function VenueOverview() {
                             {formatCurrency ? formatCurrency(venue.minPrice) : venue.minPrice}
                             <span>/giờ</span>
                         </p>
-                        <Link to="schedule" className="cta-link">
+                        <Link to={`/VenueOverView/${id}/court`} className="cta-link">
                             Xem lịch &amp; đặt sân
                         </Link>
                         <p className="note">Miễn phí huỷ trước 24 giờ</p>
                     </aside>
+                    
 
+        <section class="detail-section">
+                <h2>Bảng giá sân</h2>
+                <div class="table-wrap">
+                    <table class="price-table">
+                    <thead>
+                        <tr><th>Loại sân</th><th>Bộ môn</th><th style={{ textAlign: 'right' }}>Giá / giờ</th></tr>
+                    </thead>
+                    <tbody>
+                        {
+                            court.map(x=>(
+                         <tr>
+                            <td class="name">{x.surface}</td>
+                            <td>{x.name}</td>
+                            <td class="price">{x.pricePerHour} ₫</td>
+                          </tr>
+
+                            ))
+                        }
+                    </tbody>
+                    </table>
+                </div>
+        </section>
                 </div>
             </main>
         </div>

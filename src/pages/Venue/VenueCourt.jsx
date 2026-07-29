@@ -18,12 +18,15 @@ export default function VenueCourt() {
             ).then(sportList => setSport(sportList));
             });
         }, [id]);
+     
 
     useEffect(() => {
     fetch(`http://localhost:3000/courts?venueId=${id}`)
         .then(res => res.json())
         .then(data => setCourt(data));
     }, [id]);
+
+
 
         const formatCurrency = (amount) => {
         if (!amount) return "Liên hệ";
@@ -115,7 +118,7 @@ export default function VenueCourt() {
                     <div className="grid grid-3">
                     {court.map(x => (
                         <div key={x.id} className="court-card">
-                        {venue && <img src={venue.image} alt={venue.name} />}
+                        { <img src={venue.image} alt={venue.name} />}
                         <div className="court-card-body">
                             <p className="name">{x.name}</p>
                             <p className="sport">
