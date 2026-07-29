@@ -110,9 +110,17 @@ export default function VenueOverview() {
                             <h2>Giới thiệu</h2>
                             <p>{venue.description || "Chưa có mô tả cho sân này."}</p>
                             <div style={{ marginTop: '16px', fontSize: '14px', color: 'var(--navy-500)' }}>
-                                <p style={{ marginBottom: '4px' }}>📍 Địa chỉ: {venue.address}</p>
-                                <p style={{ marginBottom: '4px' }}>📞 Điện thoại: {venue.phone}</p>
-                                <p>⏰ Giờ mở cửa: {venue.openTime} - {venue.closeTime}</p>
+                               <p style={{ marginBottom: '4px' }}>
+                                    <i className="bi bi-geo-alt-fill"></i> Địa chỉ: {venue.address}
+                                    </p>
+
+                                    <p style={{ marginBottom: '4px' }}>
+                                    <i className="bi bi-telephone-fill"></i> Điện thoại: {venue.phone}
+                                    </p>
+
+                                    <p>
+                                    <i className="bi bi-clock-fill"></i> Giờ mở cửa: {venue.openTime} - {venue.closeTime}
+                                    </p>
                             </div>
                         </section>
 
