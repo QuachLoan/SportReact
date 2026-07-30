@@ -61,7 +61,6 @@
       "description": "Phòng tập boxing và võ thuật"
     }
   ],
-
   "venues": [
     {
       "id": 1,
@@ -70,7 +69,11 @@
       "district": "Cầu Giấy",
       "distance": 2.5,
       "image": "/imgs/football1.jpg",
-      "sports": [1, 2, 5],
+      "sports": [
+        1,
+        2,
+        5
+      ],
       "minPrice": 100000,
       "openTime": "06:00",
       "closeTime": "23:00",
@@ -78,7 +81,12 @@
       "reviewCount": 125,
       "popular": true,
       "featured": true,
-      "facilities": [1, 2, 3, 4],
+      "facilities": [
+        1,
+        2,
+        3,
+        4
+      ],
       "phone": "0901234567",
       "description": "Cụm sân thể thao hiện đại, vị trí thuận tiện, phù hợp cho nhóm bạn và các câu lạc bộ.",
       "sport": "football"
@@ -90,7 +98,11 @@
       "district": "Thanh Xuân",
       "distance": 4.2,
       "image": "/imgs/badminton1.jpg",
-      "sports": [1, 3, 4],
+      "sports": [
+        1,
+        3,
+        4
+      ],
       "minPrice": 120000,
       "openTime": "05:30",
       "closeTime": "22:30",
@@ -98,7 +110,11 @@
       "reviewCount": 98,
       "popular": true,
       "featured": false,
-      "facilities": [1, 3, 5],
+      "facilities": [
+        1,
+        3,
+        5
+      ],
       "phone": "0902345678",
       "description": "Không gian thể thao rộng rãi với nhiều loại sân và dịch vụ tiện ích.",
       "sport": "badminton"
@@ -110,7 +126,11 @@
       "district": "Ba Đình",
       "distance": 3.1,
       "image": "/imgs/tennis1.jpg",
-      "sports": [1, 5, 6],
+      "sports": [
+        1,
+        5,
+        6
+      ],
       "minPrice": 80000,
       "openTime": "06:00",
       "closeTime": "22:00",
@@ -118,7 +138,11 @@
       "reviewCount": 76,
       "popular": false,
       "featured": true,
-      "facilities": [1, 2, 6],
+      "facilities": [
+        1,
+        2,
+        6
+      ],
       "phone": "0903456789",
       "description": "Sân thể thao phù hợp cho các hoạt động thể thao cộng đồng.",
       "sport": "tennis"
@@ -130,7 +154,11 @@
       "district": "Hoàng Mai",
       "distance": 7.8,
       "image": "/imgs/pickleball.jpg",
-      "sports": [1, 2, 7],
+      "sports": [
+        1,
+        2,
+        7
+      ],
       "minPrice": 90000,
       "openTime": "05:00",
       "closeTime": "23:30",
@@ -138,10 +166,14 @@
       "reviewCount": 65,
       "popular": false,
       "featured": false,
-      "facilities": [1, 4, 7],
+      "facilities": [
+        1,
+        4,
+        7
+      ],
       "phone": "0904567890",
       "description": "Cụm sân có nhiều khung giờ linh hoạt, phù hợp với người đi làm.",
-        "sport": "pickleball"
+      "sport": "pickleball"
     },
     {
       "id": 5,
@@ -150,7 +182,11 @@
       "district": "Tây Hồ",
       "distance": 5.6,
       "image": "/imgs/basketball1.jpg",
-      "sports": [3, 4, 5],
+      "sports": [
+        3,
+        4,
+        5
+      ],
       "minPrice": 150000,
       "openTime": "06:00",
       "closeTime": "23:00",
@@ -158,7 +194,12 @@
       "reviewCount": 187,
       "popular": true,
       "featured": true,
-      "facilities": [1, 2, 3, 5],
+      "facilities": [
+        1,
+        2,
+        3,
+        5
+      ],
       "phone": "0905678901",
       "description": "Cụm sân cao cấp với cơ sở vật chất hiện đại và dịch vụ chuyên nghiệp.",
       "sport": "basketball"
@@ -170,7 +211,11 @@
       "district": "Long Biên",
       "distance": 8.4,
       "image": "/imgs/football2.jpg",
-      "sports": [2, 3, 4],
+      "sports": [
+        2,
+        3,
+        4
+      ],
       "minPrice": 110000,
       "openTime": "06:00",
       "closeTime": "22:00",
@@ -178,7 +223,11 @@
       "reviewCount": 54,
       "popular": false,
       "featured": false,
-      "facilities": [2, 3, 6],
+      "facilities": [
+        2,
+        3,
+        6
+      ],
       "phone": "0906789012",
       "description": "Sân thể thao dành cho các nhóm bạn và người chơi bán chuyên.",
       "sport": "football"
@@ -190,7 +239,11 @@
       "district": "Đống Đa",
       "distance": 2.8,
       "image": "/imgs/tennis2.jpg",
-      "sports": [1, 5, 6],
+      "sports": [
+        1,
+        5,
+        6
+      ],
       "minPrice": 100000,
       "openTime": "05:30",
       "closeTime": "23:00",
@@ -198,7 +251,11 @@
       "reviewCount": 143,
       "popular": true,
       "featured": true,
-      "facilities": [1, 2, 4],
+      "facilities": [
+        1,
+        2,
+        4
+      ],
       "phone": "0907890123",
       "description": "Trung tâm thể thao nằm gần trung tâm thành phố.",
       "sport": "tennis"
@@ -210,7 +267,11 @@
       "district": "Nam Từ Liêm",
       "distance": 9.2,
       "image": "/imgs/badminton2.jpg",
-      "sports": [1, 2, 5],
+      "sports": [
+        1,
+        2,
+        5
+      ],
       "minPrice": 85000,
       "openTime": "05:00",
       "closeTime": "23:00",
@@ -218,7 +279,10 @@
       "reviewCount": 48,
       "popular": false,
       "featured": false,
-      "facilities": [1, 4],
+      "facilities": [
+        1,
+        4
+      ],
       "phone": "0908901234",
       "description": "Sân có mức giá hợp lý, phù hợp với sinh viên.",
       "sport": "badminton"
@@ -230,15 +294,22 @@
       "district": "Hà Đông",
       "distance": 12.5,
       "image": "/imgs/basketball2.jpg",
-      "sports": [1, 3, 7],
+      "sports": [
+        1,
+        3,
+        7
+      ],
       "minPrice": 75000,
       "openTime": "06:00",
       "closeTime": "22:30",
-      "rating": 2.0,
+      "rating": 2,
       "reviewCount": 38,
       "popular": false,
       "featured": false,
-      "facilities": [1, 3],
+      "facilities": [
+        1,
+        3
+      ],
       "phone": "0909012345",
       "description": "Cụm sân thể thao giá tốt dành cho gia đình và nhóm bạn.",
       "sport": "basketball"
@@ -250,7 +321,11 @@
       "district": "Hoàn Kiếm",
       "distance": 1.2,
       "image": "/imgs/football3.jpg",
-      "sports": [2, 3, 4],
+      "sports": [
+        2,
+        3,
+        4
+      ],
       "minPrice": 180000,
       "openTime": "06:00",
       "closeTime": "23:30",
@@ -258,13 +333,18 @@
       "reviewCount": 210,
       "popular": true,
       "featured": true,
-      "facilities": [1, 2, 3, 4, 5],
+      "facilities": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
       "phone": "0910123456",
       "description": "Địa điểm thể thao cao cấp nằm ngay trung tâm Hà Nội.",
       "sport": "football"
     }
   ],
-
   "courts": [
     {
       "id": 1,
@@ -367,7 +447,6 @@
       "status": "available"
     }
   ],
-
   "timeSlots": [
     {
       "id": 1,
@@ -460,7 +539,6 @@
       "status": "available"
     }
   ],
-
   "facilities": [
     {
       "id": 1,
@@ -513,7 +591,6 @@
       "icon": "bi bi-snow"
     }
   ],
-
   "equipment": [
     {
       "id": 1,
@@ -586,7 +663,6 @@
       "unit": "chiếc"
     }
   ],
-
   "bookings": [
     {
       "id": 1,
@@ -818,7 +894,6 @@
       "createdAt": "2026-07-27T19:00:00"
     }
   ],
-
   "reviews": [
     {
       "id": 1,
@@ -931,7 +1006,6 @@
       "usageDate": "2026-07-11"
     }
   ],
-
   "coupons": [
     {
       "id": 1,
@@ -1034,7 +1108,6 @@
       "status": "active"
     }
   ],
-
   "news": [
     {
       "id": 1,
@@ -1127,7 +1200,7 @@
       "content": "Các nền tảng đặt sân trực tuyến đang giúp người chơi dễ dàng tìm kiếm và đặt sân."
     }
   ],
-    "users": [
+  "users": [
     {
       "id": "1",
       "email": "user@gmail.com",
@@ -1140,7 +1213,8 @@
       "email": "ngodlamm@gmail.com",
       "password": "abc123xyz",
       "fullName": "Ngô Đại Lâm",
-      "role": "customer"
+      "role": "customer",
+      "phoneNumber": "0337200307"
     }
   ]
 }
