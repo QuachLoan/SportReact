@@ -1,43 +1,68 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import "./Login.css";
-import {Link, useNavigate} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Login() {
-    //state
     const [userName, setUserName] = React.useState("");
     const [password, setPassword] = React.useState("");
     const [error, setError] = React.useState("");
+    const [showPassword, setShowPassword] = React.useState(false);
     const navigate = useNavigate();
-
-    //function
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        setError("");
-        const users = JSON.parse(localStorage.getItem("users")) || [];
-        const user = users.find((user) => user.email.toLowerCase() == userName.toLowerCase() && user.password.toLowerCase() == password.toLowerCase());
-        if (user) {
-            localStorage.setItem("currentUser", JSON.stringify(user));
-            navigate("/");
-        } else {
-            setError("Email hoặc mật khẩu không đúng.");
+        if (!userName.trim()) {
+            setError("Vui lòng nhập Email hoặc số điện thoại.");
+            return;
+        }
+        if (!password.trim()) {
+            setError("Vui lòng nhập mật khẩu.");
+            return;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (userName.includes("@") && !emailRegex.test(userName)) {
+            setError("Định dạng email không hợp lệ.");
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(userName.trim())}`);
+            setUserName("");
+            setPassword("");
+            if (!response.ok) {
+                throw new Error("Không thể kết nối đến máy chủ.");
+            }
+            const users = await response.json();
+            if (users.length > 0 && users[0].password === password) {
+                const loggedInUser = users[0];
+                localStorage.setItem("currentUser", JSON.stringify(loggedInUser));
+                navigate("/");
+            }
+            else {
+                setError("Email hoặc mật khẩu không đúng.");
+                setUserName("");
+                setPassword("");
+            }
+        }
+        catch (err) {
+            console.error(err);
+            setError("Có lỗi xảy ra khi kết nối hệ thống. Vui lòng thử lại sau.");
         }
     }
 
     return (
         <div className="auth-shell">
-            {/* Cột trái: form đăng nhập */}
             <div className="auth-form-panel">
                 <div className="auth-form-panel-inner">
                     <Link to="/" className="auth-logo" aria-label="Về trang chủ SportHub">
-            <span className="auth-logo-mark">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
-                <path d="M8 21h8" />
-                <path d="M12 17v4" />
-                <path d="M7 4h10v5a5 5 0 0 1-10 0V4Z" />
-                <path d="M7 5H4a1 1 0 0 0-1 1c0 2.5 1.5 4.5 4 5" />
-                <path d="M17 5h3a1 1 0 0 1 1 1c0 2.5-1.5 4.5-4 5" />
-              </svg>
-            </span>
+                        <span className="auth-logo-mark">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
+                                <path d="M8 21h8" />
+                                <path d="M12 17v4" />
+                                <path d="M7 4h10v5a5 5 0 0 1-10 0V4Z" />
+                                <path d="M7 5H4a1 1 0 0 0-1 1c0 2.5 1.5 4.5 4 5" />
+                                <path d="M17 5h3a1 1 0 0 1 1 1c0 2.5-1.5 4.5-4 5" />
+                            </svg>
+                        </span>
                         <span className="auth-logo-text">Sport<span>Hub</span></span>
                     </Link>
 
@@ -66,7 +91,9 @@ export default function Login() {
 
                     <div className="auth-divider">hoặc đăng nhập bằng email</div>
 
-                    <form className="auth-form" id="login-form" noValidate>
+                    {error && <div className="auth-error-message" style={{ color: 'red', marginBottom: '15px', fontSize: '14px' }}>{error}</div>}
+
+                    <form className="auth-form" id="login-form" onSubmit={handleLogin} noValidate autoComplete="off">
                         <div className="auth-field">
                             <label htmlFor="login-identifier">Email hoặc số điện thoại</label>
                             <div className="auth-input-wrap">
@@ -76,7 +103,9 @@ export default function Login() {
                                     name="identifier"
                                     className="auth-input"
                                     placeholder="ban@email.com hoặc 09xxxxxxxx"
-                                    autoComplete="username"
+                                    autoComplete="off"
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
                                 />
                             </div>
                         </div>
@@ -85,28 +114,33 @@ export default function Login() {
                             <label htmlFor="login-password">Mật khẩu</label>
                             <div className="auth-input-wrap">
                                 <input
-                                    type="password"
+                                    type={showPassword ? "text" : "password"}
                                     id="login-password"
                                     name="password"
                                     className="auth-input has-toggle"
                                     placeholder="Nhập mật khẩu"
-                                    autoComplete="current-password"
+                                    autoComplete="new-password"
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
                                 />
                                 <button
                                     type="button"
                                     className="auth-toggle-visibility"
-                                    data-toggle-target="login-password"
                                     aria-label="Hiện/ẩn mật khẩu"
+                                    onClick={() => setShowPassword(!showPassword)}
                                 >
-                                    <svg className="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
-                                        <circle cx="12" cy="12" r="3" />
-                                    </svg>
-                                    <svg className="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M3 3l18 18" />
-                                        <path d="M10.6 5.1A10.9 10.9 0 0 1 12 5c7 0 10.5 7 10.5 7a13.4 13.4 0 0 1-3.1 3.9M6.6 6.6C3.4 8.6 1.5 12 1.5 12s3.5 7 10.5 7c1.5 0 2.8-.3 4-.8" />
-                                        <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
-                                    </svg>
+                                    {showPassword ? (
+                                        <svg className="icon-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    ) : (
+                                        <svg className="icon-eye-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                                            <path d="M3 3l18 18" />
+                                            <path d="M10.6 5.1A10.9 10.9 0 0 1 12 5c7 0 10.5 7 10.5 7a13.4 13.4 0 0 1-3.1 3.9M6.6 6.6C3.4 8.6 1.5 12 1.5 12s3.5 7 10.5 7c1.5 0 2.8-.3 4-.8" />
+                                            <path d="M9.9 9.9a3 3 0 0 0 4.2 4.2" />
+                                        </svg>
+                                    )}
                                 </button>
                             </div>
                         </div>

@@ -1136,11 +1136,11 @@
       "role": "customer"
     },
     {
-        "id": "2",
-        "email": "ngodlamm@gmail.com",
-        "password": "abc123xyz",
-        "fullName": "Ngô Đại Lâm",
-        "role": "admin"
+      "id": "2",
+      "email": "ngodlamm@gmail.com",
+      "password": "abc123xyz",
+      "fullName": "Ngô Đại Lâm",
+      "role": "customer"
     }
   ]
 }
