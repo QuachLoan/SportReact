@@ -1,7 +1,8 @@
-import {useParams, Link, useOutletContext} from 'react-router-dom';
+import {useParams, Link, useOutletContext, useNavigate} from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import "./VenueOverView.css";
 import { h1 } from 'framer-motion/client';
+import Button from 'react-bootstrap/Button';
 
 export default function VenueOverview() {
     // state
@@ -10,7 +11,16 @@ export default function VenueOverview() {
     const [loading, setLoading] = useState(true);
     const [court,setCourt] = useState([]);
     const [venues, setVenues] = useState([]);
-
+    const navigate = useNavigate();
+    const handleBooking = () => {
+        const userCurrently = localStorage.getItem("currentUser");
+        if(!userCurrently){
+            alert("ban phải đăng nhập mới có thể đặt sân")
+            navigate('/Login');S
+        }else{
+            navigate(`/VenueOverView/${id}/schedule`);
+        }
+    }
    useEffect(()=>{
         fetch(`http://localhost:3000/venues`)
         .then(res=>res.json())
@@ -122,9 +132,13 @@ export default function VenueOverview() {
                         <Link to="reviews">Đánh giá</Link>
                         <Link to="rules">Quy định</Link>
                     </nav>
-                    <Link to="schedule" className="btn btn-gold btn-sm venue-tabs-book-btn">
+                    {/* <Link onClick={handleBooking}  className="btn btn-gold btn-sm venue-tabs-book-btn">
                         Đặt sân ngay
-                    </Link>
+                    </Link> */}
+                     <Button onClick={handleBooking}  className="btn btn-gold btn-sm venue-tabs-book-btn">
+                        Đặt sân ngay
+                    </Button>
+                
                 </div>
             </div>
 
@@ -208,9 +222,9 @@ export default function VenueOverview() {
                             {formatCurrency ? formatCurrency(venue.minPrice) : venue.minPrice}
                             <span>/giờ</span>
                         </p>
-                        <Link to={`/VenueOverView/${id}/court`} className="cta-link">
+                        <Button onClick={handleBooking} className="cta-link">
                             Xem lịch &amp; đặt sân
-                        </Link>
+                        </Button>
                         <p className="note">Miễn phí huỷ trước 24 giờ</p>
                     </aside>
                     

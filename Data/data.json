@@ -449,41 +449,44 @@
   ],
   "timeSlots": [
     {
-      "id": 1,
-      "courtId": 1,
-      "date": "2026-07-28",
-      "startTime": "06:00",
-      "endTime": "07:00",
-      "price": 300000,
-      "status": "available"
+        "id": 1,
+        "courtId": 1,
+        "date": "2026-08-01",
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "status": "booked",
+        "price":250000
     },
     {
-      "id": 2,
-      "courtId": 1,
-      "date": "2026-07-28",
-      "startTime": "07:00",
-      "endTime": "08:00",
-      "price": 300000,
-      "status": "booked"
+        "id": 2,
+        "courtId": 1,
+        "date": "2026-08-01",
+        "startTime": "07:00",
+        "endTime": "08:00",
+        "status": "Trống",
+        "price":200000
+
     },
     {
-      "id": 3,
-      "courtId": 1,
-      "date": "2026-07-28",
-      "startTime": "08:00",
-      "endTime": "09:00",
-      "price": 300000,
-      "status": "available"
+        "id": 3,
+        "courtId": 2,
+        "date": "2026-08-02",
+        "startTime": "06:00",
+        "endTime": "07:00",
+        "status": "Trống",
+        "price":120000
+
     },
     {
       "id": 4,
       "courtId": 2,
       "date": "2026-07-28",
-      "startTime": "17:00",
-      "endTime": "18:00",
+      "startTime": "07:00",
+      "endTime": "08:00",
       "price": 100000,
-      "status": "available"
+      "status": "Trống"
     },
+    
     {
       "id": 5,
       "courtId": 2,
@@ -491,7 +494,7 @@
       "startTime": "18:00",
       "endTime": "19:00",
       "price": 120000,
-      "status": "booked"
+      "status": "Trống"
     },
     {
       "id": 6,
@@ -500,7 +503,7 @@
       "startTime": "18:00",
       "endTime": "19:00",
       "price": 250000,
-      "status": "available"
+      "status": "Trống"
     },
     {
       "id": 7,
@@ -509,7 +512,7 @@
       "startTime": "19:00",
       "endTime": "20:00",
       "price": 180000,
-      "status": "available"
+      "status": "Trống"
     },
     {
       "id": 8,
@@ -518,7 +521,7 @@
       "startTime": "20:00",
       "endTime": "21:00",
       "price": 200000,
-      "status": "booked"
+      "status": "Trống"
     },
     {
       "id": 9,
@@ -527,7 +530,7 @@
       "startTime": "21:00",
       "endTime": "22:00",
       "price": 250000,
-      "status": "available"
+      "status": "Trống"
     },
     {
       "id": 10,
@@ -536,7 +539,7 @@
       "startTime": "18:00",
       "endTime": "19:00",
       "price": 350000,
-      "status": "available"
+      "status": "Trống"
     }
   ],
   "facilities": [
@@ -1215,6 +1218,13 @@
       "fullName": "Ngô Đại Lâm",
       "role": "customer",
       "phoneNumber": "0337200307"
+    },
+    {
+      "name": "Quách Loan",
+      "email": "quachloan2k3@gmail.com",
+      "phone": "0345900544",
+      "password": "hanoi123@",
+      "id": "vTjwHOE"
     }
   ]
 }

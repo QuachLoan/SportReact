@@ -6,8 +6,8 @@
   "scripts": {
     "server": "json-server --watch Data/data.json --port 3000",
     "dev": "vite",
-  "build": "vite build",
-  "preview": "vite preview"
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
