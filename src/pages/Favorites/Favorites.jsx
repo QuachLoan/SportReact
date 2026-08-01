@@ -111,7 +111,7 @@ function Favorites() {
                         </div>
                         <h3>Chưa có sân yêu thích</h3>
                         <p>Nhấn biểu tượng trái tim trên sân bạn thích để lưu lại tại đây.</p>
-                        <a href="/venue" className="btn btn-primary">Khám phá sân</a>
+                        <a href="/venues" className="btn btn-primary">Khám phá sân</a>
                     </div>
                 )}
             </main>
