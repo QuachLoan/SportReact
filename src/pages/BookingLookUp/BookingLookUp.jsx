@@ -17,10 +17,8 @@ function BookingLookUp() {
         if (!keyword.trim()) {
             return;
         }
-
         setLoading(true);
         setHasSearched(true);
-
         try {
             const [resByCode, resByPhone, resVenues, resCourts] = await Promise.all([
                 fetch(`http://localhost:3000/bookings?bookingCode_like=${keyword.trim()}`),
@@ -39,7 +37,6 @@ function BookingLookUp() {
             const finalData = uniqueBookings.map(order => {
                 const matchedVenue = venues.find(v => v.id === order.venueId);
                 const matchedCourt = courts.find(c => c.id === order.courtId);
-
                 return {
                     ...order,
                     venueName: matchedVenue ? matchedVenue.name : `Cụm sân (ID: ${order.venueId})`,
@@ -48,10 +45,12 @@ function BookingLookUp() {
             });
 
             setBookingResults(finalData);
-        } catch (err) {
+        }
+        catch (err) {
             console.error("Lỗi kết nối json-server:", err);
             alert("Không thể kết nối tới server dữ liệu!");
-        } finally {
+        }
+        finally {
             setLoading(false);
         }
     };

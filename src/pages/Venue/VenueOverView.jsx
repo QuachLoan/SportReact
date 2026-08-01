@@ -16,26 +16,25 @@ export default function VenueOverview() {
     const handleBooking = () => {
         const userCurrently = localStorage.getItem("currentUser");
         if(!userCurrently){
-            
             navigate('/Login');
-        }else{
+        }
+        else{
             navigate(`/VenueOverView/${id}/schedule`);
         }
     }
     useEffect(() => {
         setLoading(true);
 
-        // Lấy danh sách tất cả các sân (để hiển thị sân liên quan)
         fetch(`http://localhost:3000/venues`)
             .then(res => res.json())
             .then(data => setVenues(data))
             .catch(err => console.error("Lỗi fetch danh sách sân:", err));
+
         fetch(`http://localhost:3000/facilities`)
             .then(res => res.json())
             .then(data => setFacilitiesData(data))
             .catch(err => console.error("Lỗi fetch danh mục tiện ích:", err));
 
-        // Lấy chi tiết sân hiện tại theo ID
         fetch(`http://localhost:3000/venues/${id}`)
             .then(res => {
                 if (!res.ok) throw new Error("Không tìm thấy sân");
@@ -50,7 +49,6 @@ export default function VenueOverview() {
                 setLoading(false);
             });
 
-        // Lấy danh sách các sân nhỏ (courts) thuộc cụm sân lớn này
         fetch(`http://localhost:3000/courts?venueId=${id}`)
             .then(res => res.json())
             .then(data => setCourt(data))

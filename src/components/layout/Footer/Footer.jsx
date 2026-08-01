@@ -1,4 +1,6 @@
 import './Footer.css';
+import {Link} from 'react-router-dom';
+
 function Footer(){
     return(
         <>
@@ -30,17 +32,19 @@ function Footer(){
       <div className="footer-col">
         <h4>Sân thể thao</h4>
         <ul>
-          <li><a href="pages/venues.html">Tennis</a></li>
-          <li><a href="pages/venues.html">Bóng rổ</a></li>
-          <li><a href="pages/venues.html">Cầu lông</a></li>
+          <li><Link to="/venues?q=tennis">Tennis</Link></li>
+          <li><Link to="/venues?q=basketball">Bóng rổ</Link></li>
+          <li><Link to="/venues?q=badminton">Cầu lông</Link></li>
+          <li><Link to="/venues?q=football">Bóng đá</Link></li>
+          <li><Link to="/venues?q=pickleball">Pickleball</Link></li>
         </ul>
       </div>
       <div className="footer-col">
         <h4>Hỗ trợ</h4>
         <ul>
-          <li><a href="pages/booking-lookup.html">Tra cứu đặt sân</a></li>
-          <li><a href="index.html">Câu hỏi thường gặp</a></li>
-          <li><a href="index.html">Liên hệ</a></li>
+          <li><Link to="/BookingLookUp">Tra cứu đặt sân</Link></li>
+          <li><Link to="/faq">Câu hỏi thường gặp</Link></li>
+          <li><Link to="/contact">Liên hệ</Link></li>
         </ul>
       </div>
     </div>
