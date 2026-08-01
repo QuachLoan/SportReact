@@ -1,7 +1,7 @@
 import { X } from 'lucide-react';
 import React, {useEffect, useState} from 'react';
 import { Button } from 'react-bootstrap';
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 
 export default function VenueSchedule() {
     const { id } = useParams();
@@ -10,7 +10,16 @@ export default function VenueSchedule() {
     const today= new Date();
     const[currentDate,setCurrentDate]= useState(today);
     const[timeSlot,setTimeSlot] =useState([]);
-    const[selectedSlots,setSelectedSlots] = useState([])
+    const[selectedSlots,setSelectedSlots] = useState([]);
+    const navigate = useNavigate();
+    const handleBooking = () => {
+        const userCurrently = localStorage.getItem("currentUser");
+        if(!userCurrently){          
+            navigate('/Login');
+        }else{
+            navigate(`/VenueOverView/${id}/schedule`);
+        }
+    }
 
     useEffect(() => {
         fetch(`http://localhost:3000/venues/${id}`)
@@ -140,9 +149,9 @@ const handleSelectSlot = (slot, courtData) => {
                         <Link to={`/VenueOverView/${id}/reviews`}>Đánh giá</Link>
                         <Link to={`/VenueOverView/${id}/rules`}>Quy định</Link>
                     </nav>
-                    <Link to={`/VenueOverView/${id}/schedule`} className="btn btn-gold btn-sm venue-tabs-book-btn">
-                        Đặt sân ngay
-                    </Link>
+                    <Button onClick={handleBooking}  className="btn btn-gold btn-sm venue-tabs-book-btn">
+                                            Đặt sân ngay
+                                        </Button>
                 </div>
             </div>
 

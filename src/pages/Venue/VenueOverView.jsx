@@ -15,8 +15,8 @@ export default function VenueOverview() {
     const handleBooking = () => {
         const userCurrently = localStorage.getItem("currentUser");
         if(!userCurrently){
-            alert("ban phải đăng nhập mới có thể đặt sân")
-            navigate('/Login');S
+            
+            navigate('/Login');
         }else{
             navigate(`/VenueOverView/${id}/schedule`);
         }

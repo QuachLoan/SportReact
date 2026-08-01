@@ -1,9 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 const VenueRules = () => {
     const { id } = useParams();
     const [venue, setVenue] = useState("");
+    const navigate = useNavigate();
+        const handleBooking = () => {
+            const userCurrently = localStorage.getItem("currentUser");
+            if(!userCurrently){          
+                navigate('/Login');
+            }else{
+                navigate(`/VenueOverView/${id}/schedule`);
+            }
+        }
 
     useEffect(() => {
         fetch(`http://localhost:3000/venues/${id}`)
@@ -64,9 +74,9 @@ const VenueRules = () => {
                         <Link to={`/VenueOverView/${id}/reviews`}>Đánh giá</Link>
                         <Link to={`/VenueOverView/${id}/rules`} className="is-active">Quy định</Link>
                     </nav>
-                    <Link to={`/VenueOverView/${id}/schedule`} className="btn btn-gold btn-sm venue-tabs-book-btn">
+                    <Button onClick={handleBooking}  className="btn btn-gold btn-sm venue-tabs-book-btn">
                         Đặt sân ngay
-                    </Link>
+                    </Button>
                 </div>
             </div>
 

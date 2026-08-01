@@ -1,23 +1,51 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from 'react-router-dom';
-import './VenueCourt.css'
+import {Link, useParams, useNavigate} from 'react-router-dom';
+import './VenueCourt.css';
+import Button from 'react-bootstrap/Button';
+
 export default function VenueCourt() {
     const [venue, setVenue] = React.useState(null);
     const [court, setCourt] = useState([])
     const [sport,setSport] = useState([])
     const { id } = useParams();
+    const navigate = useNavigate();
+    const handleBooking = () => {
+        const userCurrently = localStorage.getItem("currentUser");
+        if(!userCurrently){          
+            navigate('/Login');
+        }else{
+            navigate(`/VenueOverView/${id}/schedule`);
+        }
+    }
+    
+    //  useEffect(() => {
+    //     fetch(`http://localhost:3000/venues/${id}`)
+    //         .then(res => res.json())
+    //         .then(data => {
+    //         setVenue(data);
 
-     useEffect(() => {
-        fetch(`http://localhost:3000/venues/${id}`)
-            .then(res => res.json())
-            .then(data => {
-            setVenue(data);
+    //             data.sports.map(sid =>
+    //             fetch(`http://localhost:3000/sports/${sid}`).then(res => res.json())
+    //         ).then(sportList => setSport(sportList));
+    //         });
+    //     }, [id]);
 
-                data.sports.map(sid =>
-                fetch(`http://localhost:3000/sports/${sid}`).then(res => res.json())
-            ).then(sportList => setSport(sportList));
-            });
-        }, [id]);
+    useEffect(() => {
+  fetch(`http://localhost:3000/venues/${id}`)
+    .then((res) => res.json())
+    .then((data) => {
+      setVenue(data);
+
+      // Tạo mảng chứa các Promise fetch thể thao
+      const sportPromises = data.sports.map((sid) =>
+        fetch(`http://localhost:3000/sports/${sid}`).then((res) => res.json())
+      );
+
+      // Dùng Promise.all để đợi tất cả request hoàn thành
+      Promise.all(sportPromises).then((sportList) => setSport(sportList));
+    })
+    .catch((error) => console.error("Lỗi khi tải dữ liệu:", error));
+}, [id]);
      
 
     useEffect(() => {
@@ -88,9 +116,9 @@ export default function VenueCourt() {
                         <Link to={`/VenueOverView/${id}/reviews`}>Đánh giá</Link>
                         <Link to={`/VenueOverView/${id}/rules`}>Quy định</Link>
                     </nav>
-                    <Link to={`/VenueOverView/${id}/schedule`} className="btn btn-gold btn-sm venue-tabs-book-btn">
+                    <Button onClick={handleBooking}  className="btn btn-gold btn-sm venue-tabs-book-btn">
                         Đặt sân ngay
-                    </Link>
+                    </Button>
                 </div>
             </div>
 
@@ -127,7 +155,7 @@ export default function VenueCourt() {
                             <p className="capacity">Sức chứa {x.capacity} người</p>
                             <div className="court-card-footer">
                             <span className="price">{formatCurrency ? formatCurrency ( x.pricePerHour) : x.pricePerHour} ₫<span>/giờ</span></span>
-                            <a href="booking.html" className="btn btn-gold btn-sm">Đặt nhanh</a>
+                            <Link to={`/VenueOverView/${id}/schedule`} className="btn btn-gold btn-sm">Đặt nhanh</Link>
                             </div>
                         </div>
                         </div>
