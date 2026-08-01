@@ -199,13 +199,13 @@ export default function Home() {
                 <section className="section container">
                     <div className="section-head">
                         <h2>Tin tức & mẹo hay</h2>
-                        <a href="pages/news.html" className="btn btn-outline">
+                        <Link to="/News" className="btn btn-outline">
                             Xem thêm
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                                 <line x1="5" y1="12" x2="19" y2="12" />
                                 <polyline points="12 5 19 12 12 19" />
                             </svg>
-                        </a>
+                        </Link>
                     </div>
                     <div className="grid grid-4">
                         {/* <a href="pages/news-detail.html" className="news-card">
@@ -220,7 +220,7 @@ export default function Home() {
                         </a> */}
                         {
                         news.slice(0,4).map(x=>(
-                         <a href="#" className="news-card">
+                         <Link to={`/New_Detail/${x.id}`} className="news-card">
                             <div className="news-card-media">
                                 <img src={x.image} alt="5 mẹo khởi động trước khi chơi tennis" />
                                 <span className="badge">{x.category}</span>
@@ -229,7 +229,7 @@ export default function Home() {
                                 <h3>{x.shortDescription}</h3>
                                 <p className="date">{x.date}</p>
                             </div>
-                        </a>
+                        </Link>
                             ))
                         }
                                            

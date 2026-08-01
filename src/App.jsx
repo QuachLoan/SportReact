@@ -18,8 +18,9 @@ import VenueReviews from "./pages/Venue/VenueReviews.jsx";
 import VenueRules from "./pages/Venue/VenueRules.jsx";
 import Register from './pages/Register/Register.jsx';
 import Login from './pages/Login/Login.jsx';
-import LoginForm from './pages/Login/Login.jsx'
-import RegisterForm from './pages/Register/Register.jsx'
+import LoginForm from './pages/Login/Login.jsx';
+import RegisterForm from './pages/Register/Register.jsx';
+import Booking from './pages/Booking/Booking.jsx';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
                 <Route path = "/VenueOverView/:id/schedule" element = {<VenueSchedule/>}/>
                 <Route path = "/VenueOverView/:id/reviews" element = {<VenueReviews/>}/>
                 <Route path = "/VenueOverView/:id/rules" element={<VenueRules/>}/>
+                <Route path = "/Booking" element={<Booking/>}/>
            </Routes>
        <Footer/>
     </>

@@ -273,11 +273,10 @@ export default function VenueOverview() {
           {
           venues.slice(0,4).map(x=>(
           
-            <article class="venue-card">
-            <a href="venue-detail.html" class="venue-card-media" style={{display:'block'}}>
-              <img src={x.image} alt="The Plainum Arena" />
-              
-            </a>
+           <article className="venue-card">
+  <Link to={`/VenueOverView/${x.id}`} className="venue-card-media" style={{ display: 'block' }}>
+    <img src={x.image} alt={x.name || "The Platinum Arena"} />
+  </Link>
             <button class="venue-fav" data-favorite-toggle aria-label="Yêu thích"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/></svg></button>
             <div class="venue-card-body">
               <div class="venue-card-title-row"><a href="venue-detail.html"><h3>{x.name}</h3></a><span class="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg><strong>{x.rating}</strong></span></div>

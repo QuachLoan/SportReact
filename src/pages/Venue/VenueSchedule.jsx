@@ -292,7 +292,7 @@ const handleSelectSlot = (slot, courtData) => {
                                         .toLocaleString("vi-VN")} ₫
                                 </span>
                             </div>
-                            <a href="booking.html" className="btn btn-gold btn-block" style={{ marginTop: "20px" }} > Tiếp tục đặt sân </a>
+                            <Link to="/Booking" className="btn btn-gold btn-block" style={{ marginTop: "20px" }} > Tiếp tục đặt sân </Link>
                         </aside>
                 </div>
             </main>
