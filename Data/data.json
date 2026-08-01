@@ -449,33 +449,31 @@
   ],
   "timeSlots": [
     {
-        "id": 1,
-        "courtId": 1,
-        "date": "2026-08-01",
-        "startTime": "06:00",
-        "endTime": "07:00",
-        "status": "booked",
-        "price":250000
+      "id": 1,
+      "courtId": 1,
+      "date": "2026-08-01",
+      "startTime": "06:00",
+      "endTime": "07:00",
+      "status": "booked",
+      "price": 250000
     },
     {
-        "id": 2,
-        "courtId": 1,
-        "date": "2026-08-01",
-        "startTime": "07:00",
-        "endTime": "08:00",
-        "status": "Trống",
-        "price":200000
-
+      "id": 2,
+      "courtId": 1,
+      "date": "2026-08-01",
+      "startTime": "07:00",
+      "endTime": "08:00",
+      "status": "Trống",
+      "price": 200000
     },
     {
-        "id": 3,
-        "courtId": 2,
-        "date": "2026-08-02",
-        "startTime": "06:00",
-        "endTime": "07:00",
-        "status": "Trống",
-        "price":120000
-
+      "id": 3,
+      "courtId": 2,
+      "date": "2026-08-02",
+      "startTime": "06:00",
+      "endTime": "07:00",
+      "status": "Trống",
+      "price": 120000
     },
     {
       "id": 4,
@@ -486,7 +484,6 @@
       "price": 100000,
       "status": "Trống"
     },
-    
     {
       "id": 5,
       "courtId": 2,
@@ -1205,26 +1202,12 @@
   ],
   "users": [
     {
-      "id": "1",
-      "email": "user@gmail.com",
-      "password": "123456",
-      "fullName": "Nguyễn Văn A",
-      "role": "customer"
-    },
-    {
-      "id": "2",
+      "name": "Ngô Đại Lâm",
       "email": "ngodlamm@gmail.com",
-      "password": "abc123xyz",
-      "fullName": "Ngô Đại Lâm",
-      "role": "customer",
-      "phoneNumber": "0337200307"
-    },
-    {
-      "name": "Quách Loan",
-      "email": "quachloan2k3@gmail.com",
-      "phone": "0345900544",
-      "password": "hanoi123@",
-      "id": "vTjwHOE"
+      "phone": "0337200307",
+      "password": "391184513",
+      "salt": "clh3wv1oupg",
+      "id": "Fuqfyz4"
     }
   ]
 }
