@@ -11,6 +11,7 @@ export default function VenueOverview() {
     const [loading, setLoading] = useState(true);
     const [court,setCourt] = useState([]);
     const [venues, setVenues] = useState([]);
+    const [facilitiesData, setFacilitiesData] = useState([]);
     const navigate = useNavigate();
     const handleBooking = () => {
         const userCurrently = localStorage.getItem("currentUser");
@@ -21,44 +22,24 @@ export default function VenueOverview() {
             navigate(`/VenueOverView/${id}/schedule`);
         }
     }
-   useEffect(()=>{
-        fetch(`http://localhost:3000/venues`)
-        .then(res=>res.json())
-        .then(data=> setVenues(data))
-
-        fetch(`http://localhost:3000/courts`)
-        .then(res=>res.json())
-        .then(data=> setVenue(data))
-        
-    },[])
-
-    useEffect(()=>{
-        fetch(`http://localhost:3000/venues/${id}`)
-        .then(res=>res.json())
-        .then(data=> setVenue(data))
-    },[id])
-  
-    useEffect(()=>{
-        fetch(`http://localhost:3000/courts?venueId=${id}`)
-        .then(res=>res.json())
-        .then(data=> setCourt(data))
-    },[id])
-
-
-
-
-    // function
-    const formatCurrency = (amount) => {
-        if (!amount) return "Liên hệ";
-        return Number(amount).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
-    };
-
     useEffect(() => {
         setLoading(true);
+
+        // Lấy danh sách tất cả các sân (để hiển thị sân liên quan)
+        fetch(`http://localhost:3000/venues`)
+            .then(res => res.json())
+            .then(data => setVenues(data))
+            .catch(err => console.error("Lỗi fetch danh sách sân:", err));
+        fetch(`http://localhost:3000/facilities`)
+            .then(res => res.json())
+            .then(data => setFacilitiesData(data))
+            .catch(err => console.error("Lỗi fetch danh mục tiện ích:", err));
+
+        // Lấy chi tiết sân hiện tại theo ID
         fetch(`http://localhost:3000/venues/${id}`)
-            .then(response => {
-                if (!response.ok) throw new Error("Không tìm thấy sân");
-                return response.json();
+            .then(res => {
+                if (!res.ok) throw new Error("Không tìm thấy sân");
+                return res.json();
             })
             .then(data => {
                 setVenue(data);
@@ -68,7 +49,20 @@ export default function VenueOverview() {
                 console.error("Lỗi gọi data chi tiết sân:", error);
                 setLoading(false);
             });
+
+        // Lấy danh sách các sân nhỏ (courts) thuộc cụm sân lớn này
+        fetch(`http://localhost:3000/courts?venueId=${id}`)
+            .then(res => res.json())
+            .then(data => setCourt(data))
+            .catch(err => console.error("Lỗi fetch danh sách court:", err));
+
     }, [id]);
+
+    // function
+    const formatCurrency = (amount) => {
+        if (!amount) return "Liên hệ";
+        return Number(amount).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+    };
 
     if (loading) {
         return <div style={{ textAlign: 'center', padding: '40px', fontSize: '16px' }}>Đang tải dữ liệu...</div>;
@@ -172,16 +166,16 @@ export default function VenueOverview() {
                             <h2>Tiện ích</h2>
                             <div className="amenity-grid">
                                 {venue?.facilities && venue.facilities.length > 0 ? (
-                                    venue.facilities.map((a) => (
-                                        <div key={a} className="amenity-item">
-                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                                                <polyline points="22 4 12 14.01 9 11.01"/>
-                                            </svg>
-                                            {/* Giữ nguyên logic hiển thị tên tiện ích cũ của bạn */}
-                                            Tiện ích số {a}
-                                        </div>
-                                    ))
+                                    venue.facilities.map((facilityId) => {
+                                        const matchedFacility = facilitiesData.find(f => f.id === Number(facilityId));
+                                        if (!matchedFacility) return null;
+                                        return (
+                                            <div key={facilityId} className="amenity-item">
+                                                <i className={matchedFacility.icon} style={{ marginRight: '8px', fontSize: '18px' }}></i>
+                                                <span>{matchedFacility.name}</span>
+                                            </div>
+                                        );
+                                    })
                                 ) : (
                                     <p style={{ fontSize: '14px', color: 'var(--navy-400)', gridColumn: 'span 2' }}>
                                         Chưa có thông tin tiện ích.

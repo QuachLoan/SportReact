@@ -371,7 +371,7 @@
       "venueId": 2,
       "name": "Sân tennis 01",
       "sportId": 3,
-      "surface": "Hard Court",
+      "surface": "Sân cứng",
       "capacity": 4,
       "pricePerHour": 250000,
       "status": "available"
@@ -381,7 +381,7 @@
       "venueId": 2,
       "name": "Sân pickleball 01",
       "sportId": 4,
-      "surface": "Acrylic",
+      "surface": "Cỏ nhân tạo",
       "capacity": 4,
       "pricePerHour": 180000,
       "status": "available"
