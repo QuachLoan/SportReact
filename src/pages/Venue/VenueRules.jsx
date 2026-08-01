@@ -31,11 +31,11 @@ const VenueRules = () => {
         <>
             <div className="venue-hero">
                 <img src={venue.image} alt="The Platinum Arena" />
-                <a href="venues.html" className="venue-hero-back">
+                <Link to="/venues" className="venue-hero-back">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="15 18 9 12 15 6" />
                     </svg>
-                </a>
+                </Link>
                 <div className="venue-hero-content">
                     <div className="container" style={{ padding: 0 }}>
                         <h1>The Platinum Arena</h1>
