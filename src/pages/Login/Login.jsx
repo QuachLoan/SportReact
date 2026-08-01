@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import "./Login.css";
 import { Link, useNavigate } from "react-router-dom";
+import Hash from "./../../hash/Hash.js";
 
 export default function Login() {
     const [userName, setUserName] = React.useState("");
@@ -10,6 +11,7 @@ export default function Login() {
     const navigate = useNavigate();
     const handleLogin = async (e) => {
         e.preventDefault();
+        setError("");
         if (!userName.trim()) {
             setError("Vui lòng nhập Email hoặc số điện thoại.");
             return;
@@ -28,19 +30,27 @@ export default function Login() {
             const response = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(userName.trim())}`);
             setUserName("");
             setPassword("");
+            console.log("đăng nhập");
             if (!response.ok) {
                 throw new Error("Không thể kết nối đến máy chủ.");
             }
             const users = await response.json();
-            if (users.length > 0 && users[0].password === password) {
+            if (users.length > 0) {
                 const loggedInUser = users[0];
-                localStorage.setItem("currentUser", JSON.stringify(loggedInUser));
-                navigate("/");
+                const salt = loggedInUser.salt;
+                const hashPassword = Hash(password, salt);
+                if (loggedInUser.password === hashPassword) {
+                    setUserName("");
+                    setPassword("");
+                    localStorage.setItem("currentUser", JSON.stringify(loggedInUser));
+                    navigate("/");
+                    console.log("Đăng nhập thành công");
+                }
             }
             else {
                 setError("Email hoặc mật khẩu không đúng.");
-                setUserName("");
                 setPassword("");
+                console.log("Đăng nhập thất bại");
             }
         }
         catch (err) {
