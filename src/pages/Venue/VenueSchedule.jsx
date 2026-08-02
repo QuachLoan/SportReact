@@ -225,7 +225,7 @@ const handleSelectSlot = (slot, courtData) => {
                                             startTime: hour,
                                             date: formatDate(currentDate),
                                             status: "Trống",
-                                            price: 150000
+                                            price: x.pricePerHour
                                         };
                                         const isSelected = selectedSlots.some(
                                             item => item.id === slot.id
