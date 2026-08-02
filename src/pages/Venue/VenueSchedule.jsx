@@ -212,41 +212,49 @@ const handleSelectSlot = (slot, courtData) => {
                                     <td>{x.name}</td>
 
                                     {hours.map(hour => {
-
-                                        const slot = timeSlot.find(
+                                        const dynamicSlot = timeSlot.find(
                                             item =>
                                                 item.courtId === x.id &&
                                                 item.startTime === hour &&
                                                 item.date === formatDate(currentDate)
                                         );
+                                        const slot = dynamicSlot || {
+                                            id: `virtual-${x.id}-${hour}`,
+                                            courtId: x.id,
+                                            courtName: x.name,
+                                            startTime: hour,
+                                            date: formatDate(currentDate),
+                                            status: "Trống",
+                                            price: 150000
+                                        };
+                                        const isSelected = selectedSlots.some(
+                                            item => item.id === slot.id
+                                        );
+                                        const getSlotConfig = (status) => {
+                                            switch (status) {
+                                                case "booked":
+                                                    return { className: "slot-booked", text: "Đã đặt", disabled: true };
+                                                case "processing":
+                                                    return { className: "slot-processing", text: "Đang xử lý", disabled: true };
+                                                case "cancelled":
+                                                    return { className: "slot-cancelled", text: "Đã hủy", disabled: false };
+                                                default:
+                                                    return { className: "slot-available", text: "Trống", disabled: false };
+                                            }
+                                        };
 
-                                        const isSelected = slot &&
-                                            selectedSlots.some(
-                                                item => item.id === slot.id
-                                            );
+                                        const config = getSlotConfig(slot.status);
 
                                         return (
                                             <td key={hour}>
-                                                {slot ? (
-                                                    <button
-                                                        type="button"
-                                                        disabled={slot.status === "booked"}
-                                                        onClick={() => handleSelectSlot(slot, x)}
-                                                        className={
-                                                            isSelected
-                                                                ? "slot-btn slot-selected"
-                                                                : slot.status === "booked"
-                                                                    ? "slot-btn slot-booked"
-                                                                    : "slot-btn slot-available"
-                                                        }
-                                                    >
-                                                        {isSelected
-                                                            ? "Đã chọn"
-                                                            : slot.status}
-                                                    </button>
-                                                ) : (
-                                                    <span>-</span>
-                                                )}
+                                                <button
+                                                    type="button"
+                                                    disabled={config.disabled}
+                                                    onClick={() => handleSelectSlot(slot, x)}
+                                                    className={`slot-btn ${isSelected ? "slot-selected" : config.className}`}
+                                                >
+                                                    {isSelected ? "Đã chọn" : config.text}
+                                                </button>
                                             </td>
                                         );
                                     })}
@@ -257,7 +265,6 @@ const handleSelectSlot = (slot, courtData) => {
                     </div>
                         <aside className="booking-summary-card">
                             <h3>Tóm tắt đơn hàng</h3>
-
                             {selectedSlots.length === 0 ? (
                                 <p>Chưa chọn sân nào</p>
                             ) : (

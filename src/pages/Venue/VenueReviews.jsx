@@ -38,7 +38,7 @@ const VenueReviews = () => {
                 </Link>
                 <div className="venue-hero-content">
                     <div className="container" style={{ padding: 0 }}>
-                        <h1>The Platinum Arena</h1>
+                        <h1>{venue.name}</h1>
                         <div className="venue-hero-meta">
               <span>
                 <svg className="star" viewBox="0 0 24 24">

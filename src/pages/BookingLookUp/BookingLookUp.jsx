@@ -48,7 +48,7 @@ function BookingLookUp() {
         }
         catch (err) {
             console.error("Lỗi kết nối json-server:", err);
-            alert("Không thể kết nối tới server dữ liệu!");
+            console.log("Không thể kết nối tới server dữ liệu!");
         }
         finally {
             setLoading(false);
