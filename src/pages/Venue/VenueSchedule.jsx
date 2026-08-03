@@ -17,7 +17,7 @@ export default function VenueSchedule() {
             navigate('/Login');
         }
         else{
-            navigate(`/Booking1`, { state: { selectedSlots } });
+            navigate(`/Booking1`, { state: { selectedSlots, venueId: id } });
         }
     }
 

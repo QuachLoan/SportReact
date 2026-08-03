@@ -154,7 +154,7 @@
   }
 }
 .step-panel {
-  display: none;
+  display: block;
 }
 .step-panel.is-visible {
   display: block;
@@ -368,4 +368,18 @@
 }
 .success-actions .btn {
   flex: 1;
+}
+
+.input.input-error {
+  border-color: #dc3545 !important;
+  background-color: #fff8f8;
+}
+
+/* Chữ hiển thị thông báo lỗi ngay dưới ô input */
+.error-text {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
 }

@@ -7,35 +7,77 @@ export default function Booking1() {
     const navigate = useNavigate();
     const [venues, setVenues] = useState([]);
     const location = useLocation();
+    const {selectedSlots, venueId} = location.state || {};
+    const [formData, setFormData] = useState({
+        lastName: '',
+        firstName: '',
+        phone: '',
+        email: ''
+    });
+    const [errors, setErrors] = useState({});
 
     const handleGoBack = () => {
-        // Nếu có id hợp lệ thì chuyển về trang schedule tương ứng, 
-        // ngược lại sẽ dùng navigate(-1) để quay về trang vừa xem
-        navigate(-1);
+        navigate(`/VenueOverView/${venueId}/schedule`);
     };
 
-    const [selectedSlots, setSelectedSlots] = useState(
-        location.state?.selectedSlots || []
-    );
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(prev => ({ ...prev, [name]: value }));
+
+        if (errors[name]) {
+            setErrors(prev => ({ ...prev, [name]: '' }));
+        }
+    };
+
+    const validateForm = () => {
+        let tempErrors = {};
+
+        // Regex kiểm tra SĐT Việt Nam (đầu 03, 05, 07, 08, 09, độ dài 10 số)
+        const phoneRegex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
+        // Regex kiểm tra Email tiêu chuẩn
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        if (!formData.lastName.trim()) {
+            tempErrors.lastName = "Họ không được để trống";
+        }
+
+        if (!formData.firstName.trim()) {
+            tempErrors.firstName = "Tên không được để trống";
+        }
+
+        if (!formData.phone.trim()) {
+            tempErrors.phone = "Số điện thoại không được để trống";
+        } else if (!phoneRegex.test(formData.phone)) {
+            tempErrors.phone = "Số điện thoại không hợp lệ (cần 10 chữ số)";
+        }
+
+        if (!formData.email.trim()) {
+            tempErrors.email = "Email không được để trống";
+        } else if (!emailRegex.test(formData.email)) {
+            tempErrors.email = "Định dạng Email không đúng";
+        }
+        setErrors(tempErrors);
+        return Object.keys(tempErrors).length === 0;
+    };
+
+    const handleNext = (e) => {
+        e.preventDefault();
+
+        if (validateForm()) {
+            navigate('/Booking2', {
+                state: {
+                    selectedSlots,
+                    venueId,
+                    customerInfo: formData
+                }
+            });
+        }
+    };
 
     const totalAmount = selectedSlots.reduce((total, slot) => total + Number(slot.price || 0), 0);
 
     return (
         <main className="container" style={{ padding: '40px 16px', maxWidth: '1100px' }}>
-            {/* Sử dụng button thay vì Link để xử lý linh hoạt */}
-            <button 
-                type="button" 
-                onClick={handleGoBack} 
-                className="back-link" 
-                style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
-            >
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
-                    <polyline points="15 18 9 12 15 6" />
-                </svg> 
-                Quay lại
-            </button>
-
-            {/* Stepper */}
             <div className="stepper">
                 <div className="step-item is-active" data-step-item="1">
                     <div className="step-col">
@@ -67,39 +109,82 @@ export default function Booking1() {
             </div>
 
             <div className="booking-layout">
-                <div className="booking-form-card">
+                <form onSubmit={handleNext} className="booking-form-card">
 
                     {/* Bước 1 */}
                     <div className="step-panel is-visible" data-step-panel="1">
                         <h2>1. Thông tin khách hàng</h2>
                         <div className="form-grid-2">
+
                             <div className="field">
-                                <label className="field-label">Họ</label>
-                                <input type="text" className="input" placeholder="Nguyễn" />
+                                <label className="field-label">Họ *</label>
+                                <input
+                                    type="text"
+                                    name="lastName"
+                                    className={`input ${errors.lastName ? 'input-error' : ''}`}
+                                    placeholder="Ngô"
+                                    value={formData.lastName}
+                                    onChange={handleChange}
+                                />
+                                {errors.lastName && <span className="error-text">{errors.lastName}</span>}
                             </div>
+
                             <div className="field">
-                                <label className="field-label">Tên</label>
-                                <input type="text" className="input" placeholder="Minh Anh" />
+                                <label className="field-label">Tên *</label>
+                                <input
+                                    type="text"
+                                    name="firstName"
+                                    className={`input ${errors.firstName ? 'input-error' : ''}`}
+                                    placeholder="Đại Lâm"
+                                    value={formData.firstName}
+                                    onChange={handleChange}
+                                />
+                                {errors.firstName && <span className="error-text">{errors.firstName}</span>}
                             </div>
+
                             <div className="field">
-                                <label className="field-label">Số điện thoại</label>
-                                <input type="text" className="input" placeholder="09xx xxx xxx" />
+                                <label className="field-label">Số điện thoại *</label>
+                                <input
+                                    type="text"
+                                    name="phone"
+                                    className={`input ${errors.phone ? 'input-error' : ''}`}
+                                    placeholder="09xx xxx xxx"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                />
+                                {errors.phone && <span className="error-text">{errors.phone}</span>}
                             </div>
+
                             <div className="field">
-                                <label className="field-label">Email</label>
-                                <input type="email" className="input" placeholder="ban@email.com" />
+                                <label className="field-label">Email *</label>
+                                <input
+                                    type="email"
+                                    name="email"
+                                    className={`input ${errors.email ? 'input-error' : ''}`}
+                                    placeholder="ban@email.com"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                />
+                                {errors.email && <span className="error-text">{errors.email}</span>}
                             </div>
+
                         </div>
                     </div>
 
                     {/* Điều hướng các bước */}
-                    <div className="step-actions">
-                        <Link to ="/Booking1" className="btn btn-outline" data-step-prev disabled>Quay lại</Link>
-                        <Link to = "/Booking3" className="btn btn-primary" data-step-next state={{ selectedSlots }}>Tiếp tục</Link>
+                    <div className="step-actions" style={{ marginTop: '24px' }}>
+                        <button
+                            type="button"
+                            className="btn btn-outline"
+                            onClick={handleGoBack}
+                        >
+                            Quay lại
+                        </button>
+                        <button type="submit" className="btn btn-primary">
+                            Tiếp tục
+                        </button>
                     </div>
-                </div>
-
-                {/* Tóm tắt đơn hàng */}
+                </form>
                 <aside className="booking-summary-card">
                     <h3>Tóm tắt đơn hàng</h3>
                     {selectedSlots.length === 0 ? (

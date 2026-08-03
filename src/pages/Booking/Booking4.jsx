@@ -7,23 +7,19 @@ export default function Booking4() {
     const navigate = useNavigate();
     const [venues, setVenues] = useState([]);
     const location = useLocation();
+    const {selectedSlots, venueId, formData, selectedServices} = location.state || {};
 
     const handleGoBack = () => {
-        // Nếu có id hợp lệ thì chuyển về trang schedule tương ứng,
-        // ngược lại sẽ dùng navigate(-1) để quay về trang vừa xem
-        navigate(-1);
+        navigate(`/VenueOverView/${venueId}/schedule`);
     };
 
-    const [selectedSlots, setSelectedSlots] = useState(
-        location.state?.selectedSlots || []
-    );
-
-    const totalAmount = selectedSlots.reduce((total, slot) => total + Number(slot.price || 0), 0);
+    const courtAmount = selectedSlots.reduce((total, slot) => total + Number(slot.price || 0), 0);
+    const serviceAmount = selectedServices.reduce((total, service) => total + service.price, 0);
+    const totalAmount = courtAmount + serviceAmount;
 
 
     return (
         <main className="container" style={{ padding: '40px 16px', maxWidth: '1100px' }}>
-            {/* Sử dụng button thay vì Link để xử lý linh hoạt */}
             <button
                 type="button"
                 onClick={handleGoBack}
@@ -38,7 +34,7 @@ export default function Booking4() {
 
             {/* Stepper */}
             <div className="stepper">
-                <div className="step-item is-active" data-step-item="1">
+                <div className="step-item " data-step-item="1">
                     <div className="step-col">
                         <div className="step-circle">1</div>
                         <span className="step-label">Thông tin khách hàng</span>
@@ -59,7 +55,7 @@ export default function Booking4() {
                     </div>
                     <div className="step-line"></div>
                 </div>
-                <div className="step-item" data-step-item="4">
+                <div className="step-item is-active" data-step-item="4">
                     <div className="step-col">
                         <div className="step-circle">4</div>
                         <span className="step-label">Xác nhận</span>
@@ -73,7 +69,13 @@ export default function Booking4() {
                     <div className="step-panel" data-step-panel="4">
                         <h2>4. Xác nhận &amp; ưu đãi</h2>
                         <div className="confirm-box">
-                            <p><strong>Nguyễn Văn A</strong> · 0901234567 · a@example.com</p>
+                            <p>
+                                <strong>{`${formData.lastName || ''} ${formData.firstName || ''}`}</strong>
+                                {" · "}
+                                {formData.phone }
+                                {" · "}
+                                {formData.email }
+                            </p>
                         </div>
                         <div className="field">
                             <label className="field-label">Mã giảm giá</label>
@@ -98,7 +100,7 @@ export default function Booking4() {
                     </div>
                     {/* Điều hướng các bước */}
                     <div className="step-actions">
-                        <Link to = "/Booking3" className="btn btn-outline" data-step-prev disabled state={{ selectedSlots }}>Quay lại</Link>
+                        <Link to = "/Booking3" className="btn btn-outline" data-step-prev disabled state={{ selectedSlots, venueId }}>Quay lại</Link>
                         <Link to = "/Booking4" className="btn btn-primary" data-step-next>Tiếp tục</Link>
                     </div>
                 </div>
@@ -120,6 +122,12 @@ export default function Booking4() {
                             </div>
                         ))
                     )}
+                    {selectedServices.map(service => (
+                        <div className="summary-row" key={service.id} style={{ color: '#666', fontStyle: 'italic' }}>
+                            <span className="label">+ Dịch vụ: {service.label}</span>
+                            <span className="value">+{service.price.toLocaleString("vi-VN")} ₫</span>
+                        </div>
+                    ))}
                     <div className="summary-total">
                         <span className="label">Tổng cộng</span>
                         <span className="value">{totalAmount.toLocaleString("vi-VN")} ₫</span>

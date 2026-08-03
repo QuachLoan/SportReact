@@ -1141,5 +1141,31 @@
       "salt": "clh3wv1oupg",
       "id": "Fuqfyz4"
     }
+  ],
+  "services": [
+    {
+      "id": "thiet-bi",
+      "label": "Thiết bị",
+      "price": 50000,
+      "description": "Thuê vợt, bóng, áo lưới..."
+    },
+    {
+      "id": "den-chieu-sang",
+      "label": "Đèn chiếu sáng",
+      "price": 30000,
+      "description": "Bật hệ thống đèn cao áp ban đêm"
+    },
+    {
+      "id": "tu-do",
+      "label": "Tủ đồ",
+      "price": 20000,
+      "description": "Tủ khóa bảo mật gửi đồ cá nhân"
+    },
+    {
+      "id": "dich-vu-khac",
+      "label": "Dịch vụ khác",
+      "price": 15000,
+      "description": "Nước uống hoặc khăn lau thêm"
+    }
   ]
 }
