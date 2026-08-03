@@ -5,7 +5,6 @@ function BookingLookUp() {
     const [keyword, setKeyword] = useState("");
     const [bookingResults, setBookingResults] = useState([]);
     const [hasSearched, setHasSearched] = useState(false);
-    const [loading, setLoading] = useState(false);
 
     const formatCurrency = (amount) => {
         if (!amount) return "0 ₫";
@@ -17,7 +16,6 @@ function BookingLookUp() {
         if (!keyword.trim()) {
             return;
         }
-        setLoading(true);
         setHasSearched(true);
         try {
             const [resByCode, resByPhone, resVenues, resCourts] = await Promise.all([
@@ -50,9 +48,7 @@ function BookingLookUp() {
             console.error("Lỗi kết nối json-server:", err);
             console.log("Không thể kết nối tới server dữ liệu!");
         }
-        finally {
-            setLoading(false);
-        }
+
     };
 
     return (
@@ -77,25 +73,21 @@ function BookingLookUp() {
                             onChange={(e) => setKeyword(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="btn btn-gold" disabled={loading}>
-                        {loading ? "Đang tìm..." : "Tra cứu"}
+                    <button type="submit" className="btn btn-gold">
+                        Tra cứu
                     </button>
                 </form>
 
                 {/* KHỐI HIỂN THỊ KẾT QUẢ */}
                 <div style={{ marginTop: '40px' }}>
-                    {loading && <div style={{ textAlign: 'center' }}>Đang tìm kiếm dữ liệu...</div>}
-
-                    {!loading && hasSearched && bookingResults.length === 0 && (
+                    {hasSearched && bookingResults.length === 0 && (
                         <div style={{ textAlign: 'center', color: 'red', padding: '20px', border: '1px dashed red', borderRadius: '8px' }}>
                             Không tìm thấy lịch sử đặt sân nào tương ứng!
                         </div>
                     )}
-
-                    {!loading && bookingResults.length > 0 && (
+                    {bookingResults.length > 0 && (
                         <div>
                             <h3 style={{ marginBottom: '20px', fontWeight: 600 }}>Kết quả tra cứu ({bookingResults.length}):</h3>
-
                             {bookingResults.map((order) => (
                                 <div key={order.id} style={{
                                     border: '1px solid #ddd',

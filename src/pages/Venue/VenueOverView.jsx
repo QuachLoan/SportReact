@@ -8,7 +8,6 @@ export default function VenueOverview() {
     // state
     const { id } = useParams();
     const [venue, setVenue] = useState("");
-    const [loading, setLoading] = useState(true);
     const [court,setCourt] = useState([]);
     const [venues, setVenues] = useState([]);
     const [facilitiesData, setFacilitiesData] = useState([]);
@@ -23,7 +22,6 @@ export default function VenueOverview() {
         }
     }
     useEffect(() => {
-        setLoading(true);
 
         fetch(`http://localhost:3000/venues`)
             .then(res => res.json())
@@ -42,11 +40,9 @@ export default function VenueOverview() {
             })
             .then(data => {
                 setVenue(data);
-                setLoading(false);
             })
             .catch(error => {
                 console.error("Lỗi gọi data chi tiết sân:", error);
-                setLoading(false);
             });
 
         fetch(`http://localhost:3000/courts?venueId=${id}`)
@@ -61,10 +57,6 @@ export default function VenueOverview() {
         if (!amount) return "Liên hệ";
         return Number(amount).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
     };
-
-    if (loading) {
-        return <div style={{ textAlign: 'center', padding: '40px', fontSize: '16px' }}>Đang tải dữ liệu...</div>;
-    }
 
     if (!venue) {
         return <div style={{ textAlign: 'center', padding: '40px', fontSize: '16px', color: 'red' }}>Không tìm thấy thông tin sân thể thao này!</div>;

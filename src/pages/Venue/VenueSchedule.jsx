@@ -1,4 +1,3 @@
-import { X } from 'lucide-react';
 import React, {useEffect, useState} from 'react';
 import { Button } from 'react-bootstrap';
 import {Link, useParams, useNavigate} from "react-router-dom";
@@ -16,8 +15,9 @@ export default function VenueSchedule() {
         const userCurrently = localStorage.getItem("currentUser");
         if(!userCurrently){          
             navigate('/Login');
-        }else{
-            navigate(`/VenueOverView/${id}/schedule`);
+        }
+        else{
+            navigate(`/Booking1`, { state: { selectedSlots } });
         }
     }
 
@@ -195,8 +195,6 @@ const handleSelectSlot = (slot, courtData) => {
                     <div className="schedule-table-wrap">
                         <table className="schedule-table">
                             <thead>
-                                
- 
                             <tr>
                                 <th>Sân</th>
                                 {
@@ -210,7 +208,6 @@ const handleSelectSlot = (slot, courtData) => {
                             {court.map(x => (
                                 <tr key={x.id}>
                                     <td>{x.name}</td>
-
                                     {hours.map(hour => {
                                         const dynamicSlot = timeSlot.find(
                                             item =>
@@ -299,7 +296,13 @@ const handleSelectSlot = (slot, courtData) => {
                                         .toLocaleString("vi-VN")} ₫
                                 </span>
                             </div>
-                            <Link to="/Booking" className="btn btn-gold btn-block" style={{ marginTop: "20px" }} > Tiếp tục đặt sân </Link>
+                            <Button className={`btn btn-gold btn-block ${selectedSlots.length === 0 ? 'disabled' : ''}`}
+                                  style={{ marginTop: "20px",...(selectedSlots.length === 0 && {
+                                          pointerEvents: "none",
+                                          opacity: 0.5,
+                                          cursor: "not-allowed"})
+                            }} onClick = {handleBooking}> Tiếp tục đặt sân
+                            </Button>
                         </aside>
                 </div>
             </main>

@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate, Link , useLocation} from 'react-router-dom';
+import { useParams, useNavigate, Link, useLocation } from 'react-router-dom';
 import "./Booking.css";
 
-export default function Booking4() {
-    const {id} = useParams();
+export default function Booking1() {
+    const { id } = useParams();
     const navigate = useNavigate();
     const [venues, setVenues] = useState([]);
     const location = useLocation();
 
     const handleGoBack = () => {
-        // Nếu có id hợp lệ thì chuyển về trang schedule tương ứng,
+        // Nếu có id hợp lệ thì chuyển về trang schedule tương ứng, 
         // ngược lại sẽ dùng navigate(-1) để quay về trang vừa xem
         navigate(-1);
     };
@@ -20,19 +20,18 @@ export default function Booking4() {
 
     const totalAmount = selectedSlots.reduce((total, slot) => total + Number(slot.price || 0), 0);
 
-
     return (
         <main className="container" style={{ padding: '40px 16px', maxWidth: '1100px' }}>
             {/* Sử dụng button thay vì Link để xử lý linh hoạt */}
-            <button
-                type="button"
-                onClick={handleGoBack}
-                className="back-link"
+            <button 
+                type="button" 
+                onClick={handleGoBack} 
+                className="back-link" 
                 style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '8px' }}
             >
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="20" height="20">
                     <polyline points="15 18 9 12 15 6" />
-                </svg>
+                </svg> 
                 Quay lại
             </button>
 
@@ -69,37 +68,34 @@ export default function Booking4() {
 
             <div className="booking-layout">
                 <div className="booking-form-card">
-                    {/* Bước 4 */}
-                    <div className="step-panel" data-step-panel="4">
-                        <h2>4. Xác nhận &amp; ưu đãi</h2>
-                        <div className="confirm-box">
-                            <p><strong>Nguyễn Văn A</strong> · 0901234567 · a@example.com</p>
-                        </div>
-                        <div className="field">
-                            <label className="field-label">Mã giảm giá</label>
-                            <div className="coupon-row">
-                                <div className="field-wrap">
-                                    <svg className="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42Z" />
-                                        <circle cx="7.5" cy="7.5" r="1.5" />
-                                    </svg>
-                                    <input type="text" className="input has-icon" placeholder="Nhập mã ưu đãi" />
-                                </div>
-                                <button type="button" className="btn btn-outline">Áp dụng</button>
+
+                    {/* Bước 1 */}
+                    <div className="step-panel is-visible" data-step-panel="1">
+                        <h2>1. Thông tin khách hàng</h2>
+                        <div className="form-grid-2">
+                            <div className="field">
+                                <label className="field-label">Họ</label>
+                                <input type="text" className="input" placeholder="Nguyễn" />
                             </div>
-                            <p className="coupon-success">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                    <polyline points="22 4 12 14.01 9 11.01" />
-                                </svg>
-                                Đã áp dụng mã "SPORTHUB10" — giảm 10%
-                            </p>
+                            <div className="field">
+                                <label className="field-label">Tên</label>
+                                <input type="text" className="input" placeholder="Minh Anh" />
+                            </div>
+                            <div className="field">
+                                <label className="field-label">Số điện thoại</label>
+                                <input type="text" className="input" placeholder="09xx xxx xxx" />
+                            </div>
+                            <div className="field">
+                                <label className="field-label">Email</label>
+                                <input type="email" className="input" placeholder="ban@email.com" />
+                            </div>
                         </div>
                     </div>
+
                     {/* Điều hướng các bước */}
                     <div className="step-actions">
-                        <Link to = "/Booking3" className="btn btn-outline" data-step-prev disabled state={{ selectedSlots }}>Quay lại</Link>
-                        <Link to = "/Booking4" className="btn btn-primary" data-step-next>Tiếp tục</Link>
+                        <Link to ="/Booking1" className="btn btn-outline" data-step-prev disabled>Quay lại</Link>
+                        <Link to = "/Booking3" className="btn btn-primary" data-step-next state={{ selectedSlots }}>Tiếp tục</Link>
                     </div>
                 </div>
 
@@ -127,5 +123,6 @@ export default function Booking4() {
                 </aside>
             </div>
         </main>
-    )
+    );
 }
+
