@@ -1167,5 +1167,19 @@
       "price": 15000,
       "description": "Nước uống hoặc khăn lau thêm"
     }
+  ],
+  "vouchers": [
+    {
+      "code": "QUACHAU",
+      "discount": 10
+    },
+    {
+      "code": "PHALAU",
+      "discount": 20
+    },
+    {
+      "code": "DAXAU",
+      "discount": 30
+    }
   ]
 }

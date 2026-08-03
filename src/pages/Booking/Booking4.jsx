@@ -7,7 +7,9 @@ export default function Booking4() {
     const navigate = useNavigate();
     const [venues, setVenues] = useState([]);
     const location = useLocation();
-    const {selectedSlots, venueId, formData, selectedServices} = location.state || {};
+    const {selectedSlots, venueId, customerInfo , selectedServices} = location.state || {};
+    const [appliedVoucher, setAppliedVoucher] = useState(null);
+    const [Code, setCode] = useState('');
 
     const handleGoBack = () => {
         navigate(`/VenueOverView/${venueId}/schedule`);
@@ -70,11 +72,11 @@ export default function Booking4() {
                         <h2>4. Xác nhận &amp; ưu đãi</h2>
                         <div className="confirm-box">
                             <p>
-                                <strong>{`${formData.lastName || ''} ${formData.firstName || ''}`}</strong>
+                                <strong>{`${customerInfo.lastName || ''} ${customerInfo.firstName || ''}`}</strong>
                                 {" · "}
-                                {formData.phone }
+                                {customerInfo.phone }
                                 {" · "}
-                                {formData.email }
+                                {customerInfo.email }
                             </p>
                         </div>
                         <div className="field">
@@ -94,7 +96,6 @@ export default function Booking4() {
                                     <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
                                     <polyline points="22 4 12 14.01 9 11.01" />
                                 </svg>
-                                Đã áp dụng mã "SPORTHUB10" — giảm 10%
                             </p>
                         </div>
                     </div>

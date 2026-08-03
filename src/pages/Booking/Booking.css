@@ -383,3 +383,28 @@
   display: block;
   font-weight: 500;
 }
+
+.service-card.is-active {
+  border-color: #0056b3 !important;      /* Viền xanh đậm nổi bật */
+  background-color: #e6f0fa !important;  /* Nền xanh nhạt nhẹ */
+  box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+  transform: translateY(-2px);           /* Hiệu ứng nhấc nhẹ nút lên */
+}
+
+/* 2. Đổi màu chữ tiêu đề dịch vụ khi active (nếu cần) */
+.service-card.is-active .label {
+  color: #0056b3 !important;
+  font-weight: 600;
+}
+
+/* 3. Đổi màu icon SVG sang màu xanh để đồng bộ */
+.service-card.is-active .service-icon-wrapper svg {
+  stroke: #0056b3 !important;
+  fill: none; /* Giữ nguyên không fill nếu là dòng stroke outline */
+}
+
+/* 4. Đổi màu hiển thị giá tiền khi active */
+.service-card.is-active .price {
+  color: #004085 !important;
+  font-weight: bold;
+}
