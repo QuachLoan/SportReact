@@ -154,6 +154,8 @@ function BookingLookUp() {
                 <p>Nhập mã đặt sân hoặc số điện thoại để kiểm tra trạng thái</p>
             </div>
 
+
+
             <form className="lookup-form" onSubmit={handleSearch}>
                 <div className="field-wrap">
                     <svg className="field-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -409,8 +411,11 @@ function BookingLookUp() {
                             </button>
                         </div>
                     </div>
+                    
                 </div>
             )}
+
+            
         </main>
     );
 }

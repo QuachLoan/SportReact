@@ -1,9 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {Link, useParams, useNavigate} from "react-router-dom";
 import Button from 'react-bootstrap/Button';
-
+import "./VenueReviews.css"
 const VenueReviews = () => {
     const { id } = useParams();
+    const [rating, setRating]= useState(0);
+    const[comment,setComment] = useState("");
+    const[review,setReview] = useState("");
+    const[newReview,setNewReview] =useState([])
     const [venue, setVenue] = useState("");
     const navigate = useNavigate();
     const handleBooking = () => {
@@ -14,7 +18,7 @@ const VenueReviews = () => {
             navigate(`/VenueOverView/${id}/schedule`);
         }
     }
-
+    
     useEffect(() => {
         fetch(`http://localhost:3000/venues/${id}`)
             .then(response => response.json())
@@ -24,9 +28,76 @@ const VenueReviews = () => {
             .catch(error => console.error("Lỗi gọi data:", error));
     }, [id]);
 
+    useEffect(()=>{
+    fetch("http://localhost:3000/reviews")
+    .then(res=>res.json())
+    .then(data=>setNewReview(data))
+        })
+
     if (!venue) {
         return <div className="container" style={{ padding: '40px' }}>Đang tải thông tin sân...</div>;
     }
+    function handleRating(value){
+        setRating(value)
+    }
+    function handleComment(e){
+         setComment(e.target.value);
+       
+    }
+    const venueId= venue.id;
+    const today= new Date();
+    today.setHours(0, 0, 0, 0);
+    // function handleSubmit(){
+    // const userCurrently = localStorage.getItem("currentUser");
+    // if (!userCurrently) return;
+    // const user = JSON.parse(userCurrently);
+    //    const review = {
+    //     "venueId":venueId,
+    //     "customerName":user.name,
+    //     "rating": rating,
+    //     "comment":comment
+    //    };
+
+    
+    // }
+
+async function handleSubmit() {
+        const userCurrently = localStorage.getItem("currentUser");
+
+        if (!userCurrently) return;
+
+        const user = JSON.parse(userCurrently);
+
+        const review = {
+            "venueId": venueId,
+            "customerName": user.name,
+            "rating": rating,
+            "content": comment,
+            "Date":today
+
+        };
+
+        try {
+            const response = await fetch("http://localhost:3000/reviews", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(review)
+            });
+            const data = await response.json();
+            console.log("Đã lưu review:", data);
+            setReview(data);
+            setRating(0);
+            setComment("");
+
+        } catch (error) {
+            console.error("Lỗi:", error);
+        }
+        }
+
+
+
     return (
         <>
             <div className="venue-hero">
@@ -84,93 +155,81 @@ const VenueReviews = () => {
                 <div className="venue-detail-grid" style={{ gridTemplateColumns: '1fr' }}>
                     <div className="grid" style={{ gridTemplateColumns: '1fr', gap: '40px' }}>
                         <div className="listing-layout" style={{ gridTemplateColumns: '300px 1fr' }}>
-                            <aside className="review-summary-card">
-                                <div className="review-score">
-                                    <p className="number">4.9</p>
-                                    <div className="stars">
-                                        <svg className="filled" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <svg className="filled" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <svg className="filled" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <svg className="filled" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <svg className="filled" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                    </div>
-                                    <p className="count">214 đánh giá</p>
+                           <aside className="feedback-card">
+                                <h3>Đánh giá trải nghiệm</h3>
+                                <div className="star-input1" data-star-input>
+                                    <button onClick={()=>handleRating(1)} className={rating >=1 ? "is-active" : ""} type="button">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
+                                    </svg>
+                                    </button>
+
+                                    <button onClick={()=>handleRating(2)} className={rating>=2 ? "is-active" : ""}  type="button">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
+                                    </svg>
+                                    </button>
+
+                                    <button onClick={()=>handleRating(3)} className={rating>=3 ? "is-active" : ""}  type="button">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
+                                    </svg>
+                                    </button>
+
+                                    <button onClick={()=>handleRating(4)} className={rating>=4 ? "is-active" : ""} type="button">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
+                                    </svg>
+                                    </button>
+
+                                    <button onClick={()=>handleRating(5)} className={rating>=5 ? "is-active" : ""} type="button">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" />
+                                    </svg>
+                                    </button>
                                 </div>
-                                <div>
-                                    <div className="review-bar-row">
-                                        <span style={{ width: '12px' }}>5</span>
-                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <span class="review-bar-track"><span class="review-bar-fill" style={{ width: '40%' }}></span></span>
-                                        <span style={{ width: '20px', textAlign: 'right' }}>2</span>
-                                    </div>
-                                    <div className="review-bar-row">
-                                        <span style={{ width: '12px' }}>4</span>
-                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <span class="review-bar-track"><span class="review-bar-fill" style={{ width: '60%' }}></span></span>
-                                        <span style={{ width: '20px', textAlign: 'right' }}>3</span>
-                                    </div>
-                                    <div className="review-bar-row">
-                                        <span style={{ width: '12px' }}>3</span>
-                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <span class="review-bar-track"><span class="review-bar-fill" style={{ width: '0%' }}></span></span>
-                                        <span style={{ width: '20px', textAlign: 'right' }}>0</span>
-                                    </div>
-                                    <div className="review-bar-row">
-                                        <span style={{ width: '12px' }}>2</span>
-                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <span class="review-bar-track"><span class="review-bar-fill" style={{ width: '0%' }}></span></span>
-                                        <span style={{ width: '20px', textAlign: 'right' }}>0</span>
-                                    </div>
-                                    <div className="review-bar-row">
-                                        <span style={{ width: '12px' }}>1</span>
-                                        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg>
-                                        <span class="review-bar-track"><span class="review-bar-fill" style={{ width: '0%' }}></span></span>
-                                        <span style={{ width: '20px', textAlign: 'right' }}>0</span>
-                                    </div>
-                                </div>
-                            </aside>
+
+                                <textarea onChange={handleComment}
+                                    className="textarea"
+                                    rows="4"
+                                    placeholder="Chia sẻ cảm nhận của bạn..."
+                                ></textarea>
+
+                                <button onClick={handleSubmit}
+                                    type="button"
+                                    className="btn btn-primary btn-block"
+                                    style={{ marginTop: "16px" }}
+                                >
+                                    Gửi đánh giá
+                                </button>
+                                </aside>
+
 
                             <div className="review-list-card">
-                                <div className="review-item">
+                                {/* <div className="review-item">
                                     <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&h=200&q=80" alt="Nguyễn Minh Anh" />
                                     <div className="review-item-body">
                                         <div className="review-item-head"><span className="name">Nguyễn Minh Anh</span><span className="time">1 ngày trước</span></div>
                                         <span className="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg><strong>4.0</strong></span>
                                         <p className="comment">Sân đẹp, ánh sáng tốt, đặt lịch qua app rất nhanh và tiện lợi.</p>
                                     </div>
-                                </div>
-                                <div className="review-item">
-                                    <img src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?auto=format&fit=crop&w=200&h=200&q=80" alt="Trần Quốc Bảo" />
+                                </div> */}
+                               
+                                {
+                                    newReview.reverse().slice(0,5).map(x=>(
+                                    <div className="review-item">
+                                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&h=200&q=80" alt="Nguyễn Minh Anh" />
                                     <div className="review-item-body">
-                                        <div className="review-item-head"><span className="name">Trần Quốc Bảo</span><span className="time">2 ngày trước</span></div>
-                                        <span className="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg><strong>5.0</strong></span>
-                                        <p className="comment">Nhân viên hỗ trợ nhiệt tình, mặt sân chất lượng tốt hơn mong đợi.</p>
-                                    </div>
-                                </div>
-                                <div className="review-item">
-                                    <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=200&h=200&q=80" alt="Lê Thị Hồng" />
-                                    <div className="review-item-body">
-                                        <div className="review-item-head"><span className="name">Lê Thị Hồng</span><span className="time">4 ngày trước</span></div>
+                                        <div className="review-item-head"><span className="name">{x.customerName}</span><span className="time">{today-x.Date} ngày</span></div>
                                         <span className="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg><strong>4.0</strong></span>
-                                        <p className="comment">Giá hợp lý so với chất lượng, sẽ quay lại vào tuần sau.</p>
+                                        <p className="comment">{x.content}</p>
                                     </div>
                                 </div>
-                                <div className="review-item">
-                                    <img src="https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&w=200&h=200&q=80" alt="Phạm Văn Đức" />
-                                    <div className="review-item-body">
-                                        <div className="review-item-head"><span className="name">Phạm Văn Đức</span><span className="time">5 ngày trước</span></div>
-                                        <span className="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg><strong>5.0</strong></span>
-                                        <p className="comment">Không gian sang trọng, bãi đỗ xe rộng rãi, rất đáng tiền.</p>
-                                    </div>
-                                </div>
-                                <div className="review-item">
-                                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&h=200&q=80" alt="Đỗ Thu Trang" />
-                                    <div className="review-item-body">
-                                        <div className="review-item-head"><span className="name">Đỗ Thu Trang</span><span className="time">7 ngày trước</span></div>
-                                        <span className="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg><strong>4.0</strong></span>
-                                        <p className="comment">Đặt sân dễ dàng, thanh toán online tiện, chỉ tiếc là hơi đông vào cuối tuần.</p>
-                                    </div>
-                                </div>
+
+                                    ))
+                                }
+                               
+                                
                             </div>
                         </div>
                     </div>
