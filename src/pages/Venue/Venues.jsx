@@ -237,7 +237,6 @@ export default function Venues() {
                             <div className="grid grid-3">
                                 {filterSearchInput.length > 0 ? (
                                     filterSearchInput.map((venue) => {
-                                        // Kiểm tra xem ID của sân bóng có trong mảng favourite không
                                         const isFavorite = favourite.includes(venue.id);
                                         return (
                                             <article key={venue.id} className="venue-card">
