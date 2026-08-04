@@ -3,13 +3,11 @@ import './Home.css';
 import { useNavigate, Link } from 'react-router-dom';
 
 export default function Home() {
-    // state
     const [searchKeyWord, setSearchKeyWord] = useState('');
     const navigate = useNavigate();
     const [topVenues, setTopVenues] = useState([]);
     const [news, setNews] = useState([]);
 
-    // function
     const handleSearch = (e) => {
         e.preventDefault();
         if (searchKeyWord.trim()){
@@ -208,16 +206,7 @@ export default function Home() {
                         </Link>
                     </div>
                     <div className="grid grid-4">
-                        {/* <a href="pages/news-detail.html" className="news-card">
-                            <div className="news-card-media">
-                                <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&h=600&q=80" alt="5 mẹo khởi động trước khi chơi tennis" />
-                                <span className="badge">Mẹo hay</span>
-                            </div>
-                            <div className="news-card-body">
-                                <h3>5 mẹo khởi động trước khi chơi tennis giúp tránh chấn thương</h3>
-                                <p className="date">6 giờ trước</p>
-                            </div>
-                        </a> */}
+
                         {
                         news.slice(0,4).map(x=>(
                          <Link to={`/New_Detail/${x.id}`} className="news-card">

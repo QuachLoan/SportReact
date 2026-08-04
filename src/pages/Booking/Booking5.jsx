@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import "./Booking.css";
-import qrImg from "./../../../imgs/qr.jpg"; // Import ảnh QR trực tiếp để tránh lỗi đường dẫn tĩnh
+import qrImg from "./../../../imgs/qr.jpg";
 
 export default function Booking5() {
     const location = useLocation();
@@ -68,13 +68,12 @@ export default function Booking5() {
                 phone: customerInfo.phone || "",
                 court: courtNames || "Chưa xác định",
                 time: times || "Chưa xác định",
-                status: "pending", // Ban đầu lưu là pending
+                status: "pending",
                 totalAmount: finalTotalAmount,
                 createdAt: new Date().toISOString()
             };
 
             try {
-                // Lưu booking mới vào database
                 const response = await fetch('http://localhost:3000/bookings', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -83,10 +82,9 @@ export default function Booking5() {
 
                 if (response.ok) {
                     const savedBooking = await response.json();
-                    setCreatedBookingId(savedBooking.id); // Lưu ID đơn đặt sân
+                    setCreatedBookingId(savedBooking.id);
                 }
 
-                // Lưu/Cập nhật các slot thành pending
                 const slotPromises = selectedSlots.map(async (slot) => {
                     if (String(slot.id).startsWith('virtual-')) {
                         return fetch('http://localhost:3000/timeSlots', {

@@ -18,16 +18,7 @@ function News(){
     </div>
 
     <div className="grid grid-4">
-        {/* <Link to="/News/1" className='news-card home'>
-        <div className="news-card-media ">
-          <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=800&h=600&q=80" alt="5 mẹo khởi động trước khi chơi tennis" />
-          <span className="badge">Mẹo hay</span>
-        </div>
-        <div className="news-card-body ">
-          <h3>5 mẹo khởi động trước khi chơi tennis giúp tránh chấn thương</h3>
-          <p className="date">6 giờ trước</p>
-        </div>
-      </Link> */}
+
       {news.map(x=>(
       <Link to={`/New_Detail/${x.id}`}className='news-card home'>
         <div className="news-card-media ">

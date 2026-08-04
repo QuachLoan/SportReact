@@ -1,11 +1,10 @@
 import './Favorites.css';
 import { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 
 function Favorites() {
-    // state
     const [favourites, setFavourites] = useState([]);
 
-    // function
     useEffect(() => {
         const saved = localStorage.getItem('favorites');
         if (saved) {

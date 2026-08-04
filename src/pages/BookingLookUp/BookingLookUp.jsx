@@ -6,6 +6,11 @@ function BookingLookUp() {
     const [bookingResults, setBookingResults] = useState([]);
     const [hasSearched, setHasSearched] = useState(false);
 
+    const [selectedOrderToCancel, setSelectedOrderToCancel] = useState(null);
+
+    const [errorMessage, setErrorMessage] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+
     const formatCurrency = (amount) => {
         if (!amount) return "0 ₫";
         return Number(amount).toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
@@ -16,7 +21,10 @@ function BookingLookUp() {
         const cleanKeyword = keyword.trim();
         if (!cleanKeyword) return;
 
+        setErrorMessage("");
+        setSuccessMessage("");
         setHasSearched(true);
+
         try {
             const [resByCode, resByPhone] = await Promise.all([
                 fetch(`http://localhost:3000/bookings?bookingCode_like=${cleanKeyword}`),
@@ -26,29 +34,93 @@ function BookingLookUp() {
             const dataByCode = await resByCode.json();
             const dataByPhone = await resByPhone.json();
 
-            // Gộp kết quả và lọc trùng bằng id
             const combinedBookings = [...dataByCode, ...dataByPhone];
             const uniqueBookings = combinedBookings.filter((value, index, self) =>
                 self.findIndex(item => item.id === value.id) === index
             );
 
-            setBookingResults(uniqueBookings);
+            setBookingResults(uniqueBookings.reverse());
         } catch (err) {
             console.error("Lỗi kết nối json-server:", err);
             setBookingResults([]);
+            setErrorMessage("Không thể kết nối tới máy chủ. Vui lòng kiểm tra lại kết nối mạng!");
         }
     };
 
-    // Hàm kiểm tra màu sắc & nhãn cho trạng thái đơn
     const getStatusBadge = (status) => {
-        const isConfirmed = status === "Đã đặt" || status === "booked";
+        const isConfirmed = status === "Đã đặt" || status === "confirmed" || status === "booked";
         const isCancelled = status === "Đã hủy" || status === "cancelled";
 
-        return {
-            label: isConfirmed ? "Đã đặt" : isCancelled ? "Đã hủy" : (status || "Đang xử lý"),
-            color: isConfirmed ? "#2e7d32" : isCancelled ? "#d32f2f" : "#ed6c02",
-            bgColor: isConfirmed ? "#e8f5e9" : isCancelled ? "#ffebee" : "#fff3e0"
-        };
+        if (isConfirmed) return { label: "Đã đặt", color: "#2e7d32", bgColor: "#e8f5e9" };
+        if (isCancelled) return { label: "Đã hủy", color: "#d32f2f", bgColor: "#ffebee" };
+        return { label: "Đang xử lý", color: "#ed6c02", bgColor: "#fff3e0" };
+    };
+
+    const canCancelBooking = (bookingDateStr) => {
+        if (!bookingDateStr) return false;
+
+        const [year, month, day] = bookingDateStr.split('-').map(Number);
+        const bookingDate = new Date(year, month - 1, day);
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const diffTime = bookingDate.getTime() - today.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        return diffDays >= 1;
+    };
+
+    const handleCancelClick = (order) => {
+        setErrorMessage("");
+        setSuccessMessage("");
+
+        if (!canCancelBooking(order.date)) {
+            setErrorMessage("Bạn chỉ có thể hủy sân trước ngày chơi ít nhất 1 ngày!");
+            return;
+        }
+        setSelectedOrderToCancel(order);
+    };
+
+    const handleConfirmCancel = async () => {
+        if (!selectedOrderToCancel) return;
+        const order = selectedOrderToCancel;
+
+        try {
+            const resBooking = await fetch(`http://localhost:3000/bookings/${order.id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: 'cancelled' })
+            });
+
+            if (!resBooking.ok) throw new Error('Cập nhật đơn thất bại');
+
+            const resSlots = await fetch(`http://localhost:3000/timeSlots?date=${order.date}`);
+            if (resSlots.ok) {
+                const slots = await resSlots.json();
+                const updatePromises = slots.map(async (slot) => {
+                    if (order.time && order.time.includes(slot.startTime)) {
+                        return fetch(`http://localhost:3000/timeSlots/${slot.id}`, {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status: 'cancelled' })
+                        });
+                    }
+                });
+                await Promise.all(updatePromises);
+            }
+
+            setBookingResults(prev =>
+                prev.map(item => item.id === order.id ? { ...item, status: 'cancelled' } : item)
+            );
+
+            setSuccessMessage(`Hủy đặt sân thành công cho đơn hàng ${order.bookingCode}!`);
+        } catch (err) {
+            console.error('Lỗi khi hủy sân:', err);
+            setErrorMessage("Có lỗi xảy ra trong quá trình hủy sân. Vui lòng thử lại sau!");
+        } finally {
+            setSelectedOrderToCancel(null);
+        }
     };
 
     return (
@@ -77,9 +149,54 @@ function BookingLookUp() {
                 </button>
             </form>
 
-            {/* KHỐI HIỂN THỊ KẾT QUẢ */}
+            {errorMessage && (
+                <div style={{
+                    marginTop: '20px',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    backgroundColor: '#ffebee',
+                    color: '#d32f2f',
+                    border: '1px solid #ffcdd2',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                }}>
+                    <span>⚠️ {errorMessage}</span>
+                    <button
+                        onClick={() => setErrorMessage("")}
+                        style={{ background: 'none', border: 'none', color: '#d32f2f', cursor: 'pointer', fontWeight: 'bold' }}>
+                        ✕
+                    </button>
+                </div>
+            )}
+
+            {successMessage && (
+                <div style={{
+                    marginTop: '20px',
+                    padding: '12px 16px',
+                    borderRadius: '8px',
+                    backgroundColor: '#e8f5e9',
+                    color: '#2e7d32',
+                    border: '1px solid #c8e6c9',
+                    fontSize: '14px',
+                    fontWeight: '500',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between'
+                }}>
+                    <span>✅ {successMessage}</span>
+                    <button
+                        onClick={() => setSuccessMessage("")}
+                        style={{ background: 'none', border: 'none', color: '#2e7d32', cursor: 'pointer', fontWeight: 'bold' }}>
+                        ✕
+                    </button>
+                </div>
+            )}
+
             <div style={{ marginTop: '40px' }}>
-                {hasSearched && bookingResults.length === 0 && (
+                {hasSearched && bookingResults.length === 0 && !errorMessage && (
                     <div style={{ textAlign: 'center', color: '#d32f2f', padding: '20px', border: '1px dashed #d32f2f', borderRadius: '8px', background: '#fdf2f2' }}>
                         Không tìm thấy lịch sử đặt sân nào tương ứng!
                     </div>
@@ -89,17 +206,9 @@ function BookingLookUp() {
                     <div>
                         <h3 style={{ marginBottom: '20px', fontWeight: 600 }}>Kết quả tra cứu ({bookingResults.length}):</h3>
                         {bookingResults.map((order) => {
-                            let badge = "";
-                            if (order.status === "pending"){
-                                badge = getStatusBadge("Đang xử lí");
-                            }
-                            else if (order.status === "booked"){
-                                badge = getStatusBadge("Đã đặt");
-                            }
-                            else if (order.status === "cancelled"){
-                                badge = getStatusBadge("Đã hủy");
-                            }
+                            const badge = getStatusBadge(order.status);
                             const fullName = `${order.lastName || ''} ${order.firstName || ''}`.trim() || "Chưa cập nhật";
+                            const isEligibleToCancel = canCancelBooking(order.date) && order.status !== "cancelled";
 
                             return (
                                 <div key={order.id} style={{
@@ -133,8 +242,36 @@ function BookingLookUp() {
                                         <p><strong>Khung giờ:</strong> {order.time || "N/A"}</p>
                                     </div>
 
-                                    <div style={{ borderTop: '1px solid #eee', marginTop: '15px', paddingTop: '15px', display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
-                                        <div style={{ fontSize: '16px' }}>
+                                    <div style={{
+                                        borderTop: '1px solid #eee',
+                                        marginTop: '15px',
+                                        paddingTop: '15px',
+                                        display: 'flex',
+                                        justifyContent: 'space-between',
+                                        alignItems: 'center'
+                                    }}>
+                                        {order.status !== 'cancelled' && (
+                                            <button
+                                                type="button"
+                                                onClick={() => handleCancelClick(order)}
+                                                disabled={!isEligibleToCancel}
+                                                style={{
+                                                    backgroundColor: isEligibleToCancel ? '#ef4444' : '#cbd5e1',
+                                                    color: '#fff',
+                                                    border: 'none',
+                                                    padding: '8px 16px',
+                                                    borderRadius: '6px',
+                                                    cursor: isEligibleToCancel ? 'pointer' : 'not-allowed',
+                                                    fontWeight: '600',
+                                                    fontSize: '14px'
+                                                }}
+                                                title={!isEligibleToCancel ? "Chỉ được hủy trước ngày chơi ít nhất 1 ngày" : ""}
+                                            >
+                                                Hủy đặt sân
+                                            </button>
+                                        )}
+
+                                        <div style={{ fontSize: '16px', marginLeft: 'auto' }}>
                                             <strong>Tổng cộng: </strong>
                                             <span style={{ color: '#b89047', fontSize: '20px', fontWeight: 'bold' }}>
                                                 {formatCurrency(order.totalAmount)}
@@ -147,6 +284,64 @@ function BookingLookUp() {
                     </div>
                 )}
             </div>
+
+            {selectedOrderToCancel && (
+                <div style={{
+                    position: 'fixed',
+                    top: 0,
+                    left: 0,
+                    width: '100vw',
+                    height: '100vh',
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: 1000
+                }}>
+                    <div style={{
+                        background: '#fff',
+                        padding: '24px',
+                        borderRadius: '12px',
+                        maxWidth: '400px',
+                        width: '90%',
+                        boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+                        textAlign: 'center'
+                    }}>
+                        <h3 style={{ marginBottom: '12px', fontSize: '18px', fontWeight: '700' }}>Xác nhận hủy đặt sân</h3>
+                        <p style={{ color: '#475569', fontSize: '14px', marginBottom: '20px' }}>
+                            Bạn có chắc chắn muốn hủy đơn đặt sân <strong>{selectedOrderToCancel.bookingCode}</strong> vào ngày <strong>{selectedOrderToCancel.date}</strong> không?
+                        </p>
+                        <div style={{ display: 'flex', gap: '12px', justifyContent: 'center' }}>
+                            <button
+                                onClick={() => setSelectedOrderToCancel(null)}
+                                style={{
+                                    padding: '8px 16px',
+                                    borderRadius: '6px',
+                                    border: '1px solid #cbd5e1',
+                                    background: '#fff',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Bỏ qua
+                            </button>
+                            <button
+                                onClick={handleConfirmCancel}
+                                style={{
+                                    padding: '8px 16px',
+                                    borderRadius: '6px',
+                                    border: 'none',
+                                    background: '#ef4444',
+                                    color: '#fff',
+                                    fontWeight: '600',
+                                    cursor: 'pointer'
+                                }}
+                            >
+                                Xác nhận hủy
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }

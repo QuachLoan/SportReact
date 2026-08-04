@@ -22,7 +22,6 @@ export default function Booking4() {
     const initialTotalAmount = courtAmount + serviceAmount;
 
     useEffect(() => {
-        // 1. Chuyển thành viết HOA và xóa khoảng trắng thừa
         const cleanCode = submittedCode.trim().toUpperCase();
 
         if (!cleanCode) {

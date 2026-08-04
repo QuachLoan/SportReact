@@ -452,7 +452,7 @@
       "courtId": 1,
       "startTime": "14:00",
       "date": "2026-08-06",
-      "status": "pending",
+      "status": "cancelled",
       "price": 300000,
       "id": 1
     },
@@ -468,7 +468,7 @@
       "courtId": 1,
       "startTime": "10:00",
       "date": "2026-08-05",
-      "status": "booked",
+      "status": "cancelled",
       "price": 300000,
       "id": 3
     },
@@ -479,6 +479,14 @@
       "status": "booked",
       "price": 100000,
       "id": 4
+    },
+    {
+      "courtId": 3,
+      "startTime": "14:00",
+      "date": "2026-08-05",
+      "status": "cancelled",
+      "price": 250000,
+      "id": 5
     }
   ],
   "facilities": [
@@ -615,7 +623,7 @@
       "phone": "0337200307",
       "court": "Sân bóng đá 01",
       "time": "14:00",
-      "status": "pending",
+      "status": "cancelled",
       "totalAmount": 320000,
       "createdAt": "2026-08-04T10:48:30.814Z",
       "id": 1
@@ -643,7 +651,7 @@
       "phone": "0337200307",
       "court": "Sân bóng đá 01",
       "time": "10:00",
-      "status": "booked",
+      "status": "cancelled",
       "totalAmount": 320000,
       "createdAt": "2026-08-04T10:55:43.841Z",
       "id": 3
@@ -661,6 +669,20 @@
       "totalAmount": 120000,
       "createdAt": "2026-08-04T10:58:08.976Z",
       "id": 4
+    },
+    {
+      "bookingCode": "SH838469",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Thanh Xuân Sports Hub",
+      "date": "2026-08-05",
+      "phone": "0337200307",
+      "court": "Sân tennis 01",
+      "time": "14:00",
+      "status": "cancelled",
+      "totalAmount": 250000,
+      "createdAt": "2026-08-04T11:39:42.965Z",
+      "id": 5
     }
   ],
   "reviews": [

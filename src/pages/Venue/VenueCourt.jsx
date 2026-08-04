@@ -17,35 +17,21 @@ export default function VenueCourt() {
             navigate(`/VenueOverView/${id}/schedule`);
         }
     }
-    
-    //  useEffect(() => {
-    //     fetch(`http://localhost:3000/venues/${id}`)
-    //         .then(res => res.json())
-    //         .then(data => {
-    //         setVenue(data);
 
-    //             data.sports.map(sid =>
-    //             fetch(`http://localhost:3000/sports/${sid}`).then(res => res.json())
-    //         ).then(sportList => setSport(sportList));
-    //         });
-    //     }, [id]);
+        useEffect(() => {
+          fetch(`http://localhost:3000/venues/${id}`)
+            .then((res) => res.json())
+            .then((data) => {
+              setVenue(data);
 
-    useEffect(() => {
-  fetch(`http://localhost:3000/venues/${id}`)
-    .then((res) => res.json())
-    .then((data) => {
-      setVenue(data);
+              const sportPromises = data.sports.map((sid) =>
+                fetch(`http://localhost:3000/sports/${sid}`).then((res) => res.json())
+              );
 
-      // Tạo mảng chứa các Promise fetch thể thao
-      const sportPromises = data.sports.map((sid) =>
-        fetch(`http://localhost:3000/sports/${sid}`).then((res) => res.json())
-      );
-
-      // Dùng Promise.all để đợi tất cả request hoàn thành
-      Promise.all(sportPromises).then((sportList) => setSport(sportList));
-    })
-    .catch((error) => console.error("Lỗi khi tải dữ liệu:", error));
-}, [id]);
+              Promise.all(sportPromises).then((sportList) => setSport(sportList));
+            })
+            .catch((error) => console.error("Lỗi khi tải dữ liệu:", error));
+        }, [id]);
      
 
     useEffect(() => {
@@ -129,20 +115,7 @@ export default function VenueCourt() {
                 <p style={{ marginBottom: '24px', fontSize: '14px', color: 'var(--navy-500)' }}>
                     Chọn sân phù hợp và đặt nhanh, hoặc xem toàn bộ lịch trống.
                 </p>
-                    {/* <div class="grid grid-3">
-                    <div class="court-card">
-                        <img src="https://images.unsplash.com/photo-1554068865-24cecd4e34b8?auto=format&fit=crop&w=200&h=200&q=80" alt="Sân B" />
-                        <div class="court-card-body">
-                        <p class="name">Sân B - Mặt cứng</p>
-                        <p class="sport">Tennis</p>
-                        <p class="capacity"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg> Sức chứa 4 người</p>
-                        <div class="court-card-footer">
-                            <span class="price">290.000 ₫<span>/giờ</span></span>
-                            <a href="booking.html" class="btn btn-gold btn-sm">Đặt nhanh</a>
-                        </div>
-                        </div>
-                    </div>   
-                    </div> */}
+
                     <div className="grid grid-3">
                     {court.map(x => (
                         <div key={x.id} className="court-card">

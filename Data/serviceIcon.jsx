@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const SERVICE_ICONS = {
+export const serviceIcon = {
     "thiet-bi": (
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="m14.4 14.4-4.8-4.8" />

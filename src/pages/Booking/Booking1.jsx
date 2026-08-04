@@ -32,9 +32,7 @@ export default function Booking1() {
     const validateForm = () => {
         let tempErrors = {};
 
-        // Regex kiểm tra SĐT Việt Nam (đầu 03, 05, 07, 08, 09, độ dài 10 số)
         const phoneRegex = /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/;
-        // Regex kiểm tra Email tiêu chuẩn
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         if (!formData.lastName.trim()) {

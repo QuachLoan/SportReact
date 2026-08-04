@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { useParams, useNavigate, Link , useLocation} from 'react-router-dom';
 import "./Booking.css";
-import {SERVICE_ICONS} from "../../../Data/serviceIcon.jsx";
+import {serviceIcon} from "../../../Data/serviceIcon.jsx";
 
 export default function Booking3() {
     const {id} = useParams();
@@ -100,7 +100,7 @@ export default function Booking3() {
                                         title={service.description}
                                     >
                                         <div className="service-icon-wrapper">
-                                            {SERVICE_ICONS[service.id] || <span>⚙️</span>}
+                                            {serviceIcon[service.id] || <span>⚙️</span>}
                                         </div>
 
                                         <span className="label">{service.label}</span>

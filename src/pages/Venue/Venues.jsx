@@ -3,7 +3,6 @@ import './Venues.css';
 import {Link, useSearchParams} from 'react-router-dom';
 
 export default function Venues() {
-    //state
     const [venues, setVenues] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const keyWord = searchParams.get('q') || '';
@@ -18,7 +17,6 @@ export default function Venues() {
         }
     )
 
-    //function
     useEffect(() => {
         fetch('http://localhost:3000/venues')
             .then(response => response.json())
