@@ -118,8 +118,6 @@ function BookingLookUp() {
                                         <p><strong>Sân:</strong> {order.courtName}</p>
                                         <p><strong>Ngày chơi:</strong> {order.date}</p>
                                         <p><strong>Thời gian:</strong> {order.startTime} - {order.endTime}</p>
-                                        <p><strong>Đội bóng:</strong> {order.teamName || "N/A"}</p>
-                                        <p><strong>Số người:</strong> {order.numberOfPeople} người</p>
                                     </div>
 
                                     <div style={{ borderTop: '1px solid #eee', marginTop: '15px', paddingTop: '15px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>

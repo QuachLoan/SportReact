@@ -85,14 +85,11 @@ const handleSelectSlot = (slot, courtData) => {
             item => item.id === slot.id
         );
 
-        // Nếu đã chọn thì bỏ chọn
         if (isSelected) {
             return prev.filter(
                 item => item.id !== slot.id
             );
         }
-
-        // Nếu chưa chọn thì thêm vào
         return [
             ...prev,
             {

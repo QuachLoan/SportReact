@@ -156,7 +156,7 @@ export default function Booking4() {
                     {/* Điều hướng các bước */}
                     <div className="step-actions">
                         <Link to = "/Booking3" className="btn btn-outline" data-step-prev disabled state={{ selectedSlots, venueId, customerInfo, selectedServices}}>Quay lại</Link>
-                        <Link to = "/Booking5" className="btn btn-primary" data-step-next state = {{selectedSlots, selectedServices, appliedVoucher}}>Tiếp tục</Link>
+                        <Link to = "/Booking5" className="btn btn-primary" data-step-next state = {{selectedSlots, selectedServices, appliedVoucher, customerInfo, venueId}}>Tiếp tục</Link>
                     </div>
                 </div>
 
