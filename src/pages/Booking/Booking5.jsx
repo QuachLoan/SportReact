@@ -17,7 +17,7 @@ export default function Booking5() {
     });
 
     const [bookingCode] = useState(() => `SH${Math.floor(100000 + Math.random() * 900000)}`);
-    const [createdBookingId, setCreatedBookingId] = useState(null); // Lưu ID đơn hàng để PATCH khi xác nhận
+    const [createdBookingId, setCreatedBookingId] = useState(null);
     const [isSaving, setIsSaving] = useState(false);
     const [isConfirming, setIsConfirming] = useState(false);
     const [saveStatus, setSaveStatus] = useState(null);

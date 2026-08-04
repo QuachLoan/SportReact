@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './BookingLookUp.css';
+import qrImg from "./../../../imgs/qr.jpg"
 
 function BookingLookUp() {
     const [keyword, setKeyword] = useState("");
@@ -123,6 +124,29 @@ function BookingLookUp() {
         }
     };
 
+    const handleConfirmPayment = async (order) => {
+        setErrorMessage("");
+        setSuccessMessage("");
+        try {
+            const res = await fetch(`http://localhost:3000/bookings/${order.id}`, {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: 'confirmed' })
+            });
+
+            if (!res.ok) throw new Error('Cập nhật trạng thái thanh toán thất bại');
+
+            setBookingResults(prev =>
+                prev.map(item => item.id === order.id ? { ...item, status: 'confirmed' } : item)
+            );
+
+            setSuccessMessage(`Xác nhận thanh toán thành công cho đơn hàng ${order.bookingCode}! Trạng thái đơn đã chuyển sang Đã đặt.`);
+        } catch (err) {
+            console.error('Lỗi khi xác nhận thanh toán:', err);
+            setErrorMessage("Có lỗi xảy ra khi xác nhận thanh toán. Vui lòng thử lại sau!");
+        }
+    };
+
     return (
         <main className="container" style={{ padding: "56px 16px" }}>
             <div className="page-header is-center">
@@ -210,6 +234,8 @@ function BookingLookUp() {
                             const fullName = `${order.lastName || ''} ${order.firstName || ''}`.trim() || "Chưa cập nhật";
                             const isEligibleToCancel = canCancelBooking(order.date) && order.status !== "cancelled";
 
+                            const isPendingPayment = order.status !== "confirmed" && order.status !== "Đã đặt" && order.status !== "booked" && order.status !== "cancelled" && order.status !== "Đã hủy";
+
                             return (
                                 <div key={order.id} style={{
                                     border: '1px solid #e2e8f0',
@@ -241,6 +267,49 @@ function BookingLookUp() {
                                         <p><strong>Ngày chơi:</strong> {order.date || "N/A"}</p>
                                         <p><strong>Khung giờ:</strong> {order.time || "N/A"}</p>
                                     </div>
+
+                                    {isPendingPayment && (
+                                        <div style={{
+                                            marginTop: '15px',
+                                            padding: '15px',
+                                            backgroundColor: '#f8fafc',
+                                            borderRadius: '8px',
+                                            border: '1px dashed #cbd5e1',
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            gap: '12px'
+                                        }}>
+                                            <p style={{ margin: 0, fontWeight: '600', fontSize: '14px', color: '#334155' }}>
+                                                Quét mã QR để thanh toán đơn hàng:
+                                            </p>
+                                            <img
+                                                src={qrImg}
+                                                alt="Mã QR Thanh toán"
+                                                style={{ width: '180px', height: '180px', objectFit: 'contain', borderRadius: '6px' }}
+                                            />
+                                            <p style={{ margin: 0, fontSize: '13px', color: '#64748b', textAlign: 'center' }}>
+                                                Nội dung chuyển khoản: <strong>{order.bookingCode}</strong>
+                                            </p>
+                                            <button
+                                                type="button"
+                                                onClick={() => handleConfirmPayment(order)}
+                                                style={{
+                                                    backgroundColor: '#22c55e',
+                                                    color: '#fff',
+                                                    border: 'none',
+                                                    padding: '10px 20px',
+                                                    borderRadius: '6px',
+                                                    cursor: 'pointer',
+                                                    fontWeight: '600',
+                                                    fontSize: '14px',
+                                                    marginTop: '5px'
+                                                }}
+                                            >
+                                                Xác nhận chuyển khoản
+                                            </button>
+                                        </div>
+                                    )}
 
                                     <div style={{
                                         borderTop: '1px solid #eee',
