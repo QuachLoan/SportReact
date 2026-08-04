@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link , useLocation} from 'react-router-dom';
 import "./Booking.css";
 
@@ -7,18 +7,58 @@ export default function Booking4() {
     const navigate = useNavigate();
     const [venues, setVenues] = useState([]);
     const location = useLocation();
-    const {selectedSlots, venueId, customerInfo , selectedServices} = location.state || {};
+    const {selectedSlots = [], venueId, customerInfo = {}, selectedServices = []} = location.state || {};
     const [appliedVoucher, setAppliedVoucher] = useState(null);
     const [Code, setCode] = useState('');
+    const [submittedCode, setSubmittedCode] = useState('');
+    const [voucherError, setVoucherError] = useState('');
 
     const handleGoBack = () => {
         navigate(`/VenueOverView/${venueId}/schedule`);
     };
 
     const courtAmount = selectedSlots.reduce((total, slot) => total + Number(slot.price || 0), 0);
-    const serviceAmount = selectedServices.reduce((total, service) => total + service.price, 0);
-    const totalAmount = courtAmount + serviceAmount;
+    const serviceAmount = selectedServices.reduce((total, service) => total + Number(service.price || 0), 0);
+    const initialTotalAmount = courtAmount + serviceAmount;
 
+    useEffect(() => {
+        // 1. Chuyển thành viết HOA và xóa khoảng trắng thừa
+        const cleanCode = submittedCode.trim().toUpperCase();
+
+        if (!cleanCode) {
+            setAppliedVoucher(null);
+            setVoucherError('');
+            return;
+        }
+
+        const fetchVoucher = async () => {
+            try {
+                // 2. Fetch API từ json-server với mã đã viết hoa
+                const response = await fetch(`http://localhost:3000/vouchers?code=${cleanCode}`);
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    setVoucherError('Mã giảm giá không tồn tại');
+                    setAppliedVoucher(null);
+                } else {
+                    setAppliedVoucher(data[0]);
+                    setVoucherError('');
+                }
+            } catch (err) {
+                setVoucherError('Lỗi kết nối máy chủ');
+                setAppliedVoucher(null);
+            }
+        };
+
+        fetchVoucher();
+    }, [submittedCode]);
+
+    const handleApplyCoupon = () => {
+        setSubmittedCode(Code);
+    };
+
+    const discountAmount = appliedVoucher ? (initialTotalAmount * Number(appliedVoucher.discount || 0)) / 100 : 0;
+    const totalAmount = Math.max(0, initialTotalAmount - discountAmount);
 
     return (
         <main className="container" style={{ padding: '40px 16px', maxWidth: '1100px' }}>
@@ -87,22 +127,38 @@ export default function Booking4() {
                                         <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42Z" />
                                         <circle cx="7.5" cy="7.5" r="1.5" />
                                     </svg>
-                                    <input type="text" className="input has-icon" placeholder="Nhập mã ưu đãi" />
+                                    <input
+                                        type="text"
+                                        className="input has-icon"
+                                        placeholder="Nhập mã ưu đãi"
+                                        value={Code}
+                                        onChange={(e) => setCode(e.target.value)}
+                                    />
                                 </div>
-                                <button type="button" className="btn btn-outline">Áp dụng</button>
+                                <button type="button" className="btn btn-outline" onClick={handleApplyCoupon}>Áp dụng</button>
                             </div>
-                            <p className="coupon-success">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                                    <polyline points="22 4 12 14.01 9 11.01" />
-                                </svg>
-                            </p>
+
+                            {appliedVoucher && (
+                                <p className="coupon-success" style={{ color: '#2e7d32', marginTop: '8px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" width="18" height="18">
+                                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                                        <polyline points="22 4 12 14.01 9 11.01" />
+                                    </svg>
+                                    <span>Đã áp dụng mã {appliedVoucher.code} (Giảm {appliedVoucher.discount}%)</span>
+                                </p>
+                            )}
+
+                            {voucherError && (
+                                <p style={{ color: '#d32f2f', marginTop: '8px', fontSize: '14px' }}>
+                                    {voucherError}
+                                </p>
+                            )}
                         </div>
                     </div>
                     {/* Điều hướng các bước */}
                     <div className="step-actions">
-                        <Link to = "/Booking3" className="btn btn-outline" data-step-prev disabled state={{ selectedSlots, venueId }}>Quay lại</Link>
-                        <Link to = "/Booking4" className="btn btn-primary" data-step-next>Tiếp tục</Link>
+                        <Link to = "/Booking3" className="btn btn-outline" data-step-prev disabled state={{ selectedSlots, venueId, customerInfo, selectedServices}}>Quay lại</Link>
+                        <Link to = "/Booking5" className="btn btn-primary" data-step-next state = {{selectedSlots, selectedServices, appliedVoucher}}>Tiếp tục</Link>
                     </div>
                 </div>
 
@@ -126,9 +182,17 @@ export default function Booking4() {
                     {selectedServices.map(service => (
                         <div className="summary-row" key={service.id} style={{ color: '#666', fontStyle: 'italic' }}>
                             <span className="label">+ Dịch vụ: {service.label}</span>
-                            <span className="value">+{service.price.toLocaleString("vi-VN")} ₫</span>
+                            <span className="value">+{Number(service.price || 0).toLocaleString("vi-VN")} ₫</span>
                         </div>
                     ))}
+
+                    {appliedVoucher && (
+                        <div className="summary-row" style={{ color: '#2e7d32', fontWeight: '500' }}>
+                            <span className="label">Giảm giá ({appliedVoucher.discount}%)</span>
+                            <span className="value">-{discountAmount.toLocaleString("vi-VN")} ₫</span>
+                        </div>
+                    )}
+
                     <div className="summary-total">
                         <span className="label">Tổng cộng</span>
                         <span className="value">{totalAmount.toLocaleString("vi-VN")} ₫</span>

@@ -22,6 +22,7 @@ import Booking1 from './pages/Booking/Booking1.jsx';
 import Booking2 from './pages/Booking/Booking2.jsx';
 import Booking3 from './pages/Booking/Booking3.jsx';
 import Booking4 from './pages/Booking/Booking4.jsx';
+import Booking5 from "./pages/Booking/Booking5.jsx";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                 <Route path = "/Booking2" element={<Booking2/>}/>
                 <Route path = "/Booking3" element={<Booking3/>}/>
                 <Route path = "/Booking4" element={<Booking4/>}/>
+                <Route path = "/Booking5" element={<Booking5/>}/>
            </Routes>
        <Footer/>
     </>
