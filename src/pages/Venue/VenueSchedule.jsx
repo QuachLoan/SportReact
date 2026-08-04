@@ -17,7 +17,7 @@ export default function VenueSchedule() {
             navigate('/Login');
         }
         else{
-            navigate(`/Booking1`, { state: { selectedSlots, venueId: id } });
+            navigate(`/Booking1`, { state: { selectedSlots, venueId: id , venueName: venue.name} });
         }
     }
 
@@ -55,26 +55,23 @@ export default function VenueSchedule() {
         }
         setCurrentDate(newDate);
         }
+
     const formatDate = (date) => {
-    return date.toISOString().split("T")[0];
-};
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
 const hours = [
     "06:00",
-    "07:00",
     "08:00",
-    "09:00",
     "10:00",
-    "11:00",
     "12:00",
-    "13:00",
     "14:00",
-    "15:00",
     "16:00",
-    "17:00",
     "18:00",
-    "19:00",
     "20:00",
-    "21:00",
     "22:00"
 ];
 const handleSelectSlot = (slot, courtData) => {
@@ -228,7 +225,7 @@ const handleSelectSlot = (slot, courtData) => {
                                             switch (status) {
                                                 case "booked":
                                                     return { className: "slot-booked", text: "Đã đặt", disabled: true };
-                                                case "processing":
+                                                case "pending":
                                                     return { className: "slot-processing", text: "Đang xử lý", disabled: true };
                                                 case "cancelled":
                                                     return { className: "slot-cancelled", text: "Đã hủy", disabled: false };

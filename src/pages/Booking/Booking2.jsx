@@ -7,7 +7,7 @@ export default function Booking2() {
     const navigate = useNavigate();
     const location = useLocation();
     const [venues, setVenues] = useState([]);
-    const {selectedSlots, venueId, customerInfo} = location.state || {};
+    const {selectedSlots, venueId, customerInfo, venueName} = location.state || {};
 
     const handleGoBack = () => {
         navigate(`/VenueOverView/${venueId}/schedule`);
@@ -84,8 +84,8 @@ export default function Booking2() {
 
                     {/* Điều hướng các bước */}
                     <div className="step-actions">
-                        <Link to = "/Booking1" className="btn btn-outline" data-step-prev disabled state={{ selectedSlots, venueId , customerInfo}}>Quay lại</Link>
-                        <Link to = "/Booking3" className="btn btn-primary" data-step-next state={{ selectedSlots, venueId , customerInfo}}>Tiếp tục</Link>
+                        <Link to = "/Booking1" className="btn btn-outline" data-step-prev disabled state={{ selectedSlots, venueId , customerInfo, venueName}}>Quay lại</Link>
+                        <Link to = "/Booking3" className="btn btn-primary" data-step-next state={{ selectedSlots, venueId , customerInfo, venueName}}>Tiếp tục</Link>
                     </div>
                 </div>
 

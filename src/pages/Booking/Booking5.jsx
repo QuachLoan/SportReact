@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import "./Booking.css";
-import "./../../../imgs/qr.jpg"
+import qrImg from "./../../../imgs/qr.jpg"; // Import ảnh QR trực tiếp để tránh lỗi đường dẫn tĩnh
 
 export default function Booking5() {
     const location = useLocation();
+    const isPosted = useRef(false);
 
     const [bookingData] = useState(() => {
         if (location.state && Object.keys(location.state).length > 0) {
@@ -16,15 +17,18 @@ export default function Booking5() {
     });
 
     const [bookingCode] = useState(() => `SH${Math.floor(100000 + Math.random() * 900000)}`);
+    const [createdBookingId, setCreatedBookingId] = useState(null); // Lưu ID đơn hàng để PATCH khi xác nhận
     const [isSaving, setIsSaving] = useState(false);
+    const [isConfirming, setIsConfirming] = useState(false);
     const [saveStatus, setSaveStatus] = useState(null);
+    const [isConfirmed, setIsConfirmed] = useState(false);
 
     const {
         selectedSlots = [],
         selectedServices = [],
         appliedVoucher = null,
         customerInfo = {},
-        venueId
+        venueName
     } = bookingData;
 
     const courtAmount = selectedSlots.reduce((total, slot) => total + Number(slot.price || 0), 0);
@@ -35,55 +39,137 @@ export default function Booking5() {
 
     const courtNames = selectedSlots.map(slot => slot.courtName || slot.name).join(', ');
     const times = selectedSlots.map(slot => slot.startTime || slot.time).join(', ');
-    const bookingDate = selectedSlots[0]?.date || new Date().toISOString().split('T')[0];
+
+    const getTodayFormatted = () => {
+        const d = new Date();
+        const year = d.getFullYear();
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const day = String(d.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
+    const bookingDate = selectedSlots[0]?.date || getTodayFormatted();
 
     useEffect(() => {
-        if (!bookingData || Object.keys(bookingData).length === 0) {
+        if (!bookingData || Object.keys(bookingData).length === 0 || isPosted.current) {
             return;
         }
 
         const createBooking = async () => {
+            isPosted.current = true;
             setIsSaving(true);
+
             const newBooking = {
-                courtId: venueId,
                 bookingCode: bookingCode,
                 lastName: customerInfo.lastName || "",
                 firstName: customerInfo.firstName || "",
-                location: customerInfo.address || "Hà Nội",
+                location: venueName || "Chưa xác định",
                 date: bookingDate,
                 phone: customerInfo.phone || "",
                 court: courtNames || "Chưa xác định",
                 time: times || "Chưa xác định",
-                status: "Đã đặt",
+                status: "pending", // Ban đầu lưu là pending
                 totalAmount: finalTotalAmount,
                 createdAt: new Date().toISOString()
             };
 
             try {
+                // Lưu booking mới vào database
                 const response = await fetch('http://localhost:3000/bookings', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newBooking),
                 });
 
                 if (response.ok) {
+                    const savedBooking = await response.json();
+                    setCreatedBookingId(savedBooking.id); // Lưu ID đơn đặt sân
+                }
+
+                // Lưu/Cập nhật các slot thành pending
+                const slotPromises = selectedSlots.map(async (slot) => {
+                    if (String(slot.id).startsWith('virtual-')) {
+                        return fetch('http://localhost:3000/timeSlots', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                courtId: slot.courtId,
+                                startTime: slot.startTime,
+                                date: slot.date || bookingDate,
+                                status: "pending",
+                                price: slot.price
+                            })
+                        });
+                    } else {
+                        return fetch(`http://localhost:3000/timeSlots/${slot.id}`, {
+                            method: 'PATCH',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ status: "pending" })
+                        });
+                    }
+                });
+
+                await Promise.all(slotPromises);
+
+                if (response.ok) {
                     setSaveStatus('success');
-                    console.log('Lưu thành công vào json-server!');
                 } else {
                     setSaveStatus('error');
                 }
             } catch (error) {
                 setSaveStatus('error');
-                console.error('Lỗi POST booking:', error);
+                console.error('Lỗi khi khởi tạo đơn hàng:', error);
             } finally {
                 setIsSaving(false);
             }
         };
 
         createBooking();
-    }, [bookingData, bookingCode, customerInfo, venueId, bookingDate, courtNames, times, finalTotalAmount]);
+    }, [bookingData, bookingCode, customerInfo, venueName, bookingDate, courtNames, times, finalTotalAmount, selectedSlots]);
+
+    const handleConfirmTransfer = async () => {
+        setIsConfirming(true);
+        try {
+            if (createdBookingId) {
+                await fetch(`http://localhost:3000/bookings/${createdBookingId}`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: "booked" })
+                });
+            }
+            const timeSlotsRes = await fetch('http://localhost:3000/timeSlots');
+            const allTimeSlots = await timeSlotsRes.json();
+            const updatePromises = selectedSlots.map(async (slot) => {
+                let targetSlotId = slot.id;
+                if (String(slot.id).startsWith('virtual-')) {
+                    const matchedSlot = allTimeSlots.find(
+                        ts => ts.courtId === slot.courtId &&
+                            ts.startTime === slot.startTime &&
+                            ts.date === (slot.date || bookingDate)
+                    );
+                    if (matchedSlot) {
+                        targetSlotId = matchedSlot.id;
+                    }
+                }
+
+                if (targetSlotId && !String(targetSlotId).startsWith('virtual-')) {
+                    return fetch(`http://localhost:3000/timeSlots/${targetSlotId}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ status: "booked" })
+                    });
+                }
+            });
+
+            await Promise.all(updatePromises);
+            setIsConfirmed(true);
+        } catch (error) {
+            console.error('Lỗi khi cập nhật trạng thái đã chuyển khoản:', error);
+            alert('Có lỗi xảy ra khi xác nhận chuyển khoản. Vui lòng thử lại!');
+        } finally {
+            setIsConfirming(false);
+        }
+    };
 
     return (
         <main className="container" style={{ padding: '40px 16px', maxWidth: '700px' }}>
@@ -94,18 +180,17 @@ export default function Booking5() {
                         <polyline points="22 4 12 14.01 9 11.01" />
                     </svg>
                 </div>
-                <h1>Đặt sân thành công!</h1>
+                <h1>{isConfirmed ? "Xác nhận chuyển khoản thành công!" : "Đặt sân thành công!"}</h1>
                 <p>
                     Mã đặt sân của bạn là{' '}
                     <strong style={{ color: 'var(--navy-900, #0f172a)' }}>{bookingCode}</strong>. Xuất trình mã QR bên dưới tại quầy lễ tân để check-in.
                 </p>
 
-                {isSaving && <p style={{ color: '#0284c7', fontSize: '14px', textAlign: 'center' }}>Đang lưu thông tin đơn hàng...</p>}
+                {isSaving && <p style={{ color: '#0284c7', fontSize: '14px', textAlign: 'center' }}>Đang tạo đơn hàng...</p>}
                 {saveStatus === 'error' && (
                     <p style={{ color: '#ef4444', fontSize: '14px', textAlign: 'center' }}>⚠️ Không thể lưu đơn hàng vào JSON Server.</p>
                 )}
 
-                {/* Mã QR Căn Giữa */}
                 <div
                     className="qr-container"
                     style={{
@@ -117,7 +202,7 @@ export default function Booking5() {
                     }}
                 >
                     <img
-                        src={"./../../../imgs/qr.jpg"}
+                        src={qrImg}
                         alt="Mã QR Check-in"
                         style={{
                             width: '180px',
@@ -169,9 +254,21 @@ export default function Booking5() {
                 </div>
 
                 <div className="success-actions">
-                    <button type="button" className="btn btn-outline">
-                        Tải phiếu đặt sân
-                    </button>
+                    {isConfirmed ? (
+                        <button type="button" className="btn btn-outline" disabled style={{ backgroundColor: '#e2e8f0', color: '#1e293b', borderColor: '#cbd5e1' }}>
+                            ✓ Đã xác nhận chuyển khoản
+                        </button>
+                    ) : (
+                        <button
+                            type="button"
+                            className="btn btn-outline"
+                            onClick={handleConfirmTransfer}
+                            disabled={isConfirming || isSaving}
+                        >
+                            {isConfirming ? "Đang xác nhận..." : "Xác nhận đã chuyển khoản"}
+                        </button>
+                    )}
+
                     <Link to="/" className="btn btn-primary">
                         Về trang chủ
                     </Link>

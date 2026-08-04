@@ -7,7 +7,7 @@ export default function Booking1() {
     const navigate = useNavigate();
     const [venues, setVenues] = useState([]);
     const location = useLocation();
-    const {selectedSlots, venueId} = location.state || {};
+    const {selectedSlots, venueId, venueName} = location.state || {};
     const [formData, setFormData] = useState({
         lastName: '',
         firstName: '',
@@ -68,7 +68,8 @@ export default function Booking1() {
                 state: {
                     selectedSlots,
                     venueId,
-                    customerInfo: formData
+                    customerInfo: formData,
+                    venueName
                 }
             });
         }

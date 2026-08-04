@@ -447,7 +447,40 @@
       "status": "available"
     }
   ],
-  "timeSlots": [],
+  "timeSlots": [
+    {
+      "courtId": 1,
+      "startTime": "14:00",
+      "date": "2026-08-06",
+      "status": "pending",
+      "price": 300000,
+      "id": 1
+    },
+    {
+      "courtId": 1,
+      "startTime": "12:00",
+      "date": "2026-08-04",
+      "status": "booked",
+      "price": 300000,
+      "id": 2
+    },
+    {
+      "courtId": 1,
+      "startTime": "10:00",
+      "date": "2026-08-05",
+      "status": "booked",
+      "price": 300000,
+      "id": 3
+    },
+    {
+      "courtId": 2,
+      "startTime": "14:00",
+      "date": "2026-08-04",
+      "status": "booked",
+      "price": 100000,
+      "id": 4
+    }
+  ],
   "facilities": [
     {
       "id": 1,
@@ -574,47 +607,60 @@
   ],
   "bookings": [
     {
-      "bookingCode": "SH565098",
-      "lastName": "",
-      "firstName": "",
-      "location": "Hà Nội",
-      "date": "2026-08-04",
-      "phone": "",
-      "court": "Sân bóng đá 01, Sân cầu lông 01",
-      "time": "09:00, 11:00",
-      "status": "pending",
-      "totalAmount": 378000,
-      "createdAt": "2026-08-04T07:59:40.861Z",
-      "id": 12
-    },
-    {
-      "bookingCode": "SH329644",
+      "bookingCode": "SH598016",
       "lastName": "Ngô",
       "firstName": "Đại Lâm",
-      "location": "Hà Nội",
-      "date": "2026-08-04",
+      "location": "Hanoi Sport Center",
+      "date": "2026-08-06",
       "phone": "0337200307",
-      "court": "Sân bóng đá 01, Sân cầu lông 01",
-      "time": "10:00, 11:00",
-      "status": "confirmed",
-      "totalAmount": 336000,
-      "createdAt": "2026-08-04T08:06:18.417Z",
-      "id": 13
+      "court": "Sân bóng đá 01",
+      "time": "14:00",
+      "status": "pending",
+      "totalAmount": 320000,
+      "createdAt": "2026-08-04T10:48:30.814Z",
+      "id": 1
     },
     {
-      "courtId": "1",
-      "bookingCode": "SH571918",
-      "lastName": "Ngô ",
+      "bookingCode": "SH486794",
+      "lastName": "Ngô",
       "firstName": "Đại Lâm",
-      "location": "Hà Nội",
+      "location": "Hanoi Sport Center",
       "date": "2026-08-04",
       "phone": "0337200307",
-      "court": "Sân bóng đá 01, Sân cầu lông 01",
-      "time": "14:00, 15:00",
-      "status": "Đã đặt",
-      "totalAmount": 378000,
-      "createdAt": "2026-08-04T08:13:54.099Z",
-      "id": 14
+      "court": "Sân bóng đá 01",
+      "time": "12:00",
+      "status": "booked",
+      "totalAmount": 264000,
+      "createdAt": "2026-08-04T10:49:06.598Z",
+      "id": 2
+    },
+    {
+      "bookingCode": "SH496640",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Hanoi Sport Center",
+      "date": "2026-08-05",
+      "phone": "0337200307",
+      "court": "Sân bóng đá 01",
+      "time": "10:00",
+      "status": "booked",
+      "totalAmount": 320000,
+      "createdAt": "2026-08-04T10:55:43.841Z",
+      "id": 3
+    },
+    {
+      "bookingCode": "SH692416",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Hanoi Sport Center",
+      "date": "2026-08-04",
+      "phone": "0337200307",
+      "court": "Sân cầu lông 01",
+      "time": "14:00",
+      "status": "booked",
+      "totalAmount": 120000,
+      "createdAt": "2026-08-04T10:58:08.976Z",
+      "id": 4
     }
   ],
   "reviews": [
