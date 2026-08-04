@@ -227,9 +227,7 @@ const handleSelectSlot = (slot, courtData) => {
                                                 case "booked":
                                                     return { className: "slot-booked", text: "Đã đặt", disabled: true };
                                                 case "pending":
-                                                    return { className: "slot-processing", text: "Đang xử lý", disabled: true };
-                                                case "cancelled":
-                                                    return { className: "slot-cancelled", text: "Đã hủy", disabled: false };
+                                                    return { className: "slot-pending", text: "Đang xử lý", disabled: true };
                                                 default:
                                                     return { className: "slot-available", text: "Trống", disabled: false };
                                             }
