@@ -5,68 +5,6 @@
 .page-header h1{
     font-weight: 600;
 }
-/* .news-article {
-  max-width: 720px;
-  margin: 0 auto;
-}
-.news-article .badge {
-  margin-bottom: 16px;
-}
-.news-article h1 {
-  margin-bottom: 16px;
-  font-size: 28px;
-  font-weight: 800;
-  line-height: 1.3;
-}
-@media (min-width: 640px) {
-  .news-article h1 {
-    font-size: 34px;
-  }
-}
-.news-article-meta {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  margin-bottom: 24px;
-  font-size: 14px;
-  color: var(--navy-500);
-}
-.news-article-meta span {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-.news-article-meta svg {
-  width: 16px;
-  height: 16px;
-}
-.news-article img.cover {
-  width: 100%;
-  height: 260px;
-  margin-bottom: 32px;
-  border-radius: 16px;
-  object-fit: cover;
-}
-@media (min-width: 640px) {
-  .news-article img.cover {
-    height: 380px;
-  }
-}
-.news-article .content {
-  font-size: 17px;
-  line-height: 1.75;
-  color: var(--navy-700);
-}
-.related-news {
-  margin-top: 56px;
-  border-top: 1px solid var(--slate-200);
-  padding-top: 40px;
-}
-.related-news h2 {
-  margin-bottom: 20px;
-  font-size: 20px;
-  font-weight: 700;
-} */
 .news-card.home{
     width: 300px;
 }

@@ -21,6 +21,7 @@ export default function VenueSchedule() {
         fetch(`http://localhost:3000/courts?venueId=${id}`)
         .then(res=>res.json())
         .then(data=> setCourt(data));
+        
         fetch(`http://localhost:3000/timeSlots`)
         .then(res=>res.json())
         .then(data=> setTimeSlot(data));
