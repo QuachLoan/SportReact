@@ -11,6 +11,7 @@ export default function VenueSchedule() {
     const[timeSlot,setTimeSlot] =useState([]);
     const[selectedSlots,setSelectedSlots] = useState([]);
     const navigate = useNavigate();
+
     const handleBooking = () => {
         const userCurrently = localStorage.getItem("currentUser");
         if(!userCurrently){          

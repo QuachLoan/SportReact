@@ -998,7 +998,21 @@
       "phone": "0337200307",
       "password": "391184513",
       "salt": "clh3wv1oupg",
-      "id": "Fuqfyz4"
+      "id": "Fuqfyz4",
+      "favorites": [
+        1
+      ]
+    },
+    {
+      "name": "Ngô Đại Lâm",
+      "email": "admin@123.com",
+      "phone": "0337200307",
+      "password": "615908948",
+      "salt": "p9jc3b87v0o",
+      "id": "gaKwlLX",
+      "favorites": [
+        2
+      ]
     }
   ],
   "services": [
