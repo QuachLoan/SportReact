@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import "./Booking.css";
+import "./../../../imgs/qr.jpg";
 
 export default function Booking5() {
     const location = useLocation();
@@ -41,131 +42,27 @@ export default function Booking5() {
                 <h1>Đặt sân thành công!</h1>
                 <p>
                     Mã đặt sân của bạn là{' '}
-                    <strong style={{ color: 'var(--navy-900, #0f172a)' }}>{bookingCode}</strong>. Xuất trình mã QR bên dưới tại quầy lễ tân để check-in.
+                    <strong style={{ color: 'var(--navy-900, #0f172a)' }}>{bookingCode}</strong>.
                 </p>
 
-                <div className="qr-mock">
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span className="on"></span>
-                    <span></span>
-                    <span className="on"></span>
-                    <span></span>
+                <div className="qr-container" style={{ display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    width: '100%',
+                    margin: '24px 0' }}>
+                    <img
+                        src={'./../../../imgs/qr.jpg'}
+                        alt="Mã QR thanh toán / check-in"
+                        style={{
+                            width: '180px',
+                            height: '180px',
+                            objectFit: 'contain',
+                            borderRadius: '12px',
+                            border: '1px solid #e2e8f0',
+                            padding: '8px',
+                            background: '#fff'
+                        }}
+                    />
                 </div>
 
                 <div className="success-summary-box">

@@ -33,7 +33,6 @@ export default function Booking4() {
 
         const fetchVoucher = async () => {
             try {
-                // 2. Fetch API từ json-server với mã đã viết hoa
                 const response = await fetch(`http://localhost:3000/vouchers?code=${cleanCode}`);
                 const data = await response.json();
 
@@ -49,7 +48,6 @@ export default function Booking4() {
                 setAppliedVoucher(null);
             }
         };
-
         fetchVoucher();
     }, [submittedCode]);
 
