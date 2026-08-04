@@ -198,10 +198,6 @@ export default function Venues() {
                                 </button>
                             </div>
                         </div>
-                        <label className="checkbox-row filter-divider">
-                            <input type="checkbox" />
-                            <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--navy-700)' }}>Còn trống hôm nay</span>
-                        </label>
                     </aside>
 
                     {/* ============ RESULTS ============ */}
