@@ -1,9 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
+import Button from 'react-bootstrap/Button';
 
 const VenueReviews = () => {
     const { id } = useParams();
     const [venue, setVenue] = useState("");
+    const navigate = useNavigate();
+    const handleBooking = () => {
+        const userCurrently = localStorage.getItem("currentUser");
+        if(!userCurrently){          
+            navigate('/Login');
+        }else{
+            navigate(`/VenueOverView/${id}/schedule`);
+        }
+    }
 
     useEffect(() => {
         fetch(`http://localhost:3000/venues/${id}`)
@@ -21,14 +31,14 @@ const VenueReviews = () => {
         <>
             <div className="venue-hero">
                 <img src={venue.image} alt="The Platinum Arena" />
-                <a href="venues.html" className="venue-hero-back">
+                <Link to="/venues" className="venue-hero-back">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="15 18 9 12 15 6" />
                     </svg>
-                </a>
+                </Link>
                 <div className="venue-hero-content">
                     <div className="container" style={{ padding: 0 }}>
-                        <h1>The Platinum Arena</h1>
+                        <h1>{venue.name}</h1>
                         <div className="venue-hero-meta">
               <span>
                 <svg className="star" viewBox="0 0 24 24">
@@ -64,9 +74,9 @@ const VenueReviews = () => {
                         <Link to={`/VenueOverView/${id}/reviews`} className="is-active">Đánh giá</Link>
                         <Link to={`/VenueOverView/${id}/rules`}>Quy định</Link>
                     </nav>
-                    <Link to={`/VenueOverView/${id}/schedule`} className="btn btn-gold btn-sm venue-tabs-book-btn">
+                    <Button onClick={handleBooking}  className="btn btn-gold btn-sm venue-tabs-book-btn">
                         Đặt sân ngay
-                    </Link>
+                    </Button>
                 </div>
             </div>
 

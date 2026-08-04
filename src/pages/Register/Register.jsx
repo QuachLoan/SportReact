@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import "./Register.css";
 import { Link, useNavigate } from "react-router-dom";
+import Hash, {genSalt} from "./../../hash/Hash.js";
 
 export default function Register() {
     const [lastName, setLastName] = useState("");
@@ -70,11 +71,13 @@ export default function Register() {
                 setError("Email này đã được sử dụng. Vui lòng chọn email khác.");
                 return;
             }
+            const salt = genSalt();
             const newUser = {
                 name: `${lastName.trim()} ${firstName.trim()}`,
                 email: email.trim().toLowerCase(),
                 phone: phone.trim(),
-                password: password
+                password: Hash(password, salt),
+                salt: salt,
             };
 
             const registerResponse = await fetch("http://localhost:3000/users", {

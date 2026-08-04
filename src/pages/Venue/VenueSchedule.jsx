@@ -1,7 +1,6 @@
-import { X } from 'lucide-react';
 import React, {useEffect, useState} from 'react';
 import { Button } from 'react-bootstrap';
-import {Link, useParams} from "react-router-dom";
+import {Link, useParams, useNavigate} from "react-router-dom";
 
 export default function VenueSchedule() {
     const { id } = useParams();
@@ -10,7 +9,18 @@ export default function VenueSchedule() {
     const today= new Date();
     const[currentDate,setCurrentDate]= useState(today);
     const[timeSlot,setTimeSlot] =useState([]);
-    const[selectedSlots,setSelectedSlots] = useState([])
+    const[selectedSlots,setSelectedSlots] = useState([]);
+    const navigate = useNavigate();
+
+    const handleBooking = () => {
+        const userCurrently = localStorage.getItem("currentUser");
+        if(!userCurrently){          
+            navigate('/Login');
+        }
+        else{
+            navigate(`/Booking1`, { state: { selectedSlots, venueId: id , venueName: venue.name} });
+        }
+    }
 
     useEffect(() => {
         fetch(`http://localhost:3000/venues/${id}`)
@@ -47,26 +57,23 @@ export default function VenueSchedule() {
         }
         setCurrentDate(newDate);
         }
+
     const formatDate = (date) => {
-    return date.toISOString().split("T")[0];
-};
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+    };
+
 const hours = [
     "06:00",
-    "07:00",
     "08:00",
-    "09:00",
     "10:00",
-    "11:00",
     "12:00",
-    "13:00",
     "14:00",
-    "15:00",
     "16:00",
-    "17:00",
     "18:00",
-    "19:00",
     "20:00",
-    "21:00",
     "22:00"
 ];
 const handleSelectSlot = (slot, courtData) => {
@@ -77,14 +84,11 @@ const handleSelectSlot = (slot, courtData) => {
             item => item.id === slot.id
         );
 
-        // Nếu đã chọn thì bỏ chọn
         if (isSelected) {
             return prev.filter(
                 item => item.id !== slot.id
             );
         }
-
-        // Nếu chưa chọn thì thêm vào
         return [
             ...prev,
             {
@@ -98,11 +102,11 @@ const handleSelectSlot = (slot, courtData) => {
         <>
             <div className="venue-hero">
                 <img src={venue.image} alt="The Platinum Arena" />
-                <a href="venues.html" className="venue-hero-back">
+                <Link to="/venues" className="venue-hero-back">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                         <polyline points="15 18 9 12 15 6" />
                     </svg>
-                </a>
+                </Link>
                 <div className="venue-hero-content">
                     <div className="container" style={{ padding: 0 }}>
                         <h1>{venue.name}</h1>
@@ -141,9 +145,9 @@ const handleSelectSlot = (slot, courtData) => {
                         <Link to={`/VenueOverView/${id}/reviews`}>Đánh giá</Link>
                         <Link to={`/VenueOverView/${id}/rules`}>Quy định</Link>
                     </nav>
-                    <Link to={`/VenueOverView/${id}/schedule`} className="btn btn-gold btn-sm venue-tabs-book-btn">
-                        Đặt sân ngay
-                    </Link>
+                    <Button onClick={handleBooking}  className="btn btn-gold btn-sm venue-tabs-book-btn">
+                                            Đặt sân ngay
+                                        </Button>
                 </div>
             </div>
 
@@ -187,8 +191,6 @@ const handleSelectSlot = (slot, courtData) => {
                     <div className="schedule-table-wrap">
                         <table className="schedule-table">
                             <thead>
-                                
- 
                             <tr>
                                 <th>Sân</th>
                                 {
@@ -202,43 +204,48 @@ const handleSelectSlot = (slot, courtData) => {
                             {court.map(x => (
                                 <tr key={x.id}>
                                     <td>{x.name}</td>
-
                                     {hours.map(hour => {
-
-                                        const slot = timeSlot.find(
+                                        const dynamicSlot = timeSlot.find(
                                             item =>
                                                 item.courtId === x.id &&
                                                 item.startTime === hour &&
                                                 item.date === formatDate(currentDate)
                                         );
+                                        const slot = dynamicSlot || {
+                                            id: `virtual-${x.id}-${hour}`,
+                                            courtId: x.id,
+                                            courtName: x.name,
+                                            startTime: hour,
+                                            date: formatDate(currentDate),
+                                            status: "Trống",
+                                            price: x.pricePerHour
+                                        };
+                                        const isSelected = selectedSlots.some(
+                                            item => item.id === slot.id
+                                        );
+                                        const getSlotConfig = (status) => {
+                                            switch (status) {
+                                                case "booked":
+                                                    return { className: "slot-booked", text: "Đã đặt", disabled: true };
+                                                case "pending":
+                                                    return { className: "slot-pending", text: "Đang xử lý", disabled: true };
+                                                default:
+                                                    return { className: "slot-available", text: "Trống", disabled: false };
+                                            }
+                                        };
 
-                                        const isSelected = slot &&
-                                            selectedSlots.some(
-                                                item => item.id === slot.id
-                                            );
+                                        const config = getSlotConfig(slot.status);
 
                                         return (
                                             <td key={hour}>
-                                                {slot ? (
-                                                    <button
-                                                        type="button"
-                                                        disabled={slot.status === "booked"}
-                                                        onClick={() => handleSelectSlot(slot, x)}
-                                                        className={
-                                                            isSelected
-                                                                ? "slot-btn slot-selected"
-                                                                : slot.status === "booked"
-                                                                    ? "slot-btn slot-booked"
-                                                                    : "slot-btn slot-available"
-                                                        }
-                                                    >
-                                                        {isSelected
-                                                            ? "Đã chọn"
-                                                            : slot.status}
-                                                    </button>
-                                                ) : (
-                                                    <span>-</span>
-                                                )}
+                                                <button
+                                                    type="button"
+                                                    disabled={config.disabled}
+                                                    onClick={() => handleSelectSlot(slot, x)}
+                                                    className={`slot-btn ${isSelected ? "slot-selected" : config.className}`}
+                                                >
+                                                    {isSelected ? "Đã chọn" : config.text}
+                                                </button>
                                             </td>
                                         );
                                     })}
@@ -249,7 +256,6 @@ const handleSelectSlot = (slot, courtData) => {
                     </div>
                         <aside className="booking-summary-card">
                             <h3>Tóm tắt đơn hàng</h3>
-
                             {selectedSlots.length === 0 ? (
                                 <p>Chưa chọn sân nào</p>
                             ) : (
@@ -284,7 +290,13 @@ const handleSelectSlot = (slot, courtData) => {
                                         .toLocaleString("vi-VN")} ₫
                                 </span>
                             </div>
-                            <a href="booking.html" className="btn btn-gold btn-block" style={{ marginTop: "20px" }} > Tiếp tục đặt sân </a>
+                            <Button className={`btn btn-gold btn-block ${selectedSlots.length === 0 ? 'disabled' : ''}`}
+                                  style={{ marginTop: "20px",...(selectedSlots.length === 0 && {
+                                          pointerEvents: "none",
+                                          opacity: 0.5,
+                                          cursor: "not-allowed"})
+                            }} onClick = {handleBooking}> Tiếp tục đặt sân
+                            </Button>
                         </aside>
                 </div>
             </main>

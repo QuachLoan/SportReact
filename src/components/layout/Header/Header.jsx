@@ -1,6 +1,7 @@
 import {Link, useNavigate} from 'react-router-dom';
 import './Header.css'
 import {useEffect, useState} from "react";
+import Button from "react-bootstrap/Button";
 function Header(){
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState(null);
@@ -26,6 +27,15 @@ function Header(){
         navigate("/");
     };
 
+    const handleFavorite = () =>{
+        const currentUser = localStorage.getItem("currentUser");
+        if (!currentUser) {
+            navigate("/Login");
+        }
+        else{
+            navigate("/Favorites")
+        }
+    }
 
     return(
         <>
@@ -46,9 +56,9 @@ function Header(){
                     </nav>
 
                     <div className="navbar-actions">
-                        <Link to="/Favorites" className="icon-btn" aria-label="Yêu thích">
+                        <Button className="icon-btn" aria-label="Yêu thích" style = {{backgroundColor: 'transparent', border: 'none', color: 'black', fontSize: '1rem'}} onClick={handleFavorite}>
                             <i className="bi bi-heart"></i>
-                        </Link>
+                        </Button>
 
                         {/* Biến đổi giao diện trên PC dựa vào trạng thái đăng nhập */}
                         {currentUser ? (
@@ -76,7 +86,7 @@ function Header(){
                         <Link to="/Venues">Sân thể thao</Link>
                         <Link to="/BookingLookUp">Tra cứu đặt sân</Link>
                         <Link to="/News">Tin tức</Link>
-                        <Link to="/Favorites">Yêu thích</Link>
+                        <Link to="/Favourites" onClick={handleFavorite}>Yêu thích</Link>
                     </nav>
                     <div className="mobile-menu-actions">
                         {/* Biến đổi giao diện trên Mobile dựa vào trạng thái đăng nhập */}

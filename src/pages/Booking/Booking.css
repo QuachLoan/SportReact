@@ -1,0 +1,410 @@
+.sticky-booking-card {
+  height: fit-content;
+  border-radius: 16px;
+  border: 1px solid var(--slate-200);
+  background: #fff;
+  padding: 20px;
+}
+@media (min-width: 1024px) {
+  .sticky-booking-card {
+    position: sticky;
+    top: 144px;
+  }
+}
+.sticky-booking-card .price-from {
+  font-size: 12px;
+  color: var(--navy-400);
+}
+.sticky-booking-card .price-amount {
+  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 800;
+}
+.sticky-booking-card .price-amount span {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--navy-400);
+}
+.sticky-booking-card .cta-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  width: 100%;
+  border-radius: 12px;
+  background: linear-gradient(to bottom, var(--gold-400), var(--gold-500));
+  color: var(--navy-950);
+  font-weight: 600;
+  box-shadow: var(--shadow-gold);
+}
+.sticky-booking-card .note {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 12px;
+  color: var(--navy-400);
+}
+
+.booking-summary-card {
+  height: fit-content;
+  border-radius: 16px;
+  border: 1px solid var(--slate-200);
+  background: #fff;
+  padding: 20px;
+}
+@media (min-width: 1024px) {
+  .booking-summary-card {
+    position: sticky;
+    top: 144px;
+  }
+}
+.booking-summary-card h3 {
+  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.step-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+.step-item:last-child {
+  flex: 0;
+}
+.step-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+.step-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  border: 2px solid var(--slate-200);
+  background: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy-400);
+  flex-shrink: 0;
+}
+.step-circle svg {
+  width: 18px;
+  height: 18px;
+}
+.step-item.is-active .step-circle {
+  border-color: var(--navy-900);
+  background: var(--navy-900);
+  color: #fff;
+}
+.step-item.is-done .step-circle {
+  border-color: var(--gold-500);
+  background: var(--gold-500);
+  color: var(--navy-950);
+}
+.step-label {
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy-400);
+}
+.step-item.is-active .step-label,
+.step-item.is-done .step-label {
+  color: var(--navy-900);
+}
+.step-line {
+  flex: 1;
+  margin: 0 8px;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--slate-200);
+}
+.step-item.is-done .step-line {
+  background: var(--gold-500);
+}
+
+.booking-layout {
+  display: grid;
+  gap: 32px;
+}
+@media (min-width: 1024px) {
+  .booking-layout {
+    grid-template-columns: 1fr 360px;
+  }
+}
+.booking-form-card {
+  border-radius: 16px;
+  border: 1px solid var(--slate-200);
+  background: #fff;
+  padding: 24px;
+}
+@media (min-width: 640px) {
+  .booking-form-card {
+    padding: 32px;
+  }
+}
+.step-panel {
+  display: block;
+}
+.step-panel.is-visible {
+  display: block;
+}
+.step-panel h2 {
+  margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 700;
+}
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+@media (min-width: 640px) {
+  .form-grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.booking-slot-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 12px;
+  border: 1px solid var(--slate-200);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+.booking-slot-row .name {
+  font-weight: 600;
+}
+.booking-slot-row .meta {
+  font-size: 14px;
+  color: var(--navy-500);
+}
+.booking-slot-row .price {
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .service-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.service-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border-radius: 12px;
+  border: 2px solid var(--slate-200);
+  background: #fff;
+  padding: 16px;
+  text-align: center;
+  transition: all 0.15s ease;
+}
+.service-card:hover {
+  border-color: var(--navy-300);
+}
+.service-card svg {
+  width: 24px;
+  height: 24px;
+  color: var(--navy-400);
+}
+.service-card .label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--navy-800);
+}
+.service-card .price {
+  font-size: 12px;
+  color: var(--navy-400);
+}
+.service-card.is-selected {
+  border-color: var(--gold-500);
+  background: var(--gold-50);
+}
+.service-card.is-selected svg {
+  color: var(--gold-600);
+}
+.confirm-box {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background: var(--navy-50);
+  padding: 16px;
+  font-size: 14px;
+  color: var(--navy-700);
+}
+.coupon-row {
+  display: flex;
+  gap: 8px;
+}
+.coupon-row .field-wrap {
+  flex: 1;
+}
+.coupon-row input {
+  text-transform: uppercase;
+}
+.coupon-success {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--emerald-700);
+}
+.coupon-success svg {
+  width: 14px;
+  height: 14px;
+}
+.step-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 32px;
+  border-top: 1px solid var(--slate-100);
+  padding-top: 24px;
+}
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy-500);
+}
+.back-link:hover {
+  color: var(--navy-900);
+}
+.back-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ================= BOOKING SUCCESS ================= */
+.success-card {
+  max-width: 480px;
+  margin: 56px auto;
+  border-radius: 16px;
+  border: 1px solid var(--slate-200);
+  background: #fff;
+  padding: 32px;
+  text-align: center;
+  box-shadow: var(--shadow-elevated);
+}
+.success-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 20px;
+  border-radius: 999px;
+  background: var(--emerald-50);
+  color: var(--emerald-500);
+}
+.success-icon svg {
+  width: 36px;
+  height: 36px;
+}
+.success-card h1 {
+  margin-bottom: 6px;
+  font-size: 24px;
+  font-weight: 800;
+}
+.success-card > p {
+  margin-bottom: 24px;
+  font-size: 14px;
+  color: var(--navy-500);
+}
+.qr-mock {
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  gap: 2px;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto 24px;
+  border-radius: 12px;
+  background: #fff;
+  padding: 12px;
+}
+.qr-mock span {
+  background: transparent;
+}
+.qr-mock span.on {
+  background: var(--navy-950);
+}
+.success-summary-box {
+  margin-bottom: 24px;
+  border-radius: 12px;
+  background: var(--navy-50);
+  padding: 20px;
+  text-align: left;
+}
+.success-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+@media (min-width: 640px) {
+  .success-actions {
+    flex-direction: row;
+  }
+}
+.success-actions .btn {
+  flex: 1;
+}
+
+.input.input-error {
+  border-color: #dc3545 !important;
+  background-color: #fff8f8;
+}
+
+/* Chữ hiển thị thông báo lỗi ngay dưới ô input */
+.error-text {
+  color: #dc3545;
+  font-size: 13px;
+  margin-top: 4px;
+  display: block;
+  font-weight: 500;
+}
+
+.service-card.is-active {
+  border-color: #0056b3 !important;      /* Viền xanh đậm nổi bật */
+  background-color: #e6f0fa !important;  /* Nền xanh nhạt nhẹ */
+  box-shadow: 0 0 0 2px rgba(0, 86, 179, 0.2);
+  transform: translateY(-2px);           /* Hiệu ứng nhấc nhẹ nút lên */
+}
+
+/* 2. Đổi màu chữ tiêu đề dịch vụ khi active (nếu cần) */
+.service-card.is-active .label {
+  color: #0056b3 !important;
+  font-weight: 600;
+}
+
+/* 3. Đổi màu icon SVG sang màu xanh để đồng bộ */
+.service-card.is-active .service-icon-wrapper svg {
+  stroke: #0056b3 !important;
+  fill: none; /* Giữ nguyên không fill nếu là dòng stroke outline */
+}
+
+/* 4. Đổi màu hiển thị giá tiền khi active */
+.service-card.is-active .price {
+  color: #004085 !important;
+  font-weight: bold;
+}

@@ -371,7 +371,7 @@
       "venueId": 2,
       "name": "Sân tennis 01",
       "sportId": 3,
-      "surface": "Hard Court",
+      "surface": "Sân cứng",
       "capacity": 4,
       "pricePerHour": 250000,
       "status": "available"
@@ -381,7 +381,7 @@
       "venueId": 2,
       "name": "Sân pickleball 01",
       "sportId": 4,
-      "surface": "Acrylic",
+      "surface": "Cỏ nhân tạo",
       "capacity": 4,
       "pricePerHour": 180000,
       "status": "available"
@@ -449,97 +449,52 @@
   ],
   "timeSlots": [
     {
-        "id": 1,
-        "courtId": 1,
-        "date": "2026-08-01",
-        "startTime": "06:00",
-        "endTime": "07:00",
-        "status": "booked",
-        "price":250000
+      "courtId": 1,
+      "startTime": "14:00",
+      "date": "2026-08-06",
+      "status": "cancelled",
+      "price": 300000,
+      "id": 1
     },
     {
-        "id": 2,
-        "courtId": 1,
-        "date": "2026-08-01",
-        "startTime": "07:00",
-        "endTime": "08:00",
-        "status": "Trống",
-        "price":200000
-
+      "courtId": 1,
+      "startTime": "12:00",
+      "date": "2026-08-04",
+      "status": "booked",
+      "price": 300000,
+      "id": 2
     },
     {
-        "id": 3,
-        "courtId": 2,
-        "date": "2026-08-02",
-        "startTime": "06:00",
-        "endTime": "07:00",
-        "status": "Trống",
-        "price":120000
-
+      "courtId": 1,
+      "startTime": "10:00",
+      "date": "2026-08-05",
+      "status": "cancelled",
+      "price": 300000,
+      "id": 3
     },
     {
-      "id": 4,
       "courtId": 2,
-      "date": "2026-07-28",
-      "startTime": "07:00",
-      "endTime": "08:00",
+      "startTime": "14:00",
+      "date": "2026-08-04",
+      "status": "booked",
       "price": 100000,
-      "status": "Trống"
-    },
-    
-    {
-      "id": 5,
-      "courtId": 2,
-      "date": "2026-07-28",
-      "startTime": "18:00",
-      "endTime": "19:00",
-      "price": 120000,
-      "status": "Trống"
+      "id": 4
     },
     {
-      "id": 6,
       "courtId": 3,
-      "date": "2026-07-28",
-      "startTime": "18:00",
-      "endTime": "19:00",
+      "startTime": "14:00",
+      "date": "2026-08-05",
+      "status": "cancelled",
       "price": 250000,
-      "status": "Trống"
+      "id": 5
     },
     {
-      "id": 7,
-      "courtId": 4,
-      "date": "2026-07-28",
-      "startTime": "19:00",
-      "endTime": "20:00",
-      "price": 180000,
-      "status": "Trống"
-    },
-    {
-      "id": 8,
-      "courtId": 5,
-      "date": "2026-07-28",
-      "startTime": "20:00",
-      "endTime": "21:00",
-      "price": 200000,
-      "status": "Trống"
-    },
-    {
-      "id": 9,
-      "courtId": 6,
-      "date": "2026-07-28",
-      "startTime": "21:00",
-      "endTime": "22:00",
-      "price": 250000,
-      "status": "Trống"
-    },
-    {
-      "id": 10,
-      "courtId": 7,
-      "date": "2026-07-28",
-      "startTime": "18:00",
-      "endTime": "19:00",
-      "price": 350000,
-      "status": "Trống"
+      "courtId": 1,
+      "startTime": "10:00",
+      "date": "2026-08-04",
+      "status": "pending",
+      "price": 300000,
+      "id": 6
     }
   ],
   "facilities": [
@@ -668,233 +623,88 @@
   ],
   "bookings": [
     {
-      "id": 1,
-      "bookingCode": "SPT100001",
-      "customerName": "Nguyễn Văn An",
-      "phone": "0912345678",
-      "email": "an@gmail.com",
-      "teamName": "FC Hà Nội",
-      "venueId": 1,
-      "courtId": 1,
-      "date": "2026-07-28",
-      "startTime": "06:00",
-      "endTime": "08:00",
-      "numberOfPeople": 10,
-      "equipment": [
-        {
-          "equipmentId": 1,
-          "quantity": 1
-        },
-        {
-          "equipmentId": 5,
-          "quantity": 10
-        }
-      ],
-      "courtPrice": 600000,
-      "equipmentPrice": 200000,
-      "discount": 0,
-      "totalPrice": 800000,
-      "status": "confirmed",
-      "createdAt": "2026-07-27T10:00:00"
-    },
-    {
-      "id": 2,
-      "bookingCode": "SPT100002",
-      "customerName": "Trần Minh Anh",
-      "phone": "0923456789",
-      "email": "anh@gmail.com",
-      "teamName": "Team Smash",
-      "venueId": 1,
-      "courtId": 2,
-      "date": "2026-07-29",
-      "startTime": "18:00",
-      "endTime": "19:00",
-      "numberOfPeople": 4,
-      "equipment": [],
-      "courtPrice": 120000,
-      "equipmentPrice": 0,
-      "discount": 0,
-      "totalPrice": 120000,
-      "status": "pending",
-      "createdAt": "2026-07-27T11:00:00"
-    },
-    {
-      "id": 3,
-      "bookingCode": "SPT100003",
-      "customerName": "Lê Hoàng Nam",
-      "phone": "0934567890",
-      "email": "nam@gmail.com",
-      "teamName": "Tennis Club",
-      "venueId": 2,
-      "courtId": 3,
-      "date": "2026-07-30",
-      "startTime": "18:00",
-      "endTime": "20:00",
-      "numberOfPeople": 4,
-      "equipment": [],
-      "courtPrice": 500000,
-      "equipmentPrice": 0,
-      "discount": 50000,
-      "totalPrice": 450000,
-      "status": "confirmed",
-      "createdAt": "2026-07-27T12:00:00"
-    },
-    {
-      "id": 4,
-      "bookingCode": "SPT100004",
-      "customerName": "Phạm Thu Hà",
-      "phone": "0945678901",
-      "email": "ha@gmail.com",
-      "teamName": "Pickleball Friends",
-      "venueId": 2,
-      "courtId": 4,
-      "date": "2026-07-31",
-      "startTime": "19:00",
-      "endTime": "20:00",
-      "numberOfPeople": 4,
-      "equipment": [
-        {
-          "equipmentId": 10,
-          "quantity": 2
-        }
-      ],
-      "courtPrice": 180000,
-      "equipmentPrice": 140000,
-      "discount": 0,
-      "totalPrice": 320000,
-      "status": "confirmed",
-      "createdAt": "2026-07-27T13:00:00"
-    },
-    {
-      "id": 5,
-      "bookingCode": "SPT100005",
-      "customerName": "Đỗ Đức Anh",
-      "phone": "0956789012",
-      "email": "ducanh@gmail.com",
-      "teamName": "Basketball Team",
-      "venueId": 3,
-      "courtId": 5,
-      "date": "2026-08-01",
-      "startTime": "20:00",
-      "endTime": "21:00",
-      "numberOfPeople": 8,
-      "equipment": [],
-      "courtPrice": 200000,
-      "equipmentPrice": 0,
-      "discount": 0,
-      "totalPrice": 200000,
-      "status": "cancelled",
-      "createdAt": "2026-07-27T14:00:00"
-    },
-    {
-      "id": 6,
-      "bookingCode": "SPT100006",
-      "customerName": "Nguyễn Thị Mai",
-      "phone": "0967890123",
-      "email": "mai@gmail.com",
-      "teamName": "Mai Team",
-      "venueId": 4,
-      "courtId": 6,
-      "date": "2026-08-02",
-      "startTime": "21:00",
-      "endTime": "22:00",
-      "numberOfPeople": 12,
-      "equipment": [],
-      "courtPrice": 250000,
-      "equipmentPrice": 0,
-      "discount": 0,
-      "totalPrice": 250000,
-      "status": "pending",
-      "createdAt": "2026-07-27T15:00:00"
-    },
-    {
-      "id": 7,
-      "bookingCode": "SPT100007",
-      "customerName": "Vũ Minh Đức",
-      "phone": "0978901234",
-      "email": "duc@gmail.com",
-      "teamName": "Pro Tennis",
-      "venueId": 5,
-      "courtId": 7,
-      "date": "2026-08-03",
-      "startTime": "18:00",
-      "endTime": "19:00",
-      "numberOfPeople": 4,
-      "equipment": [],
-      "courtPrice": 350000,
-      "equipmentPrice": 0,
-      "discount": 100000,
-      "totalPrice": 250000,
-      "status": "confirmed",
-      "createdAt": "2026-07-27T16:00:00"
-    },
-    {
-      "id": 8,
-      "bookingCode": "SPT100008",
-      "customerName": "Hoàng Văn Long",
-      "phone": "0989012345",
-      "email": "long@gmail.com",
-      "teamName": "Long Team",
-      "venueId": 6,
-      "courtId": 8,
-      "date": "2026-08-04",
-      "startTime": "17:00",
-      "endTime": "18:00",
-      "numberOfPeople": 4,
-      "equipment": [],
-      "courtPrice": 120000,
-      "equipmentPrice": 0,
-      "discount": 0,
-      "totalPrice": 120000,
-      "status": "confirmed",
-      "createdAt": "2026-07-27T17:00:00"
-    },
-    {
-      "id": 9,
-      "bookingCode": "SPT100009",
-      "customerName": "Bùi Quang Huy",
-      "phone": "0990123456",
-      "email": "huy@gmail.com",
-      "teamName": "Huy Basketball",
-      "venueId": 7,
-      "courtId": 9,
-      "date": "2026-08-05",
-      "startTime": "19:00",
-      "endTime": "20:00",
-      "numberOfPeople": 8,
-      "equipment": [],
-      "courtPrice": 220000,
-      "equipmentPrice": 0,
-      "discount": 0,
-      "totalPrice": 220000,
-      "status": "pending",
-      "createdAt": "2026-07-27T18:00:00"
-    },
-    {
-      "id": 10,
-      "bookingCode": "SPT100010",
-      "customerName": "Đặng Khánh Linh",
-      "phone": "0901122334",
-      "email": "linh@gmail.com",
-      "teamName": "Linh Friends",
-      "venueId": 8,
-      "courtId": 10,
+      "bookingCode": "SH598016",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Hanoi Sport Center",
       "date": "2026-08-06",
-      "startTime": "21:00",
-      "endTime": "22:00",
-      "numberOfPeople": 12,
-      "equipment": [
-        {
-          "equipmentId": 1,
-          "quantity": 1
-        }
-      ],
-      "courtPrice": 200000,
-      "equipmentPrice": 50000,
-      "discount": 0,
-      "totalPrice": 250000,
+      "phone": "0337200307",
+      "court": "Sân bóng đá 01",
+      "time": "14:00",
+      "status": "cancelled",
+      "totalAmount": 320000,
+      "createdAt": "2026-08-04T10:48:30.814Z",
+      "id": 1
+    },
+    {
+      "bookingCode": "SH486794",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Hanoi Sport Center",
+      "date": "2026-08-04",
+      "phone": "0337200307",
+      "court": "Sân bóng đá 01",
+      "time": "12:00",
+      "status": "booked",
+      "totalAmount": 264000,
+      "createdAt": "2026-08-04T10:49:06.598Z",
+      "id": 2
+    },
+    {
+      "bookingCode": "SH496640",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Hanoi Sport Center",
+      "date": "2026-08-05",
+      "phone": "0337200307",
+      "court": "Sân bóng đá 01",
+      "time": "10:00",
+      "status": "cancelled",
+      "totalAmount": 320000,
+      "createdAt": "2026-08-04T10:55:43.841Z",
+      "id": 3
+    },
+    {
+      "bookingCode": "SH692416",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Hanoi Sport Center",
+      "date": "2026-08-04",
+      "phone": "0337200307",
+      "court": "Sân cầu lông 01",
+      "time": "14:00",
+      "status": "booked",
+      "totalAmount": 120000,
+      "createdAt": "2026-08-04T10:58:08.976Z",
+      "id": 4
+    },
+    {
+      "bookingCode": "SH838469",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Thanh Xuân Sports Hub",
+      "date": "2026-08-05",
+      "phone": "0337200307",
+      "court": "Sân tennis 01",
+      "time": "14:00",
+      "status": "cancelled",
+      "totalAmount": 250000,
+      "createdAt": "2026-08-04T11:39:42.965Z",
+      "id": 5
+    },
+    {
+      "bookingCode": "SH141226",
+      "lastName": "Ngô",
+      "firstName": "Đại Lâm",
+      "location": "Hanoi Sport Center",
+      "date": "2026-08-04",
+      "phone": "0337200307",
+      "court": "Sân bóng đá 01",
+      "time": "10:00",
       "status": "confirmed",
-      "createdAt": "2026-07-27T19:00:00"
+      "totalAmount": 320000,
+      "createdAt": "2026-08-04T13:05:51.831Z",
+      "id": 6
     }
   ],
   "reviews": [
@@ -1205,26 +1015,64 @@
   ],
   "users": [
     {
-      "id": "1",
-      "email": "user@gmail.com",
-      "password": "123456",
-      "fullName": "Nguyễn Văn A",
-      "role": "customer"
-    },
-    {
-      "id": "2",
+      "name": "Ngô Đại Lâm",
       "email": "ngodlamm@gmail.com",
-      "password": "abc123xyz",
-      "fullName": "Ngô Đại Lâm",
-      "role": "customer",
-      "phoneNumber": "0337200307"
+      "phone": "0337200307",
+      "password": "391184513",
+      "salt": "clh3wv1oupg",
+      "id": "Fuqfyz4",
+      "favorites": [
+        1
+      ]
     },
     {
-      "name": "Quách Loan",
-      "email": "quachloan2k3@gmail.com",
-      "phone": "0345900544",
-      "password": "hanoi123@",
-      "id": "vTjwHOE"
+      "name": "Ngô Đại Lâm",
+      "email": "admin@123.com",
+      "phone": "0337200307",
+      "password": "615908948",
+      "salt": "p9jc3b87v0o",
+      "id": "gaKwlLX",
+      "favorites": []
+    }
+  ],
+  "services": [
+    {
+      "id": "thiet-bi",
+      "label": "Thiết bị",
+      "price": 50000,
+      "description": "Thuê vợt, bóng, áo lưới..."
+    },
+    {
+      "id": "den-chieu-sang",
+      "label": "Đèn chiếu sáng",
+      "price": 30000,
+      "description": "Bật hệ thống đèn cao áp ban đêm"
+    },
+    {
+      "id": "tu-do",
+      "label": "Tủ đồ",
+      "price": 20000,
+      "description": "Tủ khóa bảo mật gửi đồ cá nhân"
+    },
+    {
+      "id": "dich-vu-khac",
+      "label": "Dịch vụ khác",
+      "price": 15000,
+      "description": "Nước uống hoặc khăn lau thêm"
+    }
+  ],
+  "vouchers": [
+    {
+      "code": "QUACHAU",
+      "discount": 10
+    },
+    {
+      "code": "PHALAU",
+      "discount": 20
+    },
+    {
+      "code": "DAXAU",
+      "discount": 30
     }
   ]
 }

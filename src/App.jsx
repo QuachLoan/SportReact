@@ -1,7 +1,3 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
 import Header from './components/layout/Header/Header'
 import Footer from './components/layout/Footer/Footer'
 import Home from './pages/Home/Home'
@@ -18,8 +14,11 @@ import VenueReviews from "./pages/Venue/VenueReviews.jsx";
 import VenueRules from "./pages/Venue/VenueRules.jsx";
 import Register from './pages/Register/Register.jsx';
 import Login from './pages/Login/Login.jsx';
-import LoginForm from './pages/Login/Login.jsx'
-import RegisterForm from './pages/Register/Register.jsx'
+import Booking1 from './pages/Booking/Booking1.jsx';
+import Booking2 from './pages/Booking/Booking2.jsx';
+import Booking3 from './pages/Booking/Booking3.jsx';
+import Booking4 from './pages/Booking/Booking4.jsx';
+import Booking5 from "./pages/Booking/Booking5.jsx";
 
 function App() {
   return (
@@ -39,6 +38,11 @@ function App() {
                 <Route path = "/VenueOverView/:id/schedule" element = {<VenueSchedule/>}/>
                 <Route path = "/VenueOverView/:id/reviews" element = {<VenueReviews/>}/>
                 <Route path = "/VenueOverView/:id/rules" element={<VenueRules/>}/>
+                <Route path = "/Booking1" element={<Booking1/>}/>
+                <Route path = "/Booking2" element={<Booking2/>}/>
+                <Route path = "/Booking3" element={<Booking3/>}/>
+                <Route path = "/Booking4" element={<Booking4/>}/>
+                <Route path = "/Booking5" element={<Booking5/>}/>
            </Routes>
        <Footer/>
     </>

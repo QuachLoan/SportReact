@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './Venues.css';
-import {Link, useSearchParams} from 'react-router-dom';
+import { Link, useSearchParams, useNavigate } from 'react-router-dom';
 
 export default function Venues() {
-    //state
     const [venues, setVenues] = useState([]);
     const [searchParams, setSearchParams] = useSearchParams();
     const keyWord = searchParams.get('q') || '';
@@ -11,14 +10,22 @@ export default function Venues() {
     const selectedArea = searchParams.get('area') || '';
     const maxPrice = searchParams.get('maxPrice') || '200000';
     const [searchInput, setSearchInput] = useState(keyWord);
+    const navigate = useNavigate();
     const selectedRating = searchParams.get('rating') || '';
-    const [favourite, setFavourite] = useState(()=>{
-        const saved = localStorage.getItem('favorites');
-        return saved ? JSON.parse(saved) : [];
-        }
-    )
 
-    //function
+    const [favourite, setFavourite] = useState(() => {
+        const userStr = localStorage.getItem('currentUser');
+        if (userStr) {
+            try {
+                const user = JSON.parse(userStr);
+                return user.favorites || [];
+            } catch (e) {
+                console.error("Lỗi đọc currentUser:", e);
+            }
+        }
+        return [];
+    });
+
     useEffect(() => {
         fetch('http://localhost:3000/venues')
             .then(response => response.json())
@@ -79,17 +86,41 @@ export default function Venues() {
         return true;
     });
 
-    const toggleFavorite = (venue) => {
-        var updatedFavourites;
-        const isFav = favourite.some(fav => fav.id === venue.id);
+    const toggleFavorite = async (venue) => {
+        const userStr = localStorage.getItem('currentUser');
+        if (!userStr) {
+            navigate('/Login');
+            return;
+        }
+
+        const currentUser = JSON.parse(userStr);
+        const venueId = venue.id;
+
+        const isFav = favourite.includes(venueId);
+        let updatedFavIds;
+
         if (isFav) {
-            updatedFavourites = favourite.filter(fav => fav.id !== venue.id);
+            updatedFavIds = favourite.filter(id => id !== venueId);
+        } else {
+            updatedFavIds = [...favourite, venueId];
         }
-        else{
-            updatedFavourites = [...favourite, venue];
+
+        setFavourite(updatedFavIds);
+
+        const updatedUser = { ...currentUser, favorites: updatedFavIds };
+        localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+        try {
+            await fetch(`http://localhost:3000/users/${currentUser.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ favorites: updatedFavIds }),
+            });
+        } catch (error) {
+            console.error("Lỗi khi cập nhật favorites lên server:", error);
         }
-        setFavourite(updatedFavourites);
-        localStorage.setItem('favorites', JSON.stringify(updatedFavourites));
     };
 
     return (
@@ -198,10 +229,6 @@ export default function Venues() {
                                 </button>
                             </div>
                         </div>
-                        <label className="checkbox-row filter-divider">
-                            <input type="checkbox" />
-                            <span style={{ fontSize: '14px', fontWeight: 500, color: 'var(--navy-700)' }}>Còn trống hôm nay</span>
-                        </label>
                     </aside>
 
                     {/* ============ RESULTS ============ */}
@@ -210,14 +237,12 @@ export default function Venues() {
                             <div className="grid grid-3">
                                 {filterSearchInput.length > 0 ? (
                                     filterSearchInput.map((venue) => {
-                                        const isFavorite = favourite.some(fav => fav.id === venue.id);
+                                        const isFavorite = favourite.includes(venue.id);
                                         return (
                                             <article key={venue.id} className="venue-card">
-                                                <Link to ={`/VenueOverView/${venue.id}`} className="venue-card-media" style={{ display: 'block' }}>
+                                                <Link to={`/VenueOverView/${venue.id}`} className="venue-card-media" style={{ display: 'block' }}>
                                                     <img
-                                                        src={
-                                                            venue.image
-                                                        }
+                                                        src={venue.image}
                                                         alt={venue.name}
                                                     />
                                                     {venue.status === 'available' && (

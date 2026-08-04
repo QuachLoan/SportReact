@@ -1,16 +1,18 @@
 import './Footer.css';
+import {Link} from 'react-router-dom';
+
 function Footer(){
     return(
         <>
   <footer className="site-footer">
     <div className="container footer-top">
       <div className="footer-brand">
-         <a href="index.html" className="brand">
+         <Link to="/" className="brand">
         <span className="brand-mark">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10"/><path d="M17 4v6a5 5 0 0 1-10 0V4"/><path d="M5 4H3a2 2 0 0 0 0 4h2"/><path d="M19 4h2a2 2 0 0 1 0 4h-2"/></svg>
         </span>
         <span className="brand-name">Sport<span>Hub</span></span>
-      </a>
+      </Link>
         <p>Nền tảng đặt sân thể thao cao cấp — nhanh chóng, minh bạch và đẳng cấp.</p>
         <div className="footer-contact">
           <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg> 268 Lý Thường Kiệt, Quận 10, TP.HCM</div>
@@ -30,17 +32,19 @@ function Footer(){
       <div className="footer-col">
         <h4>Sân thể thao</h4>
         <ul>
-          <li><a href="pages/venues.html">Tennis</a></li>
-          <li><a href="pages/venues.html">Bóng rổ</a></li>
-          <li><a href="pages/venues.html">Cầu lông</a></li>
+          <li><Link to="/venues?q=tennis">Tennis</Link></li>
+          <li><Link to="/venues?q=basketball">Bóng rổ</Link></li>
+          <li><Link to="/venues?q=badminton">Cầu lông</Link></li>
+          <li><Link to="/venues?q=football">Bóng đá</Link></li>
+          <li><Link to="/venues?q=pickleball">Pickleball</Link></li>
         </ul>
       </div>
       <div className="footer-col">
         <h4>Hỗ trợ</h4>
         <ul>
-          <li><a href="pages/booking-lookup.html">Tra cứu đặt sân</a></li>
-          <li><a href="index.html">Câu hỏi thường gặp</a></li>
-          <li><a href="index.html">Liên hệ</a></li>
+          <li><Link to="/BookingLookUp">Tra cứu đặt sân</Link></li>
+          <li><Link to="/faq">Câu hỏi thường gặp</Link></li>
+          <li><Link to="/contact">Liên hệ</Link></li>
         </ul>
       </div>
     </div>
