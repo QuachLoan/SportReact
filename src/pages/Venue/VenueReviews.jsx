@@ -9,7 +9,9 @@ const VenueReviews = () => {
     const[review,setReview] = useState("");
     const[newReview,setNewReview] =useState([])
     const [venue, setVenue] = useState("");
-    const navigate = useNavigate();
+     const [currentPage, setCurrentPage] = useState(1);
+
+        const navigate = useNavigate();
     const handleBooking = () => {
         const userCurrently = localStorage.getItem("currentUser");
         if(!userCurrently){          
@@ -32,7 +34,7 @@ const VenueReviews = () => {
     fetch("http://localhost:3000/reviews")
     .then(res=>res.json())
     .then(data=>setNewReview(data))
-        })
+        },[])
 
     if (!venue) {
         return <div className="container" style={{ padding: '40px' }}>Đang tải thông tin sân...</div>;
@@ -61,10 +63,13 @@ const VenueReviews = () => {
     
     // }
 
+    
 async function handleSubmit() {
         const userCurrently = localStorage.getItem("currentUser");
 
-        if (!userCurrently) return;
+        if (!userCurrently){
+             navigate('/Login');
+        }
 
         const user = JSON.parse(userCurrently);
 
@@ -96,7 +101,21 @@ async function handleSubmit() {
         }
         }
 
-
+    const itemsPerPage =5;
+    const LastItem= currentPage * itemsPerPage;
+    const FirstItem = LastItem -itemsPerPage;
+    const CurrentReview = newReview.slice(FirstItem,LastItem);
+    const totalPages= Math.ceil(newReview.length/itemsPerPage);
+ const handlePrev =()=>{
+    if(currentPage>1){
+        setCurrentPage(currentPage-1);
+    }
+}
+const handleNext =() =>{
+    if(currentPage < totalPages){
+        setCurrentPage(currentPage + 1);
+    }
+ }
 
     return (
         <>
@@ -216,12 +235,12 @@ async function handleSubmit() {
                                 </div> */}
                                
                                 {
-                                    newReview.reverse().slice(0,5).map(x=>(
+                                    CurrentReview.map(x=>(
                                     <div className="review-item">
                                     <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=200&h=200&q=80" alt="Nguyễn Minh Anh" />
                                     <div className="review-item-body">
                                         <div className="review-item-head"><span className="name">{x.customerName}</span><span className="time">{today-x.Date} ngày</span></div>
-                                        <span className="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg><strong>4.0</strong></span>
+                                        <span className="rating"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z" /></svg><strong>{x.rating}</strong></span>
                                         <p className="comment">{x.content}</p>
                                     </div>
                                 </div>
@@ -229,8 +248,25 @@ async function handleSubmit() {
                                     ))
                                 }
                                
-                                
+                            <div class="pagination">
+                                <button onClick={handlePrev} class="nav-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+                                    {
+                                        Array.from({length:totalPages}).map((_, index) => (
+                                            <button
+                                                key={index}
+                                                className={currentPage === index + 1 ? "is-active" : ""}
+                                                onClick={() => setCurrentPage(index + 1)}
+                                            >
+                                                {index + 1}
+                                            </button>
+                                        ))
+                                    }
+                                <button onClick={handleNext}  class="nav-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+                                </div>
                             </div>
+
+                            
+
                         </div>
                     </div>
                 </div>

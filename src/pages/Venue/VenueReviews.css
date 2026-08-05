@@ -28,3 +28,10 @@
   fill: var(--gold-400) !important;
   color: var(--gold-400) !important;
 }
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 40px;
+}

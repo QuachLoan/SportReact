@@ -893,6 +893,14 @@
       "content": "đẹp",
       "Date": "2026-08-04T17:00:00.000Z",
       "id": 13
+    },
+    {
+      "venueId": 1,
+      "customerName": "Quách Loan",
+      "rating": 2,
+      "content": "ok",
+      "Date": "2026-08-04T17:00:00.000Z",
+      "id": 14
     }
   ],
   "coupons": [
