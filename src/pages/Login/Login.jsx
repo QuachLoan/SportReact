@@ -28,24 +28,25 @@ export default function Login() {
 
         try {
             const response = await fetch(`http://localhost:3000/users?email=${encodeURIComponent(userName.trim())}`);
-            setUserName("");
-            setPassword("");
+            // setUserName("");
+            // setPassword("");
             console.log("đăng nhập");
             if (!response.ok) {
                 throw new Error("Không thể kết nối đến máy chủ.");
             }
             const users = await response.json();
-            if (users.length > 0) {
-                const loggedInUser = users[0];
-                const salt = loggedInUser.salt;
-                const hashPassword = Hash(password, salt);
-                if (loggedInUser.password === hashPassword) {
-                    setUserName("");
-                    setPassword("");
-                    localStorage.setItem("currentUser", JSON.stringify(loggedInUser));
-                    navigate("/");
-                    console.log("Đăng nhập thành công");
-                }
+            if (users && users.length > 0) {
+             const loggedInUser = users[0];
+
+            if (String(loggedInUser.password) === String(password.trim())) {
+                
+                setUserName("");
+                setPassword("");
+                
+                localStorage.setItem("currentUser", JSON.stringify(loggedInUser));
+                console.log("Đăng nhập thành công!");
+                
+                navigate("/");}
             }
             else {
                 setError("Email hoặc mật khẩu không đúng.");

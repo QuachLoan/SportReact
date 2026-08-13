@@ -148,7 +148,7 @@ function BookingLookUp() {
     };
 
     return (
-        <main className="container" style={{ padding: "56px 16px" }}>
+        <main className="container" style={{ padding: "56px 16px 290px" }}>
             <div className="page-header is-center">
                 <h1>Tra cứu đặt sân</h1>
                 <p>Nhập mã đặt sân hoặc số điện thoại để kiểm tra trạng thái</p>
